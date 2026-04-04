@@ -1,8 +1,12 @@
 # Zotero Word Citation Links
 
-中文 | English
+Jump to: [中文](#chinese) | [English](#english)
+
+<a id="chinese"></a>
 
 ## 中文简介
+
+[切换到 English](#english)
 
 这是一个给 `Windows + Microsoft Word + Zotero` 使用的小型增强工具。
 
@@ -65,7 +69,11 @@
 - 当前数字模式默认链接数字本体，不是整个括号
 - Zotero 更新后，可能需要重新安装一次
 
+<a id="english"></a>
+
 ## English
+
+[Switch to 中文](#chinese)
 
 This project is a small enhancement tool for `Windows + Microsoft Word + Zotero`.
 
