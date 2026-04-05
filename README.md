@@ -1,5 +1,8 @@
 # Zotero Word Citation Links
 
+Latest release: `v0.1.1`  
+Changelog: [CHANGELOG.md](./CHANGELOG.md)
+
 Jump to: [中文](#chinese) | [English](#english)
 
 <a id="chinese"></a>

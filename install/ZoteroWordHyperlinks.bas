@@ -3,6 +3,8 @@ Option Explicit
 
 Private Const BIB_BOOKMARK As String = "ZOTERO_BIBL_ROOT"
 Private Const REF_BOOKMARK_PREFIX As String = "ZOTERO_REF_"
+Private Const UNLINKED_CITATION_COLOR As Long = -16777216
+Private Const LINK_TARGET_PREFIX As String = "ZWL_COLOR="
 
 Public Sub ZoteroCreateCitationLinks(Optional ByVal control As Variant)
     ApplyZoteroCitationLinksAuto
@@ -213,15 +215,104 @@ Private Sub LinkWholeCitationField(ByVal aField As Field, ByVal title As String,
     Dim tooltipText As String
     Dim bookmarkName As String
     Dim anchorRange As Range
+    Dim useWrappedTextStyle As Boolean
 
     bookmarkName = EnsureBibliographyEntryBookmark(title, bibRange, tooltipText)
     If Len(bookmarkName) = 0 Then
         Exit Sub
     End If
 
-    Set anchorRange = aField.Result.Duplicate
-    AddHyperlinkToRange anchorRange, bookmarkName, tooltipText
+    useWrappedTextStyle = ShouldUseWrappedTextLinkRange(aField.Result.Text)
+    Set anchorRange = ResolveWholeCitationAnchorRange(aField)
+    AddHyperlinkToRange anchorRange, bookmarkName, tooltipText, useWrappedTextStyle
 End Sub
+
+Private Function ResolveWholeCitationAnchorRange(ByVal aField As Field) As Range
+    Dim candidateRange As Range
+
+    Set candidateRange = aField.Result.Duplicate
+
+    If ShouldUseWrappedTextLinkRange(candidateRange.Text) Then
+        Set candidateRange = ExtractAuthorDateLinkRange(candidateRange)
+    End If
+
+    Set ResolveWholeCitationAnchorRange = candidateRange
+End Function
+
+Private Function ExtractAuthorDateLinkRange(ByVal sourceRange As Range) As Range
+    Dim resultRange As Range
+    Dim startPos As Long
+    Dim endPos As Long
+    Dim startChar As String
+    Dim endChar As String
+
+    Set resultRange = sourceRange.Duplicate
+    startPos = resultRange.Start
+    endPos = resultRange.End
+
+    Do While startPos < endPos And IsWhitespaceCharacter(ActiveDocument.Range(startPos, startPos + 1).Text)
+        startPos = startPos + 1
+    Loop
+
+    Do While endPos > startPos And IsWhitespaceCharacter(ActiveDocument.Range(endPos - 1, endPos).Text)
+        endPos = endPos - 1
+    Loop
+
+    If endPos <= startPos Then
+        Set ExtractAuthorDateLinkRange = sourceRange.Duplicate
+        Exit Function
+    End If
+
+    startChar = ActiveDocument.Range(startPos, startPos + 1).Text
+    endChar = ActiveDocument.Range(endPos - 1, endPos).Text
+
+    If IsMatchingWrapper(startChar, endChar) And endPos - startPos > 2 Then
+        startPos = startPos + 1
+        endPos = endPos - 1
+    End If
+
+    Do While startPos < endPos And IsWhitespaceCharacter(ActiveDocument.Range(startPos, startPos + 1).Text)
+        startPos = startPos + 1
+    Loop
+
+    Do While endPos > startPos And IsWhitespaceCharacter(ActiveDocument.Range(endPos - 1, endPos).Text)
+        endPos = endPos - 1
+    Loop
+
+    If endPos <= startPos Then
+        Set ExtractAuthorDateLinkRange = sourceRange.Duplicate
+    Else
+        Set ExtractAuthorDateLinkRange = ActiveDocument.Range(startPos, endPos)
+    End If
+End Function
+
+Private Function IsMatchingWrapper(ByVal startChar As String, ByVal endChar As String) As Boolean
+    IsMatchingWrapper = (startChar = "(" And endChar = ")") _
+        Or (startChar = "[" And endChar = "]")
+End Function
+
+Private Function IsWhitespaceCharacter(ByVal textValue As String) As Boolean
+    IsWhitespaceCharacter = Len(Trim$(textValue)) = 0
+End Function
+
+Private Function ShouldUseWrappedTextLinkRange(ByVal textValue As String) As Boolean
+    Dim trimmedText As String
+    Dim startChar As String
+    Dim endChar As String
+
+    trimmedText = Trim$(textValue)
+    If Len(trimmedText) < 3 Then
+        Exit Function
+    End If
+
+    If Not ContainsLetter(trimmedText) Then
+        Exit Function
+    End If
+
+    startChar = Left$(trimmedText, 1)
+    endChar = Right$(trimmedText, 1)
+    ShouldUseWrappedTextLinkRange = IsMatchingWrapper(startChar, endChar)
+End Function
 
 Private Function ExtractVisibleNumericTokens(ByVal textValue As String) As Collection
     Dim results As New Collection
@@ -365,14 +456,21 @@ Private Function FindTextInRange(ByVal targetRange As Range, ByVal searchText As
     End If
 End Function
 
-Private Sub AddHyperlinkToRange(ByVal anchorRange As Range, ByVal bookmarkName As String, ByVal tooltipText As String)
+Private Sub AddHyperlinkToRange(ByVal anchorRange As Range, ByVal bookmarkName As String, ByVal tooltipText As String, Optional ByVal clearDirectFormatting As Boolean = False)
     Dim i As Long
     Dim startPos As Long
     Dim linkText As String
+    Dim storedColor As Long
     Dim newRange As Range
+    Dim createdLink As Hyperlink
+    Dim formatSnapshot As Variant
 
     startPos = anchorRange.Start
     linkText = anchorRange.Text
+    storedColor = ResolveStoredColor(anchorRange)
+    If clearDirectFormatting Then
+        formatSnapshot = CaptureCharacterFormattingSnapshot(anchorRange)
+    End If
 
     For i = anchorRange.Hyperlinks.Count To 1 Step -1
         RemoveHyperlinkSafely anchorRange.Hyperlinks(i)
@@ -380,22 +478,57 @@ Private Sub AddHyperlinkToRange(ByVal anchorRange As Range, ByVal bookmarkName A
 
     Set newRange = ActiveDocument.Range(startPos, startPos + Len(linkText))
 
-    ActiveDocument.Hyperlinks.Add _
+    Set createdLink = ActiveDocument.Hyperlinks.Add( _
         Anchor:=newRange, _
         Address:="", _
         SubAddress:=bookmarkName, _
+        Target:=BuildLinkTarget(storedColor), _
         ScreenTip:=tooltipText, _
-        TextToDisplay:=linkText
+        TextToDisplay:=linkText)
 
     Set newRange = ActiveDocument.Range(startPos, startPos + Len(linkText))
+    If clearDirectFormatting Then
+        createdLink.Range.Select
+        Selection.ClearCharacterDirectFormatting
+        Set newRange = createdLink.Range.Duplicate
+        RestoreCharacterFormattingFromSnapshot newRange, formatSnapshot
+    End If
     ApplyLinkedCitationAppearance newRange
 End Sub
 
 Private Sub ApplyLinkedCitationAppearance(ByVal targetRange As Range)
-    With targetRange.Font
-        .Color = vbBlue
-        .Underline = wdUnderlineNone
-    End With
+    Dim i As Long
+
+    targetRange.Font.Color = vbBlue
+    targetRange.Font.Underline = wdUnderlineNone
+
+    For i = 1 To targetRange.Characters.Count
+        With targetRange.Characters(i).Font
+            .Color = vbBlue
+            .Underline = wdUnderlineNone
+        End With
+    Next i
+End Sub
+
+Private Sub ApplyUnlinkedCitationAppearance(ByVal targetRange As Range, Optional ByVal hasStoredColor As Boolean = False, Optional ByVal storedColor As Long = 0)
+    Dim i As Long
+    Dim targetColor As Long
+
+    If hasStoredColor Then
+        targetColor = storedColor
+    Else
+        targetColor = UNLINKED_CITATION_COLOR
+    End If
+
+    targetRange.Font.Color = targetColor
+    targetRange.Font.Underline = wdUnderlineNone
+
+    For i = 1 To targetRange.Characters.Count
+        With targetRange.Characters(i).Font
+            .Color = targetColor
+            .Underline = wdUnderlineNone
+        End With
+    Next i
 End Sub
 
 Private Sub RemoveHyperlinkSafely(ByVal hl As Hyperlink)
@@ -403,11 +536,15 @@ Private Sub RemoveHyperlinkSafely(ByVal hl As Hyperlink)
     Dim sourceRange As Range
     Dim targetRange As Range
     Dim targetStart As Long
+    Dim hadToRewrite As Boolean
+    Dim storedColor As Long
+    Dim hasStoredColor As Boolean
 
     Set sourceRange = hl.Range.Duplicate
     Set targetRange = hl.Range.Duplicate
     targetStart = targetRange.Start
     displayText = targetRange.Text
+    hasStoredColor = TryParseStoredColor(hl.Target, storedColor)
 
     On Error Resume Next
     hl.Delete
@@ -415,27 +552,174 @@ Private Sub RemoveHyperlinkSafely(ByVal hl As Hyperlink)
     On Error GoTo 0
 
     If targetRange.Hyperlinks.Count > 0 Then
+        hadToRewrite = True
         targetRange.Text = displayText
-        Set targetRange = ActiveDocument.Range(targetStart, targetStart + Len(displayText))
-        RestoreCharacterFormatting targetRange, sourceRange
-        ApplyLinkedCitationAppearance targetRange
     End If
+
+    Set targetRange = ActiveDocument.Range(targetStart, targetStart + Len(displayText))
+    If hadToRewrite Then
+        RestoreCharacterFormatting targetRange, sourceRange
+    End If
+    ApplyUnlinkedCitationAppearance targetRange, hasStoredColor, storedColor
 End Sub
 
+Private Function ResolveStoredColor(ByVal anchorRange As Range) As Long
+    Dim existingLink As Hyperlink
+    Dim existingColor As Long
+
+    If anchorRange.Hyperlinks.Count > 0 Then
+        Set existingLink = anchorRange.Hyperlinks(1)
+        If TryParseStoredColor(existingLink.Target, existingColor) Then
+            ResolveStoredColor = existingColor
+            Exit Function
+        End If
+    End If
+
+    ResolveStoredColor = GetPrimaryColor(anchorRange)
+End Function
+
+Private Function GetPrimaryColor(ByVal targetRange As Range) As Long
+    On Error GoTo Fallback
+
+    If targetRange.Characters.Count > 0 Then
+        GetPrimaryColor = CLng(targetRange.Characters(1).Font.Color)
+    Else
+        GetPrimaryColor = UNLINKED_CITATION_COLOR
+    End If
+    Exit Function
+
+Fallback:
+    GetPrimaryColor = UNLINKED_CITATION_COLOR
+End Function
+
+Private Function BuildLinkTarget(ByVal storedColor As Long) As String
+    BuildLinkTarget = LINK_TARGET_PREFIX & CStr(storedColor)
+End Function
+
+Private Function TryParseStoredColor(ByVal targetValue As String, ByRef storedColor As Long) As Boolean
+    Dim rawValue As String
+
+    If Left$(targetValue, Len(LINK_TARGET_PREFIX)) <> LINK_TARGET_PREFIX Then
+        Exit Function
+    End If
+
+    rawValue = Mid$(targetValue, Len(LINK_TARGET_PREFIX) + 1)
+    If Len(rawValue) = 0 Then
+        Exit Function
+    End If
+
+    On Error GoTo ParseFail
+    storedColor = CLng(rawValue)
+    TryParseStoredColor = True
+    Exit Function
+
+ParseFail:
+    TryParseStoredColor = False
+End Function
+
 Private Sub RestoreCharacterFormatting(ByVal targetRange As Range, ByVal sourceRange As Range)
-    With targetRange.Font
-        .Name = sourceRange.Font.Name
-        .Size = sourceRange.Font.Size
-        .Bold = sourceRange.Font.Bold
-        .Italic = sourceRange.Font.Italic
-        .Superscript = sourceRange.Font.Superscript
-        .Subscript = sourceRange.Font.Subscript
-        .Position = sourceRange.Font.Position
-        .Scaling = sourceRange.Font.Scaling
-        .Spacing = sourceRange.Font.Spacing
-        .SmallCaps = sourceRange.Font.SmallCaps
-        .AllCaps = sourceRange.Font.AllCaps
+    Dim i As Long
+    Dim charCount As Long
+
+    CopyFontFormatting targetRange.Font, sourceRange.Font
+
+    charCount = targetRange.Characters.Count
+    If sourceRange.Characters.Count < charCount Then
+        charCount = sourceRange.Characters.Count
+    End If
+
+    For i = 1 To charCount
+        CopyFontFormatting targetRange.Characters(i).Font, sourceRange.Characters(i).Font
+    Next i
+End Sub
+
+Private Sub CopyFontFormatting(ByVal targetFont As Font, ByVal sourceFont As Font)
+    With targetFont
+        .Name = sourceFont.Name
+        .Size = sourceFont.Size
+        .Bold = sourceFont.Bold
+        .Italic = sourceFont.Italic
+        .Superscript = sourceFont.Superscript
+        .Subscript = sourceFont.Subscript
+        .Position = sourceFont.Position
+        .Scaling = sourceFont.Scaling
+        .Spacing = sourceFont.Spacing
+        .SmallCaps = sourceFont.SmallCaps
+        .AllCaps = sourceFont.AllCaps
+        .StrikeThrough = sourceFont.StrikeThrough
+        .DoubleStrikeThrough = sourceFont.DoubleStrikeThrough
+        .Hidden = sourceFont.Hidden
+        .Outline = sourceFont.Outline
+        .Emboss = sourceFont.Emboss
+        .Shadow = sourceFont.Shadow
+        .Kerning = sourceFont.Kerning
     End With
+End Sub
+
+Private Function CaptureCharacterFormattingSnapshot(ByVal sourceRange As Range) As Variant
+    Dim snapshot() As Variant
+    Dim charCount As Long
+    Dim i As Long
+
+    charCount = sourceRange.Characters.Count
+    ReDim snapshot(1 To charCount, 1 To 15)
+
+    For i = 1 To charCount
+        With sourceRange.Characters(i).Font
+            snapshot(i, 1) = .Name
+            snapshot(i, 2) = .Size
+            snapshot(i, 3) = .Bold
+            snapshot(i, 4) = .Italic
+            snapshot(i, 5) = .Superscript
+            snapshot(i, 6) = .Subscript
+            snapshot(i, 7) = .Position
+            snapshot(i, 8) = .Scaling
+            snapshot(i, 9) = .Spacing
+            snapshot(i, 10) = .SmallCaps
+            snapshot(i, 11) = .AllCaps
+            snapshot(i, 12) = .StrikeThrough
+            snapshot(i, 13) = .DoubleStrikeThrough
+            snapshot(i, 14) = .Hidden
+            snapshot(i, 15) = .Kerning
+        End With
+    Next i
+
+    CaptureCharacterFormattingSnapshot = snapshot
+End Function
+
+Private Sub RestoreCharacterFormattingFromSnapshot(ByVal targetRange As Range, ByVal snapshot As Variant)
+    Dim i As Long
+    Dim charCount As Long
+
+    On Error GoTo SnapshotMissing
+    charCount = UBound(snapshot, 1)
+    If targetRange.Characters.Count < charCount Then
+        charCount = targetRange.Characters.Count
+    End If
+
+    For i = 1 To charCount
+        With targetRange.Characters(i).Font
+            .Name = snapshot(i, 1)
+            .Size = snapshot(i, 2)
+            .Bold = snapshot(i, 3)
+            .Italic = snapshot(i, 4)
+            .Superscript = snapshot(i, 5)
+            .Subscript = snapshot(i, 6)
+            .Position = snapshot(i, 7)
+            .Scaling = snapshot(i, 8)
+            .Spacing = snapshot(i, 9)
+            .SmallCaps = snapshot(i, 10)
+            .AllCaps = snapshot(i, 11)
+            .StrikeThrough = snapshot(i, 12)
+            .DoubleStrikeThrough = snapshot(i, 13)
+            .Hidden = snapshot(i, 14)
+            .Kerning = snapshot(i, 15)
+        End With
+    Next i
+    Exit Sub
+
+SnapshotMissing:
+    Err.Clear
 End Sub
 
 Private Sub AddOrReplaceBookmark(ByVal bookmarkName As String, ByVal bookmarkRange As Range)
