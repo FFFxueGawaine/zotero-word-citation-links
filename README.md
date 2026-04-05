@@ -37,7 +37,7 @@ Jump to: [中文](#中文) | [English](#english)
 - 支持作者年份引用
 - 保留 Zotero 原有写作流程
 - Windows 提供一键安装
-- Mac 提供实验性的手工安装方案
+- Mac 提供实验性的一键安装脚本
 - 支持恢复原始 `Zotero.dotm`
 
 ### 支持情况
@@ -45,7 +45,7 @@ Jump to: [中文](#中文) | [English](#english)
 | 平台 | 状态 | 安装方式 |
 | --- | --- | --- |
 | Windows + Word | 正式支持 | 一键安装器 / 脚本安装 |
-| Mac + Word | 实验性支持 | 手工安装预改 `Zotero.dotm` |
+| Mac + Word | 实验性支持 | `.command` 一键安装 / 手工安装 |
 
 ### 安装前提
 
@@ -77,19 +77,22 @@ Jump to: [中文](#中文) | [English](#english)
 
 ### Mac 安装
 
-#### 实验性手工安装
+#### 实验性一键安装
 
-Mac 当前不提供自动安装器，只提供实验性的手工安装方式。
+Mac 当前不提供 `.pkg` 安装器，但提供实验性的 `.command` 一键安装方式。
 
 1. 下载 [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-mac-template.zip)
 2. 关闭 `Word`
-3. 备份你当前的 `Zotero.dotm`
-4. 将压缩包中的预改 `Zotero.dotm` 复制到 Word Startup 模板目录
-5. 重新打开 `Word`
-6. 打开 `Zotero` 选项卡，确认出现：
+3. 解压后双击：
+   - `install_mac.command`
+4. 如果 macOS 首次拦截，右键脚本并选择 `Open`
+5. 等脚本完成备份和安装
+6. 重新打开 `Word`
+7. 打开 `Zotero` 选项卡，确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
 
+如果脚本不可用，仍然可以按文档中的手工方式安装。  
 详细步骤请看：
 [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
 
@@ -146,7 +149,7 @@ Its purpose is simple:
 - Supports author-year citation styles
 - Keeps the standard Zotero workflow
 - One-click install on Windows
-- Experimental manual install on Mac
+- Experimental one-click `.command` install on Mac
 - Can restore the original `Zotero.dotm`
 
 ### Support Matrix
@@ -154,7 +157,7 @@ Its purpose is simple:
 | Platform | Status | Install Mode |
 | --- | --- | --- |
 | Windows + Word | Supported | One-click installer / script install |
-| Mac + Word | Experimental | Manual install with a prebuilt `Zotero.dotm` |
+| Mac + Word | Experimental | One-click `.command` install / manual install |
 
 ### Prerequisites
 
@@ -186,20 +189,23 @@ If you prefer a more transparent/manual flow:
 
 ### Mac Installation
 
-#### Experimental manual install
+#### Experimental one-click install
 
-Mac currently does not include an automatic installer.  
-It is provided as an experimental manual-install workflow.
+Mac currently does not include a `.pkg` installer.  
+It is provided as an experimental `.command` one-click workflow.
 
 1. Download the [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-mac-template.zip)
 2. Quit `Word`
-3. Back up your current `Zotero.dotm`
-4. Copy the prebuilt `Zotero.dotm` into the Word Startup template folder
-5. Reopen `Word`
-6. Open the `Zotero` tab and confirm these buttons are visible:
+3. Extract the package and double-click:
+   - `install_mac.command`
+4. If macOS blocks it the first time, right-click the script and choose `Open`
+5. Wait for the script to finish backup and install
+6. Reopen `Word`
+7. Open the `Zotero` tab and confirm these buttons are visible:
    - `Create Citation Links`
    - `Remove Citation Links`
 
+If the script is unavailable, you can still use the manual fallback steps in the guide.  
 Detailed instructions:
 [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
 

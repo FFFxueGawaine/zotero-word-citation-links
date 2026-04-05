@@ -42,6 +42,7 @@ SECURITY_KEY = r"Software\Microsoft\Office\16.0\Word\Security"
 
 OUTPUT_ZIP = DIST_DIR / "zotero-word-links-mac-template.zip"
 PACKAGE_ROOT = "zotero-word-links-mac-template"
+MAC_EXECUTABLE_SUFFIXES = {".command"}
 
 
 def run_git(args: list[str], cwd: Path | None = None) -> str:
@@ -233,6 +234,19 @@ def write_restore_note(package_dir: Path) -> None:
     restore_path.write_text(restore_text, encoding="utf-8")
 
 
+def add_file_to_zip(archive: zipfile.ZipFile, source_path: Path, arcname: str) -> None:
+    info = zipfile.ZipInfo.from_file(source_path, arcname)
+    if source_path.suffix in MAC_EXECUTABLE_SUFFIXES:
+        info.create_system = 3
+        info.external_attr = 0o100755 << 16
+    else:
+        info.create_system = 3
+        info.external_attr = 0o100644 << 16
+
+    with source_path.open("rb") as fh:
+        archive.writestr(info, fh.read(), compress_type=zipfile.ZIP_DEFLATED)
+
+
 def verify_custom_ui(template_path: Path) -> None:
     with zipfile.ZipFile(template_path, "r") as archive:
         xml_text = archive.read("customUI/customUI.xml").decode("utf-8")
@@ -265,10 +279,16 @@ def build_package() -> Path:
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     bas_path = INSTALL_DIR / "ZoteroWordHyperlinks.bas"
     mac_install_doc = MAC_DIR / "MAC_INSTALL.md"
+    mac_install_script = MAC_DIR / "install_mac.command"
+    mac_restore_script = MAC_DIR / "restore_mac.command"
     if not bas_path.exists():
         raise FileNotFoundError(f"Macro module not found: {bas_path}")
     if not mac_install_doc.exists():
         raise FileNotFoundError(f"Mac install guide not found: {mac_install_doc}")
+    if not mac_install_script.exists():
+        raise FileNotFoundError(f"Mac install script not found: {mac_install_script}")
+    if not mac_restore_script.exists():
+        raise FileNotFoundError(f"Mac restore script not found: {mac_restore_script}")
 
     temp_root = Path(tempfile.mkdtemp(prefix="zotero_word_links_mac_build_"))
     access_vbom_existed, access_vbom_value = read_access_vbom_state()
@@ -289,6 +309,8 @@ def build_package() -> Path:
         verify_macro_module(package_template)
 
         shutil.copy2(mac_install_doc, package_dir / "MAC_INSTALL.md")
+        shutil.copy2(mac_install_script, package_dir / "install_mac.command")
+        shutil.copy2(mac_restore_script, package_dir / "restore_mac.command")
         shutil.copy2(upstream_copying, package_dir / "UPSTREAM_COPYING.txt")
         write_upstream_info(package_dir, upstream_commit)
         write_restore_note(package_dir)
@@ -298,7 +320,7 @@ def build_package() -> Path:
 
         with zipfile.ZipFile(OUTPUT_ZIP, "w", compression=zipfile.ZIP_DEFLATED) as archive:
             for path in package_dir.rglob("*"):
-                archive.write(path, path.relative_to(temp_root))
+                add_file_to_zip(archive, path, str(path.relative_to(temp_root)).replace("\\", "/"))
 
         return OUTPUT_ZIP
     finally:

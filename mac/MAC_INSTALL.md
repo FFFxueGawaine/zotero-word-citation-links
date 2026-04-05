@@ -11,12 +11,12 @@ Jump to: [中文](#中文) | [English](#english)
 当前版本只支持：
 
 - `Zotero + Microsoft Word for Mac`
-- 手工安装预改好的 `Zotero.dotm`
+- 预改好的 `Zotero.dotm`
+- `.command` 一键安装脚本
 
 当前版本不包含：
 
-- Mac 一键安装器
-- `.command` / `.pkg` 自动安装包
+- `.pkg` 自动安装包
 - LibreOffice / EndNote / Pages / WPS 支持
 
 ### 你需要先确认
@@ -27,6 +27,23 @@ Jump to: [中文](#中文) | [English](#english)
    - `zotero-word-links-mac-template.zip`
 
 ### Mac 安装步骤
+
+推荐优先使用一键安装脚本。
+
+#### 方式一：一键安装
+
+1. 完全关闭 `Microsoft Word`
+2. 解压 `zotero-word-links-mac-template.zip`
+3. 双击运行：
+   - `install_mac.command`
+4. 如果 macOS 首次拦截，右键脚本，选择 `Open`
+5. 等脚本提示安装完成
+6. 重新打开 `Word`
+7. 打开 `Zotero` 选项卡，确认出现：
+   - `Create Citation Links`
+   - `Remove Citation Links`
+
+#### 方式二：手工安装
 
 1. 完全关闭 `Microsoft Word`
 2. 找到你当前正在使用的 `Zotero.dotm`
@@ -56,9 +73,11 @@ Word for Mac 常见 Startup 路径通常类似：
 如果安装后异常：
 
 1. 关闭 `Word`
-2. 删除当前替换进去的 `Zotero.dotm`
-3. 把你之前备份的原始 `Zotero.dotm` 复制回去
-4. 重新打开 `Word`
+2. 优先双击运行：
+   - `restore_mac.command`
+3. 如果脚本无法使用，再手工删除当前替换进去的 `Zotero.dotm`
+4. 把你之前备份的原始 `Zotero.dotm` 复制回去
+5. 重新打开 `Word`
 
 ### 版本绑定说明
 
@@ -84,12 +103,12 @@ This is the **experimental Mac support** guide for the project.
 Current Mac support is limited to:
 
 - `Zotero + Microsoft Word for Mac`
-- Manual installation of a prebuilt `Zotero.dotm`
+- a prebuilt `Zotero.dotm`
+- a `.command` one-click installer
 
 It does not include:
 
-- a one-click Mac installer
-- `.command` / `.pkg` auto-install packages
+- a `.pkg` auto-install package
 - LibreOffice / EndNote / Pages / WPS support
 
 ### Before you start
@@ -100,6 +119,23 @@ It does not include:
    - `zotero-word-links-mac-template.zip`
 
 ### Install Steps
+
+Use the one-click script first if possible.
+
+#### Option 1: One-click install
+
+1. Fully quit `Microsoft Word`
+2. Extract `zotero-word-links-mac-template.zip`
+3. Double-click:
+   - `install_mac.command`
+4. If macOS blocks it the first time, right-click the script and choose `Open`
+5. Wait for the installer to finish
+6. Reopen `Word`
+7. Open the `Zotero` tab and confirm these buttons are visible:
+   - `Create Citation Links`
+   - `Remove Citation Links`
+
+#### Option 2: Manual install
 
 1. Fully quit `Microsoft Word`
 2. Locate the `Zotero.dotm` currently used by Word
@@ -129,9 +165,11 @@ If you are unsure, use Finder:
 If anything goes wrong:
 
 1. Quit `Word`
-2. Delete the replaced `Zotero.dotm`
-3. Copy your original backup back into the folder
-4. Reopen `Word`
+2. Prefer running:
+   - `restore_mac.command`
+3. If the script is unavailable, delete the replaced `Zotero.dotm`
+4. Copy your original backup back into the folder
+5. Reopen `Word`
 
 ### Version Binding
 
