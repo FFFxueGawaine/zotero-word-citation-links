@@ -84,6 +84,10 @@ Jump to: [中文](#zh-cn) | [English](#en)
 3. 关闭 `Word`
 4. 运行 `install.bat`
 
+如果你想完全不依赖安装器和脚本，而是自己手动修改模板，请看：
+
+[install/WINDOWS_MANUAL_INSTALL.md](./install/WINDOWS_MANUAL_INSTALL.md)
+
 #### Mac
 
 当前 Mac 版本为实验性支持，推荐先从模板包开始：
@@ -187,7 +191,7 @@ Jump to: [中文](#zh-cn) | [English](#en)
 ### 仓库结构
 
 - `install/`
-  Windows 安装脚本、恢复脚本、宏模块
+  Windows 安装脚本、恢复脚本、宏模块、纯手动安装文档
 - `mac/`
   Mac 安装文档和相关说明
 - `tools/`
@@ -264,6 +268,10 @@ If you prefer a more transparent/manual flow:
 2. Extract it
 3. Close `Word`
 4. Run `install.bat`
+
+If you want a fully manual path with no installer and no install script, see:
+
+[install/WINDOWS_MANUAL_INSTALL.md](./install/WINDOWS_MANUAL_INSTALL.md)
 
 #### Mac
 
@@ -368,7 +376,7 @@ If you want to go back to the pre-install state:
 ### Repository Layout
 
 - `install/`
-  Windows install scripts, restore script, macro module
+  Windows install scripts, restore script, macro module, manual install guide
 - `mac/`
   Mac install documentation and support notes
 - `tools/`
