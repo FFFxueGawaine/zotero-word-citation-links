@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/banner.svg" alt="Zotero Word Citation Links banner" width="100%" />
+</p>
+
 # Zotero Word Citation Links
 
 > Add clickable citation-to-bibliography links to Zotero citations in Microsoft Word, without disrupting the normal Zotero writing workflow.
@@ -225,6 +229,8 @@ Mac 当前为实验性支持，推荐从模板包开始：
   内部安装脚本、宏模块和高级参考文档
 - `tools/`
   构建脚本
+- `assets/`
+  README 头图和品牌展示资源
 - `dist/`
   发布资产
 
@@ -439,6 +445,8 @@ Current design goals:
   internal installer scripts, macro module, and advanced reference docs
 - `tools/`
   build scripts
+- `assets/`
+  README banner and branding assets
 - `dist/`
   release assets
 

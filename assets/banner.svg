@@ -1,0 +1,72 @@
+<svg width="1400" height="360" viewBox="0 0 1400 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF4E8"/>
+      <stop offset="0.52" stop-color="#F5F8FF"/>
+      <stop offset="1" stop-color="#EDF8F4"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#D83B01"/>
+      <stop offset="1" stop-color="#B72A00"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="cardC" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0F766E"/>
+      <stop offset="1" stop-color="#115E59"/>
+    </linearGradient>
+    <filter id="shadow" x="-40" y="-40" width="1480" height="440" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0F172A" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="360" rx="28" fill="url(#bg)"/>
+
+  <circle cx="1230" cy="80" r="78" fill="#F97316" fill-opacity="0.08"/>
+  <circle cx="1270" cy="268" r="92" fill="#2563EB" fill-opacity="0.08"/>
+  <circle cx="96" cy="82" r="52" fill="#0F766E" fill-opacity="0.09"/>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="68" width="430" height="232" rx="26" fill="#FFFFFF"/>
+    <rect x="92" y="92" width="164" height="38" rx="19" fill="url(#cardA)"/>
+    <text x="174" y="117" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">[1]  Numeric Link</text>
+
+    <rect x="92" y="146" width="250" height="38" rx="19" fill="url(#cardB)"/>
+    <text x="217" y="171" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">(Smith, 2024)</text>
+
+    <rect x="92" y="200" width="218" height="38" rx="19" fill="url(#cardC)"/>
+    <text x="201" y="225" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Create Citation Links</text>
+
+    <path d="M372 111C415 111 425 130 457 130" stroke="#D83B01" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M372 165C425 165 441 184 476 196" stroke="#2563EB" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M338 219C388 219 408 243 454 252" stroke="#0F766E" stroke-width="4.5" stroke-linecap="round"/>
+
+    <rect x="452" y="112" width="24" height="24" rx="12" fill="#FFE6DA"/>
+    <rect x="472" y="188" width="24" height="24" rx="12" fill="#DBEAFE"/>
+    <rect x="448" y="240" width="24" height="24" rx="12" fill="#CCFBF1"/>
+
+    <rect x="502" y="112" width="140" height="166" rx="22" fill="#FFFDF9" stroke="#E5E7EB" stroke-width="2"/>
+    <rect x="526" y="138" width="92" height="14" rx="7" fill="#111827"/>
+    <rect x="526" y="166" width="88" height="10" rx="5" fill="#CBD5E1"/>
+    <rect x="526" y="184" width="82" height="10" rx="5" fill="#CBD5E1"/>
+    <rect x="526" y="214" width="72" height="12" rx="6" fill="#D83B01" fill-opacity="0.16"/>
+    <rect x="526" y="236" width="90" height="10" rx="5" fill="#CBD5E1"/>
+  </g>
+
+  <g>
+    <text x="700" y="120" fill="#0F172A" font-size="56" font-weight="800" font-family="'Segoe UI', Arial, sans-serif">Zotero Word Citation Links</text>
+    <text x="700" y="168" fill="#334155" font-size="24" font-weight="500" font-family="'Segoe UI', Arial, sans-serif">Clickable citations for Word + Zotero</text>
+    <text x="700" y="206" fill="#475569" font-size="22" font-weight="500" font-family="'Segoe UI', Arial, sans-serif">Turn in-text references into direct jumps to bibliography entries.</text>
+
+    <rect x="700" y="236" width="180" height="44" rx="22" fill="#D83B01"/>
+    <text x="790" y="264" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Word + Zotero</text>
+
+    <rect x="892" y="236" width="162" height="44" rx="22" fill="#2563EB"/>
+    <text x="973" y="264" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">One-click Setup</text>
+
+    <rect x="1066" y="236" width="154" height="44" rx="22" fill="#0F766E"/>
+    <text x="1143" y="264" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Format Safe</text>
+  </g>
+</svg>
