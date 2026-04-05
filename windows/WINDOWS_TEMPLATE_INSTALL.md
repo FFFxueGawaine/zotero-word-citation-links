@@ -10,22 +10,23 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 ### 这是什么
 
-这是 Windows 下最简单的一条安装路线之一：
+这是 Windows 下的第二种正式安装方式：
 
-- 直接使用一个已经预先修改好的 `Zotero.dotm`
+- 第一种：一键安装器
+- 第二种：直接复制预改好的 `Zotero.dotm`
+
+这份文档讲的就是第二种。
+
+它的特点是：
+
 - 不需要你自己手改 `customUI/customUI.xml`
 - 不需要你手动导入 `ZoteroWordHyperlinks.bas`
-
-你可以把它理解成：
-
-\[
-\text{备份原模板} + \text{复制预改模板} = \text{完成安装}
-\]
+- 本质上就是“备份原模板，再复制预改模板”
 
 ### 适合谁
 
-- 想要尽量简单安装的人
-- 不想运行“动态 patch 模板”脚本的人
+- 想要最简单、最直接安装方式的人
+- 不想运行动态 patch 脚本的人
 - 接受“直接覆盖模板”这种方式的人
 
 ### 安装前提
@@ -46,7 +47,9 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 ### 安装方法
 
-#### 方法 A：推荐，直接运行安装脚本
+你可以用两种方式，本质上都是“使用预改模板”。
+
+#### 方式 A：运行模板包里的安装脚本
 
 1. 解压 `zotero-word-links-windows-template.zip`
 2. 关闭 `Word`
@@ -62,9 +65,7 @@ install_prebuilt_template.bat
    - `Create Citation Links`
    - `Remove Citation Links`
 
-#### 方法 B：纯复制覆盖
-
-如果你想完全手动操作：
+#### 方式 B：自己手动复制覆盖
 
 1. 关闭 `Word`
 2. 备份当前模板：
@@ -86,7 +87,7 @@ Zotero.dotm
 ```
 
 4. 重新打开 `Word`
-5. 检查 `Zotero` 选项卡中的两个新按钮
+5. 检查 `Zotero` 选项卡里的两个按钮
 
 ### 恢复方法
 
@@ -108,29 +109,30 @@ restore_prebuilt_template.bat
 %APPDATA%\Microsoft\Word\STARTUP\Zotero.dotm
 ```
 
-### 优点
+### 这条路线的优点
 
 - 简单
+- 直观
 - 不需要编辑 XML
 - 不需要导入 VBA 模块
-- 对普通用户更直观
 
-### 注意事项
+### 需要注意的地方
 
 - 这是“直接覆盖模板”的方案，所以更依赖模板版本匹配
-- 如果你的本机 `Zotero.dotm` 已被其他工具改过，直接覆盖会把那些改动一起覆盖掉
-- 如果 Zotero 官方模板将来发生明显变化，可能需要重新生成匹配版本的预改模板包
+- 如果你的本机 `Zotero.dotm` 已经被其他工具改过，直接覆盖会把那些改动一起覆盖掉
+- 如果 Zotero 官方模板将来变化较大，可能需要重新生成匹配版本的预改模板包
 
-### 推荐理解
+### 最终建议
 
-Windows 现在有三条路线：
+Windows 现在只保留两种面向用户的安装方式：
 
-1. 安装器自动 patch
-   好处：最稳，适合大多数用户
-2. 预改模板直接覆盖
-   好处：最简单
-3. 纯手动安装
-   好处：最透明，适合研究和二次开发
+1. 一键安装器
+2. 预改模板直接复制覆盖
+
+如果你只是想正常使用，优先顺序建议是：
+
+1. 先试一键安装器
+2. 如果你更喜欢直观覆盖模板，再用这个模板包
 
 <a id="en"></a>
 
@@ -140,21 +142,22 @@ Windows 现在有三条路线：
 
 ### What This Is
 
-This is one of the simplest Windows install paths:
+This is the second official Windows install path:
 
-- it uses a prebuilt `Zotero.dotm`
-- you do not need to edit `customUI/customUI.xml` yourself
-- you do not need to manually import `ZoteroWordHyperlinks.bas`
+- first: the one-click installer
+- second: direct replacement with a prebuilt `Zotero.dotm`
 
-In practice, it is:
+This guide explains the second one.
 
-\[
-\text{backup original template} + \text{copy prebuilt template} = \text{install complete}
-\]
+Its characteristics are:
+
+- no need to manually edit `customUI/customUI.xml`
+- no need to manually import `ZoteroWordHyperlinks.bas`
+- in practice, it is just “back up the original template, then copy the prebuilt one”
 
 ### Who This Is For
 
-- users who want the simplest setup
+- users who want the simplest and most direct setup
 - users who do not want to run the dynamic patch installer
 - users who are comfortable with direct template replacement
 
@@ -176,7 +179,9 @@ This package usually contains:
 
 ### Installation
 
-#### Method A: Recommended, run the installer script
+You can use it in two ways, both based on the same prebuilt template.
+
+#### Option A: Run the package installer script
 
 1. Extract `zotero-word-links-windows-template.zip`
 2. Close `Word`
@@ -192,9 +197,7 @@ install_prebuilt_template.bat
    - `Create Citation Links`
    - `Remove Citation Links`
 
-#### Method B: Manual copy/replace
-
-If you want a fully manual route:
+#### Option B: Copy and replace the template yourself
 
 1. Close `Word`
 2. Back up the current template:
@@ -216,13 +219,13 @@ over:
 ```
 
 4. Reopen `Word`
-5. Check the `Zotero` tab for the two added buttons
+5. Check the two buttons in the `Zotero` tab
 
 ### Restore
 
 If you want to return to the original state:
 
-#### Method A: Run the restore script
+#### Option A: Run the restore script
 
 Double-click:
 
@@ -230,7 +233,7 @@ Double-click:
 restore_prebuilt_template.bat
 ```
 
-#### Method B: Restore manually
+#### Option B: Restore manually
 
 Copy your backup `Zotero.dotm` back to:
 
@@ -241,9 +244,9 @@ Copy your backup `Zotero.dotm` back to:
 ### Advantages
 
 - simple
+- direct
 - no XML editing
 - no manual VBA import
-- more intuitive for normal users
 
 ### Notes
 
@@ -251,13 +254,14 @@ Copy your backup `Zotero.dotm` back to:
 - if your local `Zotero.dotm` already contains other custom changes, they will be overwritten
 - if the upstream Zotero template changes significantly, a new prebuilt package may be needed
 
-### Recommended Mental Model
+### Final Recommendation
 
-There are now three Windows install paths:
+Windows now keeps only two user-facing install methods:
 
-1. installer-based patching
-   benefit: most robust for most users
-2. prebuilt template replacement
-   benefit: simplest
-3. fully manual install
-   benefit: most transparent for research and adaptation
+1. the one-click installer
+2. direct replacement with the prebuilt template package
+
+For most users, the recommended order is:
+
+1. try the one-click installer first
+2. if you prefer a more direct template replacement workflow, use this package

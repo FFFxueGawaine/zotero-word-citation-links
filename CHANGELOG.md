@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - 补充了如何打开 `Zotero.dotm` 中 `customUI/customUI.xml` 的具体方法，包括 RibbonX Editor 和压缩包两种路径。
 - 新增 Windows 预改模板包方案，支持直接覆盖 `Zotero.dotm` 或运行简单复制脚本完成安装。
 - 新增 Windows 预改模板包构建脚本、安装脚本、恢复脚本和安装说明。
+- 将 Windows 面向普通用户的安装方式收敛为两种：一键安装，或直接复制预改模板。
 
 ### English
 
@@ -17,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - Expanded the manual guide with concrete ways to open `customUI/customUI.xml`, including both RibbonX Editor and archive-based workflows.
 - Added a Windows prebuilt template package path that supports direct `Zotero.dotm` replacement or a simple copy-based install script.
 - Added the Windows prebuilt template package build script, install script, restore script, and install guide.
+- Simplified the Windows user-facing install story to two methods only: one-click install, or direct replacement with the prebuilt template.
 
 ## v0.3.0 - 2026-04-05
 

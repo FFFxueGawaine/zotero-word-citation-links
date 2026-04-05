@@ -7,7 +7,6 @@ Latest release: `v0.3.0`
 Downloads:
 - [Latest Release Page](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest)
 - [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-installer.exe)
-- [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-share.zip)
 - [Windows Template Package](./dist/zotero-word-links-windows-template.zip)
 - [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-mac-template.zip)
 
@@ -30,79 +29,98 @@ Jump to: [中文](#zh-cn) | [English](#en)
 - `Create Citation Links`
 - `Remove Citation Links`
 
-它解决的问题很直接：
+它的目标很简单：
 
 - 让正文中的 Zotero 引文可以点击
 - 点击后跳转到文末对应参考文献
 - 尽量只改变引文颜色，不破坏原有字体、字号、粗斜体、上下标和段落格式
 
-### 适合谁
-
-- 想让 Word 文档中的 Zotero 引文支持跳转的用户
-- 正在写论文、综述、报告，希望提高文内定位效率的用户
-- 不想改变原有 Zotero 使用方式，只想增加一个实用增强功能的用户
-
-### 主要特点
+### 核心特点
 
 | 特点 | 说明 |
 | --- | --- |
 | 支持数字编号格式 | 例如 `[1]`、`[2, 3]` |
 | 支持作者-年份格式 | 例如 `(Smith, 2024)` |
-| 使用方式直观 | 安装后直接在 Word 的 `Zotero` 选项卡中点击 |
-| 尽量保留原格式 | 创建链接时主要只改变颜色，不改动排版结构 |
-| 支持恢复 | 可以移除跳转链接，也可以恢复原始 `Zotero.dotm` |
+| 入口直观 | 直接出现在 Word 的 `Zotero` 选项卡中 |
+| 尽量保留原格式 | 创建链接时主要只改变颜色 |
+| 支持恢复 | 可以移除跳转，也可以恢复原始模板 |
 
 ### 支持情况
 
 | 平台 | 状态 | 安装方式 |
 | --- | --- | --- |
-| Windows + Word | 正式支持 | 一键安装器 / 脚本安装 |
+| Windows + Word | 正式支持 | 一键安装 / 直接复制预改模板 |
 | Mac + Word | 实验性支持 | `.command` 一键安装 / 手工安装 |
 
 ### 安装前提
 
 - 已安装 `Zotero`
 - 已安装 `Microsoft Word`
-- Word 中已经能看到官方的 `Zotero` 选项卡
+- Word 中已经能看到官方 `Zotero` 选项卡
 
-### 安装方式
+## Windows 安装
 
-#### Windows
+Windows 现在只保留两种面向用户的安装方式：
 
-推荐普通用户直接使用一键安装器：
+1. 一键安装
+2. 手动直接复制预改模板
+
+### 方法一：一键安装
+
+这是默认推荐方式，适合大多数用户。
 
 1. 关闭 `Word`
 2. 下载并运行 [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-installer.exe)
 3. 重新打开 `Word`
-4. 打开 `Zotero` 选项卡，确认出现：
+4. 打开 `Zotero` 选项卡
+5. 确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
 
-如果你更喜欢看清楚安装内容，也可以使用脚本包：
+### 方法二：手动直接复制预改模板
 
-1. 下载 [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-share.zip)
-2. 解压
-3. 关闭 `Word`
-4. 运行 `install.bat`
+如果你更喜欢最简单、最直观的方式，可以直接覆盖预改好的 `Zotero.dotm`。
 
-如果你更喜欢“直接覆盖预改模板”的简单路线，可以使用：
+下载：
 
-[dist/zotero-word-links-windows-template.zip](./dist/zotero-word-links-windows-template.zip)
+- [Windows Template Package](./dist/zotero-word-links-windows-template.zip)
 
-它提供：
+这个包里包含：
 
 - 预改好的 `Zotero.dotm`
 - `install_prebuilt_template.bat`
 - `restore_prebuilt_template.bat`
-- 专门的安装说明
+- [windows/WINDOWS_TEMPLATE_INSTALL.md](./windows/WINDOWS_TEMPLATE_INSTALL.md)
 
-如果你想完全不依赖安装器和脚本，而是自己手动修改模板，请看：
+你可以用两种方式：
 
-[install/WINDOWS_MANUAL_INSTALL.md](./install/WINDOWS_MANUAL_INSTALL.md)
+#### 方式 A：运行模板包里的安装脚本
 
-#### Mac
+1. 解压 `zotero-word-links-windows-template.zip`
+2. 关闭 `Word`
+3. 双击 `install_prebuilt_template.bat`
+4. 重新打开 `Word`
+5. 检查 `Zotero` 选项卡里的两个按钮
 
-当前 Mac 版本为实验性支持，推荐先从模板包开始：
+#### 方式 B：自己手动复制覆盖
+
+1. 关闭 `Word`
+2. 备份当前模板：
+
+```text
+%APPDATA%\Microsoft\Word\STARTUP\Zotero.dotm
+```
+
+3. 将包内的 `Zotero.dotm` 覆盖到同一路径
+4. 重新打开 `Word`
+5. 检查 `Zotero` 选项卡中的按钮是否出现
+
+详细说明：
+[windows/WINDOWS_TEMPLATE_INSTALL.md](./windows/WINDOWS_TEMPLATE_INSTALL.md)
+
+## Mac 安装
+
+Mac 当前为实验性支持，推荐从模板包开始：
 
 1. 下载 [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-mac-template.zip)
 2. 关闭 `Word`
@@ -115,14 +133,12 @@ Jump to: [中文](#zh-cn) | [English](#en)
    - `Create Citation Links`
    - `Remove Citation Links`
 
-详细说明请看：
+详细说明：
 [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
 
-### 使用教程
+## 使用教程
 
-这是最重要的一部分。你可以把它理解成一个标准工作流。
-
-#### 第一步：正常写作
+### 第一步：正常写作
 
 先按平时的 Zotero 用法写作：
 
@@ -130,7 +146,7 @@ Jump to: [中文](#zh-cn) | [English](#en)
 2. 用 Zotero 生成参考文献
 3. 正常修改、补充、刷新引文
 
-#### 第二步：生成跳转
+### 第二步：生成跳转
 
 当你的文档已经有了正文引文和文末参考文献后：
 
@@ -139,7 +155,7 @@ Jump to: [中文](#zh-cn) | [English](#en)
 3. 文中引文会变成可点击状态
 4. 点击引文，可跳转到对应参考文献
 
-#### 第三步：需要时删除跳转
+### 第三步：需要时删除跳转
 
 如果你想移除这次生成的跳转效果：
 
@@ -151,15 +167,15 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 | 按钮 | 作用 | 什么时候用 |
 | --- | --- | --- |
-| `Create Citation Links` | 为文中 Zotero 引文创建跳转 | 当你已经插入好引文和参考文献，想添加点击跳转时 |
-| `Remove Citation Links` | 移除本工具创建的跳转 | 当你想恢复普通显示，或准备重新生成跳转时 |
+| `Create Citation Links` | 为文中 Zotero 引文创建跳转 | 当引文和参考文献已经准备好时 |
+| `Remove Citation Links` | 移除本工具创建的跳转 | 当你想恢复普通显示或重新生成跳转时 |
 
 ### 推荐使用节奏
 
 如果你想要最稳的体验，建议这样用：
 
 1. 先完成 Zotero 的正常引文编辑
-2. 如果你刚点过 `Zotero -> Refresh`，先别急着测试跳转
+2. 如果你刚点过 `Zotero -> Refresh`，先不要急着测试跳转
 3. 再点一次 `Create Citation Links`
 4. 最后再检查点击跳转效果
 
@@ -188,10 +204,9 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 ### 恢复与回退
 
-如果你想恢复安装前状态：
-
-- Windows：运行分享包中的 `restore_original.bat`
-- Mac：运行模板包中的 `restore_mac.command`
+- Windows 一键安装路线：重新运行安装器，或改用模板包恢复
+- Windows 模板包路线：运行 `restore_prebuilt_template.bat`
+- Mac：运行 `restore_mac.command`
 
 ### 已知限制
 
@@ -202,12 +217,12 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 ### 仓库结构
 
-- `install/`
-  Windows 安装脚本、恢复脚本、宏模块、纯手动安装文档
 - `windows/`
   Windows 预改模板包安装脚本、恢复脚本和说明文档
 - `mac/`
   Mac 安装文档和相关说明
+- `install/`
+  内部安装脚本、宏模块和高级参考文档
 - `tools/`
   构建脚本
 - `dist/`
@@ -234,12 +249,6 @@ Its goal is simple:
 - jump from an in-text citation to the matching bibliography entry
 - change citation color while preserving font, size, style, superscript/subscript, and paragraph formatting as much as possible
 
-### Who This Is For
-
-- users who want clickable Zotero citations in Word
-- researchers writing papers, reviews, reports, or theses
-- users who want a useful enhancement without changing the normal Zotero workflow
-
 ### Key Features
 
 | Feature | Description |
@@ -254,7 +263,7 @@ Its goal is simple:
 
 | Platform | Status | Install Mode |
 | --- | --- | --- |
-| Windows + Word | Supported | One-click installer / script install |
+| Windows + Word | Supported | One-click install / direct prebuilt template replacement |
 | Mac + Word | Experimental | One-click `.command` install / manual install |
 
 ### Prerequisites
@@ -263,42 +272,67 @@ Its goal is simple:
 - `Microsoft Word` is installed
 - the standard `Zotero` tab is already visible in Word
 
-### Installation
+## Windows Installation
 
-#### Windows
+Windows now keeps only two user-facing install methods:
 
-Recommended for most users:
+1. one-click install
+2. manual direct replacement with a prebuilt template
+
+### Method 1: One-click installer
+
+This is the default recommendation for most users.
 
 1. Close `Word`
 2. Download and run the [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-installer.exe)
 3. Reopen `Word`
-4. Open the `Zotero` tab and confirm these buttons are visible:
+4. Open the `Zotero` tab
+5. Confirm these buttons are visible:
    - `Create Citation Links`
    - `Remove Citation Links`
 
-If you prefer a more transparent/manual flow:
+### Method 2: Manual direct template replacement
 
-1. Download the [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-share.zip)
-2. Extract it
-3. Close `Word`
-4. Run `install.bat`
+If you prefer the simplest and most transparent route, use the prebuilt `Zotero.dotm`.
 
-If you prefer the simplest direct-replacement route, use:
+Download:
 
-[dist/zotero-word-links-windows-template.zip](./dist/zotero-word-links-windows-template.zip)
+- [Windows Template Package](./dist/zotero-word-links-windows-template.zip)
 
-It includes:
+This package includes:
 
 - a prebuilt `Zotero.dotm`
 - `install_prebuilt_template.bat`
 - `restore_prebuilt_template.bat`
-- a dedicated install guide
+- [windows/WINDOWS_TEMPLATE_INSTALL.md](./windows/WINDOWS_TEMPLATE_INSTALL.md)
 
-If you want a fully manual path with no installer and no install script, see:
+You can use it in two ways:
 
-[install/WINDOWS_MANUAL_INSTALL.md](./install/WINDOWS_MANUAL_INSTALL.md)
+#### Option A: Run the package installer script
 
-#### Mac
+1. Extract `zotero-word-links-windows-template.zip`
+2. Close `Word`
+3. Double-click `install_prebuilt_template.bat`
+4. Reopen `Word`
+5. Check the `Zotero` tab for the two buttons
+
+#### Option B: Copy and replace the template yourself
+
+1. Close `Word`
+2. Back up the current template:
+
+```text
+%APPDATA%\Microsoft\Word\STARTUP\Zotero.dotm
+```
+
+3. Copy the packaged `Zotero.dotm` over that path
+4. Reopen `Word`
+5. Confirm the buttons appear in the `Zotero` tab
+
+Detailed guide:
+[windows/WINDOWS_TEMPLATE_INSTALL.md](./windows/WINDOWS_TEMPLATE_INSTALL.md)
+
+## Mac Installation
 
 Mac support is currently experimental. The recommended path is the template package:
 
@@ -316,11 +350,9 @@ Mac support is currently experimental. The recommended path is the template pack
 Detailed guide:
 [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
 
-### Usage Tutorial
+## Usage Tutorial
 
-This is the core workflow.
-
-#### Step 1: Write normally with Zotero
+### Step 1: Write normally with Zotero
 
 Use Zotero as you normally would:
 
@@ -328,7 +360,7 @@ Use Zotero as you normally would:
 2. generate the bibliography
 3. edit, add, or refresh citations as needed
 
-#### Step 2: Create jump links
+### Step 2: Create jump links
 
 Once your document already contains in-text citations and a bibliography:
 
@@ -337,7 +369,7 @@ Once your document already contains in-text citations and a bibliography:
 3. the citations become clickable
 4. click a citation to jump to the matching bibliography entry
 
-#### Step 3: Remove jump links when needed
+### Step 3: Remove jump links when needed
 
 If you want to remove the generated links:
 
@@ -386,10 +418,9 @@ Current design goals:
 
 ### Restore / Rollback
 
-If you want to go back to the pre-install state:
-
-- Windows: run `restore_original.bat` from the share package
-- Mac: run `restore_mac.command` from the Mac template package
+- Windows installer path: rerun the installer, or switch to the template package restore path
+- Windows template package path: run `restore_prebuilt_template.bat`
+- Mac: run `restore_mac.command`
 
 ### Known Limitations
 
@@ -400,12 +431,12 @@ If you want to go back to the pre-install state:
 
 ### Repository Layout
 
-- `install/`
-  Windows install scripts, restore script, macro module, manual install guide
 - `windows/`
   Windows prebuilt template install scripts, restore script, and guide
 - `mac/`
   Mac install documentation and support notes
+- `install/`
+  internal installer scripts, macro module, and advanced reference docs
 - `tools/`
   build scripts
 - `dist/`
