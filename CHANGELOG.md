@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- No unreleased changes yet.
+
+## v0.3.0 - 2026-04-05
+
+### 中文
+
+- 正式发布 `v0.3.0`，让外部按版本号或 Release 检测更新时能够正确识别新版本。
+- 新增 Mac 一键安装脚本 `install_mac.command`。
+- 新增 Mac 恢复脚本 `restore_mac.command`。
+- README 重新整理为更清晰的中英双语结构。
+- README 强化了安装说明和使用教程，重点突出 Windows / Mac 的安装入口与按钮使用流程。
+
+### English
+
+- Released `v0.3.0` as a proper detectable version for tag-based and release-based update checks.
+- Added the one-click Mac installer script `install_mac.command`.
+- Added the Mac restore script `restore_mac.command`.
+- Reorganized the README into a clearer bilingual structure.
+- Expanded the install and usage tutorial sections, with clearer Windows / Mac paths and button workflow guidance.
+
+## v0.2.0 - 2026-04-05
+
 ### 中文
 
 - 新增 Mac 手工安装版文档，作为实验性支持。
@@ -27,8 +49,7 @@ All notable changes to this project will be documented in this file.
 - 修复了 `author-date` 创建后正文局部出现下划线的问题。
 - 修复了 `Remove Citation Links` 在 `author-date` 模式下颜色无法恢复的问题。
 - 现在创建链接时会保存原始颜色，删除链接时优先恢复为创建前颜色。
-- 进一步修复了“只改颜色、不改格式”的行为：
-  现在无论是数字编号还是 `author-date`，创建链接都只改变颜色，不改变字体、字号、粗斜体、上下标和段落格式。
+- 进一步修复了“只改颜色、不改格式”的行为。
 - 同步更新了安装器和分享包。
 
 ### English
@@ -38,8 +59,7 @@ All notable changes to this project will be documented in this file.
 - Fixed unwanted underline artifacts inside linked `author-date` citations.
 - Fixed the color restore issue in `Remove Citation Links` for `author-date` citations.
 - Original citation color is now stored on link creation and restored on link removal whenever possible.
-- Improved the "change color only" behavior:
-  both numeric and `author-date` modes now preserve font name, size, bold/italic, superscript/subscript, and paragraph formatting while changing only the link color.
+- Improved the "change color only" behavior.
 - Updated the installer and share package.
 
 ## v0.1.0 - 2026-04-04
