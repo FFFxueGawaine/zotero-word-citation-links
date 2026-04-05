@@ -8,6 +8,7 @@ Downloads:
 - [Latest Release Page](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest)
 - [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-installer.exe)
 - [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-share.zip)
+- [Windows Template Package](./dist/zotero-word-links-windows-template.zip)
 - [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-mac-template.zip)
 
 Changelog: [CHANGELOG.md](./CHANGELOG.md)
@@ -83,6 +84,17 @@ Jump to: [中文](#zh-cn) | [English](#en)
 2. 解压
 3. 关闭 `Word`
 4. 运行 `install.bat`
+
+如果你更喜欢“直接覆盖预改模板”的简单路线，可以使用：
+
+[dist/zotero-word-links-windows-template.zip](./dist/zotero-word-links-windows-template.zip)
+
+它提供：
+
+- 预改好的 `Zotero.dotm`
+- `install_prebuilt_template.bat`
+- `restore_prebuilt_template.bat`
+- 专门的安装说明
 
 如果你想完全不依赖安装器和脚本，而是自己手动修改模板，请看：
 
@@ -192,6 +204,8 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 - `install/`
   Windows 安装脚本、恢复脚本、宏模块、纯手动安装文档
+- `windows/`
+  Windows 预改模板包安装脚本、恢复脚本和说明文档
 - `mac/`
   Mac 安装文档和相关说明
 - `tools/`
@@ -268,6 +282,17 @@ If you prefer a more transparent/manual flow:
 2. Extract it
 3. Close `Word`
 4. Run `install.bat`
+
+If you prefer the simplest direct-replacement route, use:
+
+[dist/zotero-word-links-windows-template.zip](./dist/zotero-word-links-windows-template.zip)
+
+It includes:
+
+- a prebuilt `Zotero.dotm`
+- `install_prebuilt_template.bat`
+- `restore_prebuilt_template.bat`
+- a dedicated install guide
 
 If you want a fully manual path with no installer and no install script, see:
 
@@ -377,6 +402,8 @@ If you want to go back to the pre-install state:
 
 - `install/`
   Windows install scripts, restore script, macro module, manual install guide
+- `windows/`
+  Windows prebuilt template install scripts, restore script, and guide
 - `mac/`
   Mac install documentation and support notes
 - `tools/`
