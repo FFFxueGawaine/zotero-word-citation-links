@@ -2,6 +2,10 @@
   <img src="./assets/banner.svg" alt="Zotero Word Citation Links banner" width="100%" />
 </p>
 
+<p align="center">
+  <img src="./assets/logo-mark.svg" alt="Zotero Word Citation Links logo mark" width="520" />
+</p>
+
 # Zotero Word Citation Links
 
 > Add clickable citation-to-bibliography links to Zotero citations in Microsoft Word, without disrupting the normal Zotero writing workflow.
@@ -19,6 +23,10 @@
   <a href="https://github.com/FFFxueGawaine/zotero-word-citation-links/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/FFFxueGawaine/zotero-word-citation-links?color=334155" alt="MIT license" />
   </a>
+</p>
+
+<p align="center">
+  <img src="./assets/citation-buddy.gif" alt="Cute animated preview of citation links" width="720" />
 </p>
 
 Latest release: `v0.3.0`
@@ -245,7 +253,7 @@ Mac 当前为实验性支持，推荐从模板包开始：
 - `tools/`
   构建脚本
 - `assets/`
-  README 头图和品牌展示资源
+  README 头图、logo 和 GIF 展示资源
 - `dist/`
   发布资产
 
@@ -461,7 +469,7 @@ Current design goals:
 - `tools/`
   build scripts
 - `assets/`
-  README banner and branding assets
+  README banner, logo, and GIF presentation assets
 - `dist/`
   release assets
 

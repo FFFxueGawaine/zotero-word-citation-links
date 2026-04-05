@@ -1,0 +1,54 @@
+<svg width="980" height="240" viewBox="0 0 980 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgCard" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFF6ED"/>
+      <stop offset="1" stop-color="#F7FBFF"/>
+    </linearGradient>
+    <linearGradient id="accentA" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#D83B01"/>
+      <stop offset="1" stop-color="#B72A00"/>
+    </linearGradient>
+    <linearGradient id="accentB" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="accentC" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0F766E"/>
+      <stop offset="1" stop-color="#115E59"/>
+    </linearGradient>
+    <filter id="shadow" x="-40" y="-40" width="620" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="980" height="240" rx="28" fill="white"/>
+
+  <g filter="url(#shadow)">
+    <rect x="32" y="28" width="500" height="184" rx="28" fill="url(#bgCard)"/>
+
+    <rect x="58" y="56" width="150" height="36" rx="18" fill="url(#accentA)"/>
+    <text x="133" y="79" text-anchor="middle" fill="white" font-size="17" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">[1] Link</text>
+
+    <rect x="58" y="108" width="210" height="36" rx="18" fill="url(#accentB)"/>
+    <text x="163" y="131" text-anchor="middle" fill="white" font-size="17" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">(Smith, 2024)</text>
+
+    <rect x="58" y="160" width="188" height="32" rx="16" fill="url(#accentC)"/>
+    <text x="152" y="181" text-anchor="middle" fill="white" font-size="15" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Create Links</text>
+
+    <path d="M284 74C338 74 354 92 394 96" stroke="#D83B01" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M312 126C362 126 378 143 417 150" stroke="#2563EB" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M272 176C323 176 343 191 388 192" stroke="#0F766E" stroke-width="4.5" stroke-linecap="round"/>
+
+    <rect x="400" y="72" width="100" height="112" rx="18" fill="white" stroke="#E2E8F0" stroke-width="2"/>
+    <rect x="421" y="95" width="58" height="10" rx="5" fill="#0F172A"/>
+    <rect x="421" y="118" width="52" height="8" rx="4" fill="#CBD5E1"/>
+    <rect x="421" y="134" width="48" height="8" rx="4" fill="#CBD5E1"/>
+    <rect x="421" y="154" width="42" height="10" rx="5" fill="#D83B01" fill-opacity="0.18"/>
+  </g>
+
+  <g>
+    <text x="576" y="98" fill="#0F172A" font-size="34" font-weight="800" font-family="'Segoe UI', Arial, sans-serif">Zotero Word</text>
+    <text x="576" y="142" fill="#1D4ED8" font-size="42" font-weight="900" font-family="'Segoe UI', Arial, sans-serif">Citation Links</text>
+    <text x="576" y="176" fill="#475569" font-size="18" font-weight="600" font-family="'Segoe UI', Arial, sans-serif">Clickable citations with clean Word-friendly formatting</text>
+  </g>
+</svg>
