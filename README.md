@@ -1,6 +1,12 @@
 # Zotero Word Citation Links
 
-Latest release: `v0.1.1`  
+Latest release: `v0.2.0`  
+Download:
+- [Latest Release Page](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/tag/v0.2.0)
+- [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-installer.exe)
+- [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-share.zip)
+- [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-mac-template.zip)
+
 Changelog: [CHANGELOG.md](./CHANGELOG.md)
 
 Jump to: [中文](#chinese) | [English](#english)
