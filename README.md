@@ -1,7 +1,7 @@
 # Zotero Word Citation Links
 
 Latest release: `v0.2.0`  
-Download:
+Downloads:
 - [Latest Release Page](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/tag/v0.2.0)
 - [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-installer.exe)
 - [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-share.zip)
@@ -9,174 +9,224 @@ Download:
 
 Changelog: [CHANGELOG.md](./CHANGELOG.md)
 
-Jump to: [中文](#chinese) | [English](#english)
+Jump to: [中文](#中文) | [English](#english)
 
-<a id="chinese"></a>
+<a id="中文"></a>
 
-## 中文简介
+## 中文
 
-[切换到 English](#english)
+[Switch to English](#english)
 
-这是一个给 `Windows + Microsoft Word + Zotero` 使用的小型增强工具。
+### 项目简介
 
-安装后，Word 的 `Zotero` 选项卡里会增加两个按钮：
+这是一个给 `Microsoft Word + Zotero` 使用的小型增强工具。  
+它会在 Word 的 `Zotero` 选项卡中增加两个按钮：
 
 - `Create Citation Links`
 - `Remove Citation Links`
 
-它的作用是让正文里的 Zotero 引用可以点击，并跳转到文末对应的参考文献。
+作用很直接：
+
+- 让正文里的 Zotero 引文可以点击
+- 点击后跳转到文末对应参考文献
+- 尽量只改变引文颜色，不破坏原有字体、字号和段落格式
 
 ### 功能特点
 
-- 一键安装
-- 普通用户默认不需要 Python
 - 支持数字编号引用
 - 支持作者年份引用
-- 保留 Zotero 原有工作流
+- 保留 Zotero 原有写作流程
+- Windows 提供一键安装
+- Mac 提供实验性的手工安装方案
 - 支持恢复原始 `Zotero.dotm`
 
-### 支持矩阵
+### 支持情况
 
 | 平台 | 状态 | 安装方式 |
 | --- | --- | --- |
 | Windows + Word | 正式支持 | 一键安装器 / 脚本安装 |
 | Mac + Word | 实验性支持 | 手工安装预改 `Zotero.dotm` |
 
-### 适用环境
+### 安装前提
 
-- Windows
-- Microsoft Word 桌面版
-- Zotero 已安装
-- Word 中已经有 `Zotero` 选项卡
+- 已安装 `Zotero`
+- 已安装 `Microsoft Word`
+- Word 中已经可以看到官方 `Zotero` 选项卡
 
-### 快速开始
+### Windows 安装
 
-最简单的方式：
+#### 方式一：一键安装器
 
-1. 关闭 Word
-2. 运行 `dist/zotero-word-links-installer.exe`
-3. 重新打开 Word
-4. 在 `Zotero` 选项卡里点击 `Create Citation Links`
+推荐普通用户直接使用：
 
-如果你更喜欢脚本安装，也可以进入 `install/` 目录，运行：
+1. 关闭 `Word`
+2. 下载并运行 [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-installer.exe)
+3. 重新打开 `Word`
+4. 打开 `Zotero` 选项卡，确认出现：
+   - `Create Citation Links`
+   - `Remove Citation Links`
 
-- `install.bat`
+#### 方式二：脚本安装
+
+如果你更想看安装内容或自己控制流程：
+
+1. 下载 [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-share.zip)
+2. 解压
+3. 关闭 `Word`
+4. 运行 `install/install.bat`
+
+### Mac 安装
+
+#### 实验性手工安装
+
+Mac 当前不提供自动安装器，只提供实验性的手工安装方式。
+
+1. 下载 [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-mac-template.zip)
+2. 关闭 `Word`
+3. 备份你当前的 `Zotero.dotm`
+4. 将压缩包中的预改 `Zotero.dotm` 复制到 Word Startup 模板目录
+5. 重新打开 `Word`
+6. 打开 `Zotero` 选项卡，确认出现：
+   - `Create Citation Links`
+   - `Remove Citation Links`
+
+详细步骤请看：
+[mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
 
 ### 使用方法
 
-1. 先正常使用 Zotero 插入正文引用和参考文献
+1. 先像平时一样，用 Zotero 插入正文引用和参考文献
 2. 点击 `Create Citation Links`
 3. 点击正文中的引用，跳转到文末对应参考文献
-4. 如果需要删除跳转，点击 `Remove Citation Links`
+4. 如需移除跳转，点击 `Remove Citation Links`
 5. 如果你又执行了 `Zotero -> Refresh`，通常需要重新点击一次 `Create Citation Links`
-
-### Mac 实验性支持
-
-Mac v1 采用手工安装方式，不提供自动安装器。
-
-- 仅面向 `Zotero + Microsoft Word for Mac`
-- 需要手工替换/安装 `Zotero.dotm`
-- Zotero 更新后，可能需要重新下载匹配版本模板
-- 安装说明见：[mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
-- Release 中提供的 Mac 模板是基于 Zotero 官方 Mac Word 模板的派生版本
 
 ### 仓库结构
 
-- `install/`
-  安装脚本、恢复脚本、PowerShell 安装器、宏模块
-- `tools/`
-  构建单文件安装器的脚本
-- `dist/`
-  已构建好的 `.exe` 安装器
+- `install/`  
+  Windows 安装脚本、恢复脚本、宏模块
+- `mac/`  
+  Mac 手工安装文档和 Release 说明
+- `tools/`  
+  Windows / Mac 资产构建脚本
+- `dist/`  
+  已构建好的发布资产
 
 ### 已知限制
 
 - 目前只支持 Zotero，不支持 EndNote
 - 当前数字模式默认链接数字本体，不是整个括号
-- Zotero 更新后，可能需要重新安装一次
+- Mac 版本当前为实验性支持，未在所有 Mac / Word 版本上完整验证
+- Zotero 更新后，可能需要重新安装匹配版本模板
 
 <a id="english"></a>
 
 ## English
 
-[Switch to 中文](#chinese)
+[切换到中文](#中文)
 
-This project is a small enhancement tool for `Windows + Microsoft Word + Zotero`.
+### Overview
 
-After installation, it adds two buttons to the `Zotero` tab in Word:
+This is a small enhancement tool for `Microsoft Word + Zotero`.
+
+It adds two buttons to the `Zotero` tab in Word:
 
 - `Create Citation Links`
 - `Remove Citation Links`
 
-It makes Zotero citations in the document clickable and links them to the matching bibliography entries.
+Its purpose is simple:
+
+- make Zotero citations in the document clickable
+- jump from an in-text citation to the matching bibliography entry
+- change citation color while preserving font, size, and paragraph formatting as much as possible
 
 ### Features
 
-- One-click installation
-- No Python required for normal end users
 - Supports numeric citation styles
 - Supports author-year citation styles
-- Keeps the normal Zotero workflow
+- Keeps the standard Zotero workflow
+- One-click install on Windows
+- Experimental manual install on Mac
 - Can restore the original `Zotero.dotm`
 
 ### Support Matrix
 
 | Platform | Status | Install Mode |
 | --- | --- | --- |
-| Windows + Word | Supported | One-click installer / script |
+| Windows + Word | Supported | One-click installer / script install |
 | Mac + Word | Experimental | Manual install with a prebuilt `Zotero.dotm` |
 
-### Requirements
+### Prerequisites
 
-- Windows
-- Microsoft Word desktop edition
-- Zotero installed
-- The `Zotero` tab already visible in Word
+- `Zotero` is installed
+- `Microsoft Word` is installed
+- The standard Zotero tab is already visible in Word
 
-### Quick Start
+### Windows Installation
 
-The easiest way:
+#### Option 1: One-click installer
 
-1. Close Word
-2. Run `dist/zotero-word-links-installer.exe`
-3. Open Word again
-4. Click `Create Citation Links` in the `Zotero` tab
+Recommended for most users:
 
-If you prefer a script-based install, go to the `install/` folder and run:
+1. Close `Word`
+2. Download and run the [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-installer.exe)
+3. Reopen `Word`
+4. Open the `Zotero` tab and confirm these buttons are visible:
+   - `Create Citation Links`
+   - `Remove Citation Links`
 
-- `install.bat`
+#### Option 2: Script install
+
+If you prefer a more transparent/manual flow:
+
+1. Download the [Windows Share Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-share.zip)
+2. Extract it
+3. Close `Word`
+4. Run `install/install.bat`
+
+### Mac Installation
+
+#### Experimental manual install
+
+Mac currently does not include an automatic installer.  
+It is provided as an experimental manual-install workflow.
+
+1. Download the [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/download/v0.2.0/zotero-word-links-mac-template.zip)
+2. Quit `Word`
+3. Back up your current `Zotero.dotm`
+4. Copy the prebuilt `Zotero.dotm` into the Word Startup template folder
+5. Reopen `Word`
+6. Open the `Zotero` tab and confirm these buttons are visible:
+   - `Create Citation Links`
+   - `Remove Citation Links`
+
+Detailed instructions:
+[mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
 
 ### Usage
 
 1. Insert citations and bibliography with Zotero as usual
 2. Click `Create Citation Links`
-3. Click a citation in the document to jump to the bibliography entry
+3. Click an in-text citation to jump to the bibliography entry
 4. Click `Remove Citation Links` if you want to remove the generated links
 5. If you run `Zotero -> Refresh`, you will usually need to run `Create Citation Links` again
 
-### Experimental Mac Support
-
-Mac v1 is intentionally manual and does not include an automatic installer.
-
-- Only for `Zotero + Microsoft Word for Mac`
-- Requires manually replacing/installing `Zotero.dotm`
-- Reinstallation may be needed after Zotero updates
-- Installation guide: [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
-- The bundled Mac template in releases is a derived template based on Zotero's official Mac Word template
-
 ### Repository Layout
 
-- `install/`
-  install scripts, restore script, PowerShell installer, macro module
-- `tools/`
-  script for building the standalone installer
-- `dist/`
-  prebuilt `.exe` installer
+- `install/`  
+  Windows install scripts, restore script, macro module
+- `mac/`  
+  Mac manual-install documentation and release notes
+- `tools/`  
+  Windows / Mac asset build scripts
+- `dist/`  
+  built release assets
 
 ### Known Limitations
 
 - Zotero only, not EndNote
 - Numeric mode currently links the visible number token instead of the full bracket
+- Mac support is currently experimental and not fully validated across all Mac / Word versions
 - Reinstallation may be needed after Zotero updates
 
 ## License
