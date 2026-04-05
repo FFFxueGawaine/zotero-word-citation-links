@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### 中文
+
+- 新增 Mac 手工安装版文档，作为实验性支持。
+- 新增 Mac 预改模板发布资产构建流程。
+- README 新增平台支持矩阵和 Mac 限制说明。
+
+### English
+
+- Added experimental Mac manual-install documentation.
+- Added a build flow for the prebuilt Mac template release asset.
+- Updated the README with a platform support matrix and Mac-specific limitations.
+
 ## v0.1.1 - 2026-04-05
 
 ### 中文

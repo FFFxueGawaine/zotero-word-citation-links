@@ -29,6 +29,13 @@ Jump to: [中文](#chinese) | [English](#english)
 - 保留 Zotero 原有工作流
 - 支持恢复原始 `Zotero.dotm`
 
+### 支持矩阵
+
+| 平台 | 状态 | 安装方式 |
+| --- | --- | --- |
+| Windows + Word | 正式支持 | 一键安装器 / 脚本安装 |
+| Mac + Word | 实验性支持 | 手工安装预改 `Zotero.dotm` |
+
 ### 适用环境
 
 - Windows
@@ -56,6 +63,16 @@ Jump to: [中文](#chinese) | [English](#english)
 3. 点击正文中的引用，跳转到文末对应参考文献
 4. 如果需要删除跳转，点击 `Remove Citation Links`
 5. 如果你又执行了 `Zotero -> Refresh`，通常需要重新点击一次 `Create Citation Links`
+
+### Mac 实验性支持
+
+Mac v1 采用手工安装方式，不提供自动安装器。
+
+- 仅面向 `Zotero + Microsoft Word for Mac`
+- 需要手工替换/安装 `Zotero.dotm`
+- Zotero 更新后，可能需要重新下载匹配版本模板
+- 安装说明见：[mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
+- Release 中提供的 Mac 模板是基于 Zotero 官方 Mac Word 模板的派生版本
 
 ### 仓库结构
 
@@ -96,6 +113,13 @@ It makes Zotero citations in the document clickable and links them to the matchi
 - Keeps the normal Zotero workflow
 - Can restore the original `Zotero.dotm`
 
+### Support Matrix
+
+| Platform | Status | Install Mode |
+| --- | --- | --- |
+| Windows + Word | Supported | One-click installer / script |
+| Mac + Word | Experimental | Manual install with a prebuilt `Zotero.dotm` |
+
 ### Requirements
 
 - Windows
@@ -123,6 +147,16 @@ If you prefer a script-based install, go to the `install/` folder and run:
 3. Click a citation in the document to jump to the bibliography entry
 4. Click `Remove Citation Links` if you want to remove the generated links
 5. If you run `Zotero -> Refresh`, you will usually need to run `Create Citation Links` again
+
+### Experimental Mac Support
+
+Mac v1 is intentionally manual and does not include an automatic installer.
+
+- Only for `Zotero + Microsoft Word for Mac`
+- Requires manually replacing/installing `Zotero.dotm`
+- Reinstallation may be needed after Zotero updates
+- Installation guide: [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
+- The bundled Mac template in releases is a derived template based on Zotero's official Mac Word template
 
 ### Repository Layout
 
