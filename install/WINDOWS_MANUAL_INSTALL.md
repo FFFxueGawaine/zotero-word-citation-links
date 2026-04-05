@@ -73,6 +73,74 @@ Zotero.backup.before-linking.dotm
 
 打开 `Zotero.dotm` 的 `customUI/customUI.xml`，找到 `ZoteroGroup`。
 
+如果你不知道这一步怎么做，可以按下面两种方式之一来操作。
+
+#### 方法 A：使用 Office RibbonX Editor
+
+这是最推荐的方法，因为它最直观，也最不容易把模板改坏。
+
+1. 安装并打开 `Office RibbonX Editor`
+2. 点击 `File -> Open`
+3. 打开这个文件：
+
+```text
+%APPDATA%\Microsoft\Word\STARTUP\Zotero.dotm
+```
+
+如果你不知道这个路径在哪，可以先在资源管理器地址栏输入：
+
+```text
+%APPDATA%\Microsoft\Word\STARTUP
+```
+
+然后找到 `Zotero.dotm`。
+
+4. 打开后，在左侧文件树中找到：
+
+```text
+customUI
+└─ customUI.xml
+```
+
+5. 点击 `customUI.xml`
+6. 搜索：
+
+```text
+ZoteroGroup
+```
+
+找到它之后，你就到了需要插入按钮的位置。
+
+#### 方法 B：把 `.dotm` 当作压缩包处理
+
+如果你没有 RibbonX Editor，也可以这样做，但更容易出错。
+
+1. 先不要直接动原始模板，先复制一份 `Zotero.dotm`
+2. 把副本改名为 `.zip`，例如：
+
+```text
+Zotero_test.zip
+```
+
+3. 用 `7-Zip` 或其他压缩工具打开
+4. 进入：
+
+```text
+customUI/customUI.xml
+```
+
+5. 解压这个 XML
+6. 用 `VS Code`、`Notepad++` 等文本编辑器打开
+7. 搜索：
+
+```text
+ZoteroGroup
+```
+
+改完以后，再把 XML 放回压缩包，再改回 `.dotm`。
+
+这条路线可以用，但如果你只是第一次尝试，仍然推荐优先使用 `Office RibbonX Editor`。
+
 你需要确保最终顺序类似这样：
 
 1. `Refresh`
@@ -267,6 +335,74 @@ Zotero.backup.before-linking.dotm
 ### Step 2: Add the Ribbon Buttons
 
 Open `customUI/customUI.xml` inside `Zotero.dotm` and find `ZoteroGroup`.
+
+If you are not sure how to do that, use one of the two methods below.
+
+#### Method A: Use Office RibbonX Editor
+
+This is the recommended path because it is the most direct and least error-prone.
+
+1. Install and open `Office RibbonX Editor`
+2. Click `File -> Open`
+3. Open this file:
+
+```text
+%APPDATA%\Microsoft\Word\STARTUP\Zotero.dotm
+```
+
+If you do not know where that is, paste this into the File Explorer address bar first:
+
+```text
+%APPDATA%\Microsoft\Word\STARTUP
+```
+
+Then locate `Zotero.dotm`.
+
+4. After opening it, find this in the left file tree:
+
+```text
+customUI
+└─ customUI.xml
+```
+
+5. Click `customUI.xml`
+6. Search for:
+
+```text
+ZoteroGroup
+```
+
+Once you find it, you are at the correct insertion point for the new buttons.
+
+#### Method B: Treat `.dotm` as a package
+
+If you do not have RibbonX Editor, you can also do this manually, but it is easier to make mistakes.
+
+1. Do not edit the original template first; make a copy of `Zotero.dotm`
+2. Rename the copy to `.zip`, for example:
+
+```text
+Zotero_test.zip
+```
+
+3. Open it with `7-Zip` or another archive tool
+4. Go to:
+
+```text
+customUI/customUI.xml
+```
+
+5. Extract that XML file
+6. Open it in `VS Code`, `Notepad++`, or another text editor
+7. Search for:
+
+```text
+ZoteroGroup
+```
+
+After editing, place the XML back into the archive and rename it back to `.dotm`.
+
+This works, but for a first attempt, `Office RibbonX Editor` is still the safer option.
 
 The final order should look like this:
 
