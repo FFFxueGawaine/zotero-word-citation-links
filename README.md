@@ -6,6 +6,21 @@
 
 > Add clickable citation-to-bibliography links to Zotero citations in Microsoft Word, without disrupting the normal Zotero writing workflow.
 
+<p align="center">
+  <a href="https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest">
+    <img src="https://img.shields.io/github/v/release/FFFxueGawaine/zotero-word-citation-links?label=release&color=D83B01" alt="Latest release" />
+  </a>
+  <a href="https://github.com/FFFxueGawaine/zotero-word-citation-links">
+    <img src="https://img.shields.io/badge/Windows-supported-2563EB" alt="Windows supported" />
+  </a>
+  <a href="https://github.com/FFFxueGawaine/zotero-word-citation-links">
+    <img src="https://img.shields.io/badge/Mac-experimental-0F766E" alt="Mac experimental" />
+  </a>
+  <a href="https://github.com/FFFxueGawaine/zotero-word-citation-links/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/FFFxueGawaine/zotero-word-citation-links?color=334155" alt="MIT license" />
+  </a>
+</p>
+
 Latest release: `v0.3.0`
 
 Downloads:
