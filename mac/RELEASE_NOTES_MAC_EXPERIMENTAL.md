@@ -14,6 +14,7 @@
 - Mac 版继续沿用相同按钮：
   - `Create Citation Links`
   - `Remove Citation Links`
+  - `Set Link Color`
 
 ### 适用范围
 
@@ -45,6 +46,7 @@ This update adds **experimental Mac manual-install support**.
 - The same Word buttons are used on Mac:
   - `Create Citation Links`
   - `Remove Citation Links`
+  - `Set Link Color`
 
 ### Supported Scope
 

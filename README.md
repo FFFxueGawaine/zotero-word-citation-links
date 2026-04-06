@@ -29,12 +29,12 @@
   <img src="./assets/citation-buddy.gif" alt="Cute animated preview of citation links" width="720" />
 </p>
 
-Latest release: `v0.3.0`
+Latest release: `v0.4.0`
 
 Downloads:
 - [Latest Release Page](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest)
 - [Windows Installer](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-installer.exe)
-- [Windows Template Package](./dist/zotero-word-links-windows-template.zip)
+- [Windows Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-windows-template.zip)
 - [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-mac-template.zip)
 
 Changelog: [CHANGELOG.md](./CHANGELOG.md)
@@ -51,10 +51,11 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 这是一个给 `Microsoft Word + Zotero` 使用的小型增强工具。
 
-它会在 Word 的 `Zotero` 选项卡中增加两个按钮：
+它会在 Word 的 `Zotero` 选项卡中增加三个按钮：
 
 - `Create Citation Links`
 - `Remove Citation Links`
+- `Set Link Color`
 
 它的目标很简单：
 
@@ -70,6 +71,7 @@ Jump to: [中文](#zh-cn) | [English](#en)
 | 支持作者-年份格式 | 例如 `(Smith, 2024)` |
 | 入口直观 | 直接出现在 Word 的 `Zotero` 选项卡中 |
 | 尽量保留原格式 | 创建链接时主要只改变颜色 |
+| 可自定义链接颜色 | 可在 Word 内设置新的默认链接颜色 |
 | 支持恢复 | 可以移除跳转，也可以恢复原始模板 |
 
 ### 支持情况
@@ -103,6 +105,7 @@ Windows 现在只保留两种面向用户的安装方式：
 5. 确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 ### 方法二：手动直接复制预改模板
 
@@ -110,7 +113,7 @@ Windows 现在只保留两种面向用户的安装方式：
 
 下载：
 
-- [Windows Template Package](./dist/zotero-word-links-windows-template.zip)
+- [Windows Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-windows-template.zip)
 
 这个包里包含：
 
@@ -127,7 +130,7 @@ Windows 现在只保留两种面向用户的安装方式：
 2. 关闭 `Word`
 3. 双击 `install_prebuilt_template.bat`
 4. 重新打开 `Word`
-5. 检查 `Zotero` 选项卡里的两个按钮
+5. 检查 `Zotero` 选项卡里的三个按钮
 
 #### 方式 B：自己手动复制覆盖
 
@@ -159,6 +162,7 @@ Mac 当前为实验性支持，推荐从模板包开始：
 7. 打开 `Zotero` 选项卡，确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 详细说明：
 [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
@@ -182,6 +186,20 @@ Mac 当前为实验性支持，推荐从模板包开始：
 3. 文中引文会变成可点击状态
 4. 点击引文，可跳转到对应参考文献
 
+### 可选步骤：先设置链接颜色
+
+如果你想把新建链接改成别的颜色，可以先：
+
+1. 打开 Word 的 `Zotero` 选项卡
+2. 点击 `Set Link Color`
+3. 选择预设颜色，或输入自定义 `R,G,B`
+4. 这个颜色会保存为默认值，并用于之后新创建的链接
+
+注意：
+
+- 这个设置不会自动重刷当前文档里已经生成好的链接
+- 如果你想让当前文档改用新颜色，需要之后重新执行一次 `Create Citation Links`
+
 ### 第三步：需要时删除跳转
 
 如果你想移除这次生成的跳转效果：
@@ -196,6 +214,7 @@ Mac 当前为实验性支持，推荐从模板包开始：
 | --- | --- | --- |
 | `Create Citation Links` | 为文中 Zotero 引文创建跳转 | 当引文和参考文献已经准备好时 |
 | `Remove Citation Links` | 移除本工具创建的跳转 | 当你想恢复普通显示或重新生成跳转时 |
+| `Set Link Color` | 设置以后新建链接的默认颜色 | 当你想换成新的链接颜色时 |
 
 ### 推荐使用节奏
 
@@ -227,6 +246,7 @@ Mac 当前为实验性支持，推荐从模板包开始：
 
 - 数字格式创建后只改变颜色
 - 作者-年份格式创建后只让中间正文成为链接，括号保持普通样式
+- 支持把以后新建的链接改成你自定义的颜色
 - 删除后尽量恢复原颜色，不保留下划线
 
 ### 恢复与回退
@@ -267,10 +287,11 @@ Mac 当前为实验性支持，推荐从模板包开始：
 
 This project is a lightweight enhancement for `Microsoft Word + Zotero`.
 
-It adds two buttons to the `Zotero` tab in Word:
+It adds three buttons to the `Zotero` tab in Word:
 
 - `Create Citation Links`
 - `Remove Citation Links`
+- `Set Link Color`
 
 Its goal is simple:
 
@@ -286,6 +307,7 @@ Its goal is simple:
 | Author-date styles | Supports citations like `(Smith, 2024)` |
 | Simple workflow | Use it directly from the `Zotero` tab in Word |
 | Format-preserving | Mostly changes citation color without altering layout |
+| Custom link color | Change the default color for newly created links inside Word |
 | Reversible | You can remove generated links and restore the original template |
 
 ### Support Matrix
@@ -319,6 +341,7 @@ This is the default recommendation for most users.
 5. Confirm these buttons are visible:
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 ### Method 2: Manual direct template replacement
 
@@ -326,7 +349,7 @@ If you prefer the simplest and most transparent route, use the prebuilt `Zotero.
 
 Download:
 
-- [Windows Template Package](./dist/zotero-word-links-windows-template.zip)
+- [Windows Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-windows-template.zip)
 
 This package includes:
 
@@ -343,7 +366,7 @@ You can use it in two ways:
 2. Close `Word`
 3. Double-click `install_prebuilt_template.bat`
 4. Reopen `Word`
-5. Check the `Zotero` tab for the two buttons
+5. Check the `Zotero` tab for the three buttons
 
 #### Option B: Copy and replace the template yourself
 
@@ -375,6 +398,7 @@ Mac support is currently experimental. The recommended path is the template pack
 7. Open the `Zotero` tab and confirm these buttons are visible:
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 Detailed guide:
 [mac/MAC_INSTALL.md](./mac/MAC_INSTALL.md)
@@ -398,6 +422,20 @@ Once your document already contains in-text citations and a bibliography:
 3. the citations become clickable
 4. click a citation to jump to the matching bibliography entry
 
+### Optional: Set the link color first
+
+If you want future links to use a different color:
+
+1. open the `Zotero` tab in Word
+2. click `Set Link Color`
+3. choose a preset color, or enter a custom `R,G,B`
+4. the chosen color is saved as the default for links created later
+
+Notes:
+
+- changing the setting does not repaint links that already exist in the current document
+- if you want the current document to use the new color, run `Create Citation Links` again afterward
+
 ### Step 3: Remove jump links when needed
 
 If you want to remove the generated links:
@@ -412,6 +450,7 @@ If you want to remove the generated links:
 | --- | --- | --- |
 | `Create Citation Links` | Creates clickable links for Zotero citations | After your citations and bibliography are already in place |
 | `Remove Citation Links` | Removes the links created by this tool | When you want to restore normal display or recreate links |
+| `Set Link Color` | Sets the default color for future links | When you want newly created links to use a different color |
 
 ### Recommended Workflow
 
@@ -443,6 +482,7 @@ Current design goals:
 
 - numeric citations change color only
 - author-date citations link only the inner text, while keeping the outer brackets normal
+- future links can use a custom default color that you set inside Word
 - removed links should not leave underline artifacts
 
 ### Restore / Rollback

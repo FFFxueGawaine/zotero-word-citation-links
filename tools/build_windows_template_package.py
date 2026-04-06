@@ -36,6 +36,7 @@ UPSTREAM_COPYING_RELATIVE = Path("COPYING")
 SEPARATOR_ID = "ZoteroCitationLinksSeparator"
 CREATE_ID = "ZoteroCreateCitationLinksButton"
 REMOVE_ID = "ZoteroRemoveCitationLinksButton"
+SET_COLOR_ID = "ZoteroSetLinkColorButton"
 UNLINK_ID = "ZoteroRemoveCodes"
 REFRESH_ID = "RefreshZotero"
 
@@ -100,7 +101,7 @@ def patch_custom_ui(template_path: Path) -> None:
 
         for child in list(group):
             child_id = child.attrib.get("id")
-            if child_id in {SEPARATOR_ID, CREATE_ID, REMOVE_ID}:
+            if child_id in {SEPARATOR_ID, CREATE_ID, REMOVE_ID, SET_COLOR_ID}:
                 group.remove(child)
 
         refresh_button = None
@@ -145,12 +146,24 @@ def patch_custom_ui(template_path: Path) -> None:
                 "keytip": "L",
             },
         )
+        set_color_button = ET.Element(
+            f"{{{NS['ui']}}}button",
+            {
+                "id": SET_COLOR_ID,
+                "label": "Set Link Color",
+                "imageMso": "FontColorPicker",
+                "onAction": "ZoteroWordHyperlinks.ZoteroSetLinkColor",
+                "supertip": "Set the default color used for newly created citation links",
+                "keytip": "S",
+            },
+        )
 
         children = list(group)
         unlink_index = children.index(unlink_button)
         group.insert(unlink_index + 1, separator)
         group.insert(unlink_index + 2, create_button)
         group.insert(unlink_index + 3, remove_button)
+        group.insert(unlink_index + 4, set_color_button)
 
         updated_custom_ui = ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
@@ -244,7 +257,7 @@ def add_file_to_zip(archive: zipfile.ZipFile, source_path: Path, arcname: str) -
 def verify_custom_ui(template_path: Path) -> None:
     with zipfile.ZipFile(template_path, "r") as archive:
         xml_text = archive.read("customUI/customUI.xml").decode("utf-8")
-    if CREATE_ID not in xml_text or REMOVE_ID not in xml_text:
+    if CREATE_ID not in xml_text or REMOVE_ID not in xml_text or SET_COLOR_ID not in xml_text:
         raise RuntimeError("Windows template build verification failed: customUI buttons not found")
 
 

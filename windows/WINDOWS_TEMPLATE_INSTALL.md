@@ -64,6 +64,7 @@ install_prebuilt_template.bat
 6. 确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 #### 方式 B：自己手动复制覆盖
 
@@ -87,7 +88,7 @@ Zotero.dotm
 ```
 
 4. 重新打开 `Word`
-5. 检查 `Zotero` 选项卡里的两个按钮
+5. 检查 `Zotero` 选项卡里的三个按钮
 
 ### 恢复方法
 
@@ -196,6 +197,7 @@ install_prebuilt_template.bat
 6. Confirm these buttons are visible:
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 #### Option B: Copy and replace the template yourself
 
@@ -219,7 +221,7 @@ over:
 ```
 
 4. Reopen `Word`
-5. Check the two buttons in the `Zotero` tab
+5. Check the three buttons in the `Zotero` tab
 
 ### Restore
 

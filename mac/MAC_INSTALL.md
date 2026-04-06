@@ -42,6 +42,7 @@ Jump to: [中文](#中文) | [English](#english)
 7. 打开 `Zotero` 选项卡，确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 #### 方式二：手工安装
 
@@ -54,6 +55,7 @@ Jump to: [中文](#中文) | [English](#english)
 7. 打开 `Zotero` 选项卡，确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 ### 常见路径
 
@@ -134,6 +136,7 @@ Use the one-click script first if possible.
 7. Open the `Zotero` tab and confirm these buttons are visible:
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 #### Option 2: Manual install
 
@@ -146,6 +149,7 @@ Use the one-click script first if possible.
 7. Open the `Zotero` tab and confirm these buttons are visible:
    - `Create Citation Links`
    - `Remove Citation Links`
+   - `Set Link Color`
 
 ### Common Path
 

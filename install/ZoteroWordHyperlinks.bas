@@ -3,7 +3,9 @@ Option Explicit
 
 Private Const BIB_BOOKMARK As String = "ZOTERO_BIBL_ROOT"
 Private Const REF_BOOKMARK_PREFIX As String = "ZOTERO_REF_"
+Private Const DEFAULT_LINK_COLOR As Long = vbBlue
 Private Const UNLINKED_CITATION_COLOR As Long = -16777216
+Private Const LINK_COLOR_VARIABLE As String = "ZWL_LINK_COLOR"
 Private Const LINK_TARGET_PREFIX As String = "ZWL_COLOR="
 
 Public Sub ZoteroCreateCitationLinks(Optional ByVal control As Variant)
@@ -12,6 +14,10 @@ End Sub
 
 Public Sub ZoteroRemoveCitationLinks(Optional ByVal control As Variant)
     RemoveManagedCitationLinks
+End Sub
+
+Public Sub ZoteroSetLinkColor(Optional ByVal control As Variant)
+    SetDefaultLinkColorInteractive
 End Sub
 
 Public Sub ZoteroLinkCitationNumeric()
@@ -48,6 +54,237 @@ Private Sub RemoveManagedCitationLinks()
             ActiveDocument.Bookmarks(bmName).Delete
         End If
     Next i
+End Sub
+
+Private Sub SetDefaultLinkColorInteractive()
+    Dim selectedColor As Long
+    Dim selectedLabel As String
+
+    If Not PromptForLinkColorSelection(selectedColor, selectedLabel) Then
+        Exit Sub
+    End If
+
+    On Error GoTo SaveFailed
+    SaveConfiguredLinkColor selectedColor
+    MsgBox "Default link color updated to " & selectedLabel & "." & vbCrLf & vbCrLf & _
+        "The new color will be used the next time you run Create Citation Links.", vbInformation
+    Exit Sub
+
+SaveFailed:
+    MsgBox "Unable to save the link color setting: " & Err.Description, vbExclamation
+End Sub
+
+Private Function PromptForLinkColorSelection(ByRef selectedColor As Long, ByRef selectedLabel As String) As Boolean
+    Dim promptText As String
+    Dim userChoice As String
+
+    promptText = "Choose the default citation link color." & vbCrLf & vbCrLf & _
+        "Current: " & DescribeColorValue(GetConfiguredLinkColor()) & vbCrLf & vbCrLf & _
+        "1 - Blue" & vbCrLf & _
+        "2 - Black" & vbCrLf & _
+        "3 - Dark Red" & vbCrLf & _
+        "4 - Dark Green" & vbCrLf & _
+        "5 - Orange" & vbCrLf & _
+        "6 - Custom RGB" & vbCrLf & vbCrLf & _
+        "Enter a number, or leave blank to cancel."
+
+    Do
+        userChoice = Trim$(InputBox(promptText, "Set Link Color", "1"))
+        If Len(userChoice) = 0 Then
+            Exit Function
+        End If
+
+        Select Case userChoice
+            Case "1"
+                selectedColor = DEFAULT_LINK_COLOR
+                selectedLabel = "Blue"
+                PromptForLinkColorSelection = True
+                Exit Function
+            Case "2"
+                selectedColor = RGB(0, 0, 0)
+                selectedLabel = "Black"
+                PromptForLinkColorSelection = True
+                Exit Function
+            Case "3"
+                selectedColor = RGB(192, 0, 0)
+                selectedLabel = "Dark Red"
+                PromptForLinkColorSelection = True
+                Exit Function
+            Case "4"
+                selectedColor = RGB(0, 112, 60)
+                selectedLabel = "Dark Green"
+                PromptForLinkColorSelection = True
+                Exit Function
+            Case "5"
+                selectedColor = RGB(230, 120, 0)
+                selectedLabel = "Orange"
+                PromptForLinkColorSelection = True
+                Exit Function
+            Case "6"
+                If PromptForCustomRgbColor(selectedColor, selectedLabel) Then
+                    PromptForLinkColorSelection = True
+                End If
+                Exit Function
+            Case Else
+                MsgBox "Please enter 1, 2, 3, 4, 5, or 6.", vbExclamation
+        End Select
+    Loop
+End Function
+
+Private Function PromptForCustomRgbColor(ByRef selectedColor As Long, ByRef selectedLabel As String) As Boolean
+    Dim inputValue As String
+    Dim redValue As Long
+    Dim greenValue As Long
+    Dim blueValue As Long
+
+    Do
+        inputValue = Trim$(InputBox( _
+            "Enter a custom RGB color as R,G,B." & vbCrLf & _
+            "Example: 220,20,60" & vbCrLf & vbCrLf & _
+            "Leave blank to cancel.", _
+            "Custom Link Color"))
+
+        If Len(inputValue) = 0 Then
+            Exit Function
+        End If
+
+        If TryParseRgbInput(inputValue, redValue, greenValue, blueValue) Then
+            selectedColor = RGB(redValue, greenValue, blueValue)
+            selectedLabel = "Custom RGB (" & redValue & "," & greenValue & "," & blueValue & ")"
+            PromptForCustomRgbColor = True
+            Exit Function
+        End If
+
+        MsgBox "Please enter three integers between 0 and 255, for example 220,20,60.", vbExclamation
+    Loop
+End Function
+
+Private Function TryParseRgbInput(ByVal inputValue As String, ByRef redValue As Long, ByRef greenValue As Long, ByRef blueValue As Long) As Boolean
+    Dim parts() As String
+
+    parts = Split(inputValue, ",")
+    If UBound(parts) - LBound(parts) <> 2 Then
+        Exit Function
+    End If
+
+    If Not TryParseRgbPart(parts(0), redValue) Then
+        Exit Function
+    End If
+
+    If Not TryParseRgbPart(parts(1), greenValue) Then
+        Exit Function
+    End If
+
+    If Not TryParseRgbPart(parts(2), blueValue) Then
+        Exit Function
+    End If
+
+    TryParseRgbInput = True
+End Function
+
+Private Function TryParseRgbPart(ByVal rawValue As String, ByRef componentValue As Long) As Boolean
+    Dim cleanedValue As String
+
+    cleanedValue = Trim$(rawValue)
+    If Len(cleanedValue) = 0 Then
+        Exit Function
+    End If
+
+    If Not cleanedValue Like "[0-9]*" Then
+        Exit Function
+    End If
+
+    On Error GoTo ParseFailed
+    componentValue = CLng(cleanedValue)
+    If componentValue < 0 Or componentValue > 255 Then
+        Exit Function
+    End If
+
+    TryParseRgbPart = True
+    Exit Function
+
+ParseFailed:
+    TryParseRgbPart = False
+End Function
+
+Private Function GetConfiguredLinkColor() As Long
+    Dim configuredColor As Long
+
+    If TryGetConfiguredLinkColor(configuredColor) Then
+        GetConfiguredLinkColor = configuredColor
+    Else
+        GetConfiguredLinkColor = DEFAULT_LINK_COLOR
+    End If
+End Function
+
+Private Function TryGetConfiguredLinkColor(ByRef configuredColor As Long) As Boolean
+    Dim rawValue As String
+
+    On Error GoTo MissingValue
+    rawValue = Trim$(ThisDocument.Variables(LINK_COLOR_VARIABLE).Value)
+    If Len(rawValue) = 0 Then
+        Exit Function
+    End If
+
+    configuredColor = CLng(rawValue)
+    TryGetConfiguredLinkColor = True
+    Exit Function
+
+MissingValue:
+    TryGetConfiguredLinkColor = False
+End Function
+
+Private Sub SaveConfiguredLinkColor(ByVal colorValue As Long)
+    Dim colorText As String
+
+    colorText = CStr(colorValue)
+
+    On Error Resume Next
+    ThisDocument.Variables(LINK_COLOR_VARIABLE).Value = colorText
+    If Err.Number <> 0 Then
+        Err.Clear
+        ThisDocument.Variables.Add Name:=LINK_COLOR_VARIABLE, Value:=colorText
+    End If
+    On Error GoTo 0
+
+    ThisDocument.Save
+End Sub
+
+Private Function DescribeColorValue(ByVal colorValue As Long) As String
+    Dim redValue As Long
+    Dim greenValue As Long
+    Dim blueValue As Long
+    Dim presetName As String
+
+    GetRgbParts colorValue, redValue, greenValue, blueValue
+    presetName = GetPresetColorName(colorValue)
+
+    If Len(presetName) > 0 Then
+        DescribeColorValue = presetName & " (" & redValue & "," & greenValue & "," & blueValue & ")"
+    Else
+        DescribeColorValue = "RGB (" & redValue & "," & greenValue & "," & blueValue & ")"
+    End If
+End Function
+
+Private Function GetPresetColorName(ByVal colorValue As Long) As String
+    Select Case colorValue
+        Case DEFAULT_LINK_COLOR
+            GetPresetColorName = "Blue"
+        Case RGB(0, 0, 0)
+            GetPresetColorName = "Black"
+        Case RGB(192, 0, 0)
+            GetPresetColorName = "Dark Red"
+        Case RGB(0, 112, 60)
+            GetPresetColorName = "Dark Green"
+        Case RGB(230, 120, 0)
+            GetPresetColorName = "Orange"
+    End Select
+End Function
+
+Private Sub GetRgbParts(ByVal colorValue As Long, ByRef redValue As Long, ByRef greenValue As Long, ByRef blueValue As Long)
+    redValue = colorValue And &HFF&
+    greenValue = (colorValue \ &H100&) And &HFF&
+    blueValue = (colorValue \ &H10000) And &HFF&
 End Sub
 
 Private Sub ApplyZoteroCitationLinks(ByVal autoDetectMode As Boolean, ByVal numericMode As Boolean)
@@ -498,13 +735,16 @@ End Sub
 
 Private Sub ApplyLinkedCitationAppearance(ByVal targetRange As Range)
     Dim i As Long
+    Dim targetColor As Long
 
-    targetRange.Font.Color = vbBlue
+    targetColor = GetConfiguredLinkColor()
+
+    targetRange.Font.Color = targetColor
     targetRange.Font.Underline = wdUnderlineNone
 
     For i = 1 To targetRange.Characters.Count
         With targetRange.Characters(i).Font
-            .Color = vbBlue
+            .Color = targetColor
             .Underline = wdUnderlineNone
         End With
     Next i

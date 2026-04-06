@@ -6,6 +6,21 @@ All notable changes to this project will be documented in this file.
 
 ### 中文
 
+- 暂无未发布改动。
+
+### English
+
+- No unreleased changes yet.
+
+## v0.4.0 - 2026-04-06
+
+### 中文
+
+- 新增 `Set Link Color` 按钮，支持在 Word 的 Zotero 选项卡中直接修改以后新建链接的默认颜色。
+- 新增“预设颜色 + 自定义 RGB”交互，并将颜色持久化保存到模板中，重启 Word 后仍可继续使用。
+- 创建链接时不再写死蓝色，而是统一读取模板里保存的默认链接颜色。
+- 保持“删除链接后恢复原始颜色”的现有逻辑不变，数字格式与作者-年份格式继续只改颜色、不改版式。
+- 更新 Windows 一键安装器、Windows 预改模板包和 Mac 模板包，使三条安装路径都包含新的颜色设置按钮。
 - 新增 Windows 纯手动安装教程，说明如何手动修改 `Zotero.dotm`、添加 Ribbon 按钮并导入宏模块。
 - 补充了如何打开 `Zotero.dotm` 中 `customUI/customUI.xml` 的具体方法，包括 RibbonX Editor 和压缩包两种路径。
 - 新增 Windows 预改模板包方案，支持直接覆盖 `Zotero.dotm` 或运行简单复制脚本完成安装。
@@ -13,9 +28,15 @@ All notable changes to this project will be documented in this file.
 - 将 Windows 面向普通用户的安装方式收敛为两种：一键安装，或直接复制预改模板。
 - 新增 `logo-mark.svg`，修正首页品牌字样右侧展示空间不足的问题。
 - 新增可爱的 README 动态预览图，用更直观的方式展示“引文跳转到参考文献”的效果。
+- README 更新为三按钮工作流，并补充 `Set Link Color` 的安装、使用与限制说明。
 
 ### English
 
+- Added a new `Set Link Color` button to the Zotero tab in Word so users can change the default color for future links directly inside Word.
+- Added a preset-plus-custom-RGB flow and persist the chosen color in the template so the setting survives Word restarts.
+- Link creation no longer hardcodes blue; it now reads the saved default link color from the template.
+- Kept the existing original-color restore behavior on link removal, while continuing the "change color only, not layout" approach for both numeric and author-date styles.
+- Updated the Windows one-click installer, Windows prebuilt template package, and Mac template package so all supported install paths include the new color-setting button.
 - Added a Windows manual install guide describing how to modify `Zotero.dotm`, add the Ribbon buttons, and import the macro module by hand.
 - Expanded the manual guide with concrete ways to open `customUI/customUI.xml`, including both RibbonX Editor and archive-based workflows.
 - Added a Windows prebuilt template package path that supports direct `Zotero.dotm` replacement or a simple copy-based install script.
@@ -23,6 +44,7 @@ All notable changes to this project will be documented in this file.
 - Simplified the Windows user-facing install story to two methods only: one-click install, or direct replacement with the prebuilt template.
 - Added `logo-mark.svg` and fixed the cramped right-side wordmark area in the project branding.
 - Added a cute animated README preview to show the citation-to-bibliography jump behavior more intuitively.
+- Updated the README to reflect the three-button workflow and document `Set Link Color` behavior, installation, and limitations.
 
 ## v0.3.0 - 2026-04-05
 
