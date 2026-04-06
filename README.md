@@ -27,7 +27,7 @@
   <img src="./assets/citation-buddy.gif" alt="Cute animated preview of citation links" width="720" />
 </p>
 
-Latest release: `v0.4.0`
+Latest release: `v0.4.1`
 
 Downloads:
 - [Latest Release Page](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest)
@@ -190,8 +190,9 @@ Mac 当前为实验性支持，推荐从模板包开始：
 
 1. 打开 Word 的 `Zotero` 选项卡
 2. 点击 `Set Link Color`
-3. 选择预设颜色，或输入自定义 `R,G,B`
-4. 这个颜色会保存为默认值，并用于之后新创建的链接
+3. 优先使用 Word 自带的颜色对话框选择颜色
+4. 如果原生对话框不可用或没有取到颜色，会自动回退到预设颜色 / 自定义 `R,G,B`
+5. 这个颜色会保存为默认值，并用于之后新创建的链接
 
 注意：
 
@@ -212,7 +213,7 @@ Mac 当前为实验性支持，推荐从模板包开始：
 | --- | --- | --- |
 | `Create Citation Links` | 为文中 Zotero 引文创建跳转 | 当引文和参考文献已经准备好时 |
 | `Remove Citation Links` | 移除本工具创建的跳转 | 当你想恢复普通显示或重新生成跳转时 |
-| `Set Link Color` | 设置以后新建链接的默认颜色 | 当你想换成新的链接颜色时 |
+| `Set Link Color` | 优先用 Word 原生颜色对话框设置以后新建链接的默认颜色 | 当你想换成新的链接颜色时 |
 
 ### 推荐使用节奏
 
@@ -426,8 +427,9 @@ If you want future links to use a different color:
 
 1. open the `Zotero` tab in Word
 2. click `Set Link Color`
-3. choose a preset color, or enter a custom `R,G,B`
-4. the chosen color is saved as the default for links created later
+3. Word first tries to open its built-in color dialog
+4. if the native dialog is unavailable or no color is captured, the tool falls back to preset colors / custom `R,G,B`
+5. the chosen color is saved as the default for links created later
 
 Notes:
 
@@ -448,7 +450,7 @@ If you want to remove the generated links:
 | --- | --- | --- |
 | `Create Citation Links` | Creates clickable links for Zotero citations | After your citations and bibliography are already in place |
 | `Remove Citation Links` | Removes the links created by this tool | When you want to restore normal display or recreate links |
-| `Set Link Color` | Sets the default color for future links | When you want newly created links to use a different color |
+| `Set Link Color` | Uses Word's native color dialog first to set the default color for future links | When you want newly created links to use a different color |
 
 ### Recommended Workflow
 

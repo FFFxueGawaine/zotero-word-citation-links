@@ -206,7 +206,16 @@ def import_macro_module(template_path: Path, bas_path: Path) -> None:
 
 def clone_upstream_template(temp_root: Path) -> tuple[Path, str]:
     clone_dir = temp_root / "upstream"
-    run_git(["clone", UPSTREAM_REPO_URL, str(clone_dir)])
+    run_git(
+        [
+            "clone",
+            "--depth",
+            "1",
+            "--filter=blob:none",
+            UPSTREAM_REPO_URL,
+            str(clone_dir),
+        ]
+    )
     run_git(["checkout", UPSTREAM_COMMIT], cwd=clone_dir)
     commit = run_git(["rev-parse", "HEAD"], cwd=clone_dir)
     return clone_dir, commit

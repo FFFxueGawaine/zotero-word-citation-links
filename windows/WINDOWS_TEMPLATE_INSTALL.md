@@ -66,6 +66,8 @@ install_prebuilt_template.bat
    - `Remove Citation Links`
    - `Set Link Color`
 
+安装完成后，`Set Link Color` 会优先调用 Word 自带的颜色对话框；如果原生对话框不可用，再回退到预设颜色 / 自定义 `RGB`。
+
 #### 方式 B：自己手动复制覆盖
 
 1. 关闭 `Word`
@@ -198,6 +200,8 @@ install_prebuilt_template.bat
    - `Create Citation Links`
    - `Remove Citation Links`
    - `Set Link Color`
+
+After installation, `Set Link Color` first tries to use Word's built-in color dialog. If that native path is unavailable, it falls back to preset colors / custom `RGB`.
 
 #### Option B: Copy and replace the template yourself
 

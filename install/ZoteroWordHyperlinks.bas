@@ -57,10 +57,20 @@ Private Sub RemoveManagedCitationLinks()
 End Sub
 
 Private Sub SetDefaultLinkColorInteractive()
+    Dim currentColor As Long
     Dim selectedColor As Long
     Dim selectedLabel As String
 
-    If Not PromptForLinkColorSelection(selectedColor, selectedLabel) Then
+    currentColor = GetConfiguredLinkColor()
+
+    If Not TryPromptForLinkColorWithOfficeDialog(selectedColor, selectedLabel) Then
+        If Not PromptForLinkColorSelection(selectedColor, selectedLabel) Then
+            Exit Sub
+        End If
+    End If
+
+    If selectedColor = currentColor Then
+        MsgBox "Default link color was not changed.", vbInformation
         Exit Sub
     End If
 
@@ -73,6 +83,71 @@ Private Sub SetDefaultLinkColorInteractive()
 SaveFailed:
     MsgBox "Unable to save the link color setting: " & Err.Description, vbExclamation
 End Sub
+
+Private Function TryPromptForLinkColorWithOfficeDialog(ByRef selectedColor As Long, ByRef selectedLabel As String) As Boolean
+    Dim originalDoc As Document
+    Dim scratchDoc As Document
+    Dim scratchRange As Range
+    Dim originalStart As Long
+    Dim originalEnd As Long
+    Dim currentColor As Long
+    Dim chosenColor As Long
+    Dim hadOriginalDoc As Boolean
+
+    On Error GoTo NativeDialogFailed
+
+    currentColor = GetConfiguredLinkColor()
+
+    If Documents.Count > 0 Then
+        Set originalDoc = ActiveDocument
+        hadOriginalDoc = True
+        originalStart = Selection.Start
+        originalEnd = Selection.End
+    End If
+
+    Set scratchDoc = Documents.Add
+    Set scratchRange = scratchDoc.Range(0, 0)
+    scratchRange.Text = "Zotero Link Color"
+    Set scratchRange = scratchDoc.Range(0, Len("Zotero Link Color"))
+    scratchRange.Select
+    Selection.Font.Color = currentColor
+    Selection.Font.Underline = wdUnderlineNone
+
+    Application.CommandBars.ExecuteMso "FontColorMoreColorsDialog"
+
+    chosenColor = CLng(Selection.Font.Color)
+    If chosenColor = wdUndefined Then
+        GoTo NativeDialogFailed
+    End If
+
+    If scratchDoc Is Nothing Then
+        GoTo NativeDialogFailed
+    End If
+
+    If chosenColor = currentColor Then
+        GoTo NativeDialogFailed
+    End If
+
+    selectedColor = chosenColor
+    selectedLabel = DescribeColorValue(chosenColor)
+    TryPromptForLinkColorWithOfficeDialog = True
+
+NativeDialogCleanup:
+    On Error Resume Next
+    If Not scratchDoc Is Nothing Then
+        scratchDoc.Close SaveChanges:=wdDoNotSaveChanges
+    End If
+    If hadOriginalDoc Then
+        originalDoc.Activate
+        originalDoc.Range(originalStart, originalEnd).Select
+    End If
+    On Error GoTo 0
+    Exit Function
+
+NativeDialogFailed:
+    TryPromptForLinkColorWithOfficeDialog = False
+    Resume NativeDialogCleanup
+End Function
 
 Private Function PromptForLinkColorSelection(ByRef selectedColor As Long, ByRef selectedLabel As String) As Boolean
     Dim promptText As String

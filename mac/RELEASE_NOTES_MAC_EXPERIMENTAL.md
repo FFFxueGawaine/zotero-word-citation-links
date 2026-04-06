@@ -15,6 +15,7 @@
   - `Create Citation Links`
   - `Remove Citation Links`
   - `Set Link Color`
+- `Set Link Color` 会优先尝试 Word 原生颜色对话框，失败时回退到预设颜色 / 自定义 `RGB`
 
 ### 适用范围
 
@@ -47,6 +48,7 @@ This update adds **experimental Mac manual-install support**.
   - `Create Citation Links`
   - `Remove Citation Links`
   - `Set Link Color`
+- `Set Link Color` first tries Word's native color dialog and falls back to preset colors / custom `RGB` if needed
 
 ### Supported Scope
 

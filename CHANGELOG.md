@@ -12,6 +12,26 @@ All notable changes to this project will be documented in this file.
 
 - No unreleased changes yet.
 
+## v0.4.1 - 2026-04-06
+
+### 中文
+
+- 将 `Set Link Color` 升级为优先调用 Word 原生颜色对话框 `FontColorMoreColorsDialog`。
+- 新增 scratch 文档取色流程，避免在选择颜色时污染用户当前文档正文。
+- 如果原生颜色对话框不可用、取消或无法取到颜色，会自动回退到 `v0.4.0` 的预设颜色 / 自定义 `RGB` 输入流程。
+- 保持现有模板变量 `ZWL_LINK_COLOR` 不变，因此数字格式和作者-年份格式都会继续共用同一颜色来源。
+- 更新 README、Windows 模板说明和 Mac 安装说明，使文档与新的取色行为一致。
+- 重建 Windows 一键安装器、Windows 预改模板包和 Mac 模板包。
+
+### English
+
+- Upgraded `Set Link Color` so it first tries Word's native `FontColorMoreColorsDialog`.
+- Added a scratch-document color capture flow so the native picker does not modify the user's current working document.
+- If the native dialog is unavailable, canceled, or no stable color can be read back, the tool now falls back to the `v0.4.0` preset-color / custom-`RGB` flow.
+- Kept the existing `ZWL_LINK_COLOR` template variable, so numeric and author-date citations continue to share the same saved color source.
+- Updated the README, Windows template guide, and Mac install guide to match the new color-picking behavior.
+- Rebuilt the Windows one-click installer, Windows prebuilt template package, and Mac template package.
+
 ## v0.4.0 - 2026-04-06
 
 ### 中文

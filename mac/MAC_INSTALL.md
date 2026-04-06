@@ -44,6 +44,8 @@ Jump to: [中文](#中文) | [English](#english)
    - `Remove Citation Links`
    - `Set Link Color`
 
+`Set Link Color` 会优先尝试 Word 自带的颜色对话框；如果当前 Mac 版本无法稳定取色，再回退到预设颜色 / 自定义 `RGB`。
+
 #### 方式二：手工安装
 
 1. 完全关闭 `Microsoft Word`
@@ -56,6 +58,8 @@ Jump to: [中文](#中文) | [English](#english)
    - `Create Citation Links`
    - `Remove Citation Links`
    - `Set Link Color`
+
+如果原生颜色对话框在你的 Mac / Word 版本上不可用，`Set Link Color` 仍会保留当前的输入式兜底流程。
 
 ### 常见路径
 
@@ -138,6 +142,8 @@ Use the one-click script first if possible.
    - `Remove Citation Links`
    - `Set Link Color`
 
+`Set Link Color` first tries Word's native color dialog. If the current Mac / Word version cannot return a stable color value, it falls back to preset colors / custom `RGB`.
+
 #### Option 2: Manual install
 
 1. Fully quit `Microsoft Word`
@@ -150,6 +156,8 @@ Use the one-click script first if possible.
    - `Create Citation Links`
    - `Remove Citation Links`
    - `Set Link Color`
+
+If the native color dialog is not usable on your Mac / Word version, `Set Link Color` still keeps the current input-based fallback path.
 
 ### Common Path
 
