@@ -2,9 +2,7 @@
   <img src="./assets/banner.svg" alt="Zotero Word Citation Links banner" width="100%" />
 </p>
 
-<p align="center">
-  <img src="./assets/logo-mark.svg" alt="Zotero Word Citation Links logo mark" width="520" />
-</p>
+ 
 
 # Zotero Word Citation Links
 
