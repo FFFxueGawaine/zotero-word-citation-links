@@ -14,8 +14,7 @@
 - Mac 版继续沿用相同按钮：
   - `Create Citation Links`
   - `Remove Citation Links`
-  - `Set Link Color`
-- `Set Link Color` 会优先尝试 Word 原生颜色对话框，失败时回退到预设颜色 / 自定义 `RGB`
+- 链接外观改为由当前文档中的 `Zotero Citation Link` 字符样式控制
 
 ### 适用范围
 
@@ -47,8 +46,7 @@ This update adds **experimental Mac manual-install support**.
 - The same Word buttons are used on Mac:
   - `Create Citation Links`
   - `Remove Citation Links`
-  - `Set Link Color`
-- `Set Link Color` first tries Word's native color dialog and falls back to preset colors / custom `RGB` if needed
+- Link appearance is now controlled by the current document character style `Zotero Citation Link`
 
 ### Supported Scope
 

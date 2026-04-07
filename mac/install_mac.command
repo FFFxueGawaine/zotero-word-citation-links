@@ -58,6 +58,6 @@ print_line ""
 print_line "Reopen Word and check the Zotero tab for:"
 print_line "- Create Citation Links"
 print_line "- Remove Citation Links"
-print_line "- Set Link Color"
+print_line "- Zotero Citation Link (document character style)"
 
 pause_and_exit

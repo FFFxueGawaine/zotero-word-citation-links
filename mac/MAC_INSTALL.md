@@ -42,9 +42,8 @@ Jump to: [中文](#中文) | [English](#english)
 7. 打开 `Zotero` 选项卡，确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
-   - `Set Link Color`
 
-`Set Link Color` 会优先尝试 Word 自带的颜色对话框；如果当前 Mac 版本无法稳定取色，再回退到预设颜色 / 自定义 `RGB`。
+安装完成后，链接外观由当前文档中的字符样式 `Zotero Citation Link` 控制。
 
 #### 方式二：手工安装
 
@@ -57,9 +56,10 @@ Jump to: [中文](#中文) | [English](#english)
 7. 打开 `Zotero` 选项卡，确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
-   - `Set Link Color`
 
-如果原生颜色对话框在你的 Mac / Word 版本上不可用，`Set Link Color` 仍会保留当前的输入式兜底流程。
+如果你想调整链接字体、字号、颜色或上下标，请在当前文档的样式窗格里编辑：
+
+- `Zotero Citation Link`
 
 ### 常见路径
 
@@ -138,11 +138,10 @@ Use the one-click script first if possible.
 5. Wait for the installer to finish
 6. Reopen `Word`
 7. Open the `Zotero` tab and confirm these buttons are visible:
-   - `Create Citation Links`
-   - `Remove Citation Links`
-   - `Set Link Color`
+- `Create Citation Links`
+- `Remove Citation Links`
 
-`Set Link Color` first tries Word's native color dialog. If the current Mac / Word version cannot return a stable color value, it falls back to preset colors / custom `RGB`.
+Link appearance is controlled by the current document character style `Zotero Citation Link`.
 
 #### Option 2: Manual install
 
@@ -153,11 +152,12 @@ Use the one-click script first if possible.
 5. Copy the included `Zotero.dotm` into the Word Startup template folder
 6. Reopen `Word`
 7. Open the `Zotero` tab and confirm these buttons are visible:
-   - `Create Citation Links`
-   - `Remove Citation Links`
-   - `Set Link Color`
+- `Create Citation Links`
+- `Remove Citation Links`
 
-If the native color dialog is not usable on your Mac / Word version, `Set Link Color` still keeps the current input-based fallback path.
+If you want to change the link font, size, color, or superscript behavior, edit the current document style:
+
+- `Zotero Citation Link`
 
 ### Common Path
 

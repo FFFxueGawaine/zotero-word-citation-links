@@ -64,9 +64,8 @@ install_prebuilt_template.bat
 6. 确认出现：
    - `Create Citation Links`
    - `Remove Citation Links`
-   - `Set Link Color`
 
-安装完成后，`Set Link Color` 会优先调用 Word 自带的颜色对话框；如果原生对话框不可用，再回退到预设颜色 / 自定义 `RGB`。
+安装完成后，链接外观由当前文档中的字符样式 `Zotero Citation Link` 控制。
 
 #### 方式 B：自己手动复制覆盖
 
@@ -90,7 +89,11 @@ Zotero.dotm
 ```
 
 4. 重新打开 `Word`
-5. 检查 `Zotero` 选项卡里的三个按钮
+5. 检查 `Zotero` 选项卡里的两个按钮
+
+如果你想调整链接字体、字号、颜色或上下标，请在当前文档的样式窗格里编辑：
+
+- `Zotero Citation Link`
 
 ### 恢复方法
 
@@ -197,11 +200,10 @@ install_prebuilt_template.bat
 4. Reopen `Word`
 5. Open the `Zotero` tab
 6. Confirm these buttons are visible:
-   - `Create Citation Links`
-   - `Remove Citation Links`
-   - `Set Link Color`
+- `Create Citation Links`
+- `Remove Citation Links`
 
-After installation, `Set Link Color` first tries to use Word's built-in color dialog. If that native path is unavailable, it falls back to preset colors / custom `RGB`.
+After installation, link appearance is controlled by the current document character style `Zotero Citation Link`.
 
 #### Option B: Copy and replace the template yourself
 
@@ -225,7 +227,11 @@ over:
 ```
 
 4. Reopen `Word`
-5. Check the three buttons in the `Zotero` tab
+5. Check the two buttons in the `Zotero` tab
+
+If you want to change the link font, size, color, or superscript behavior, edit the current document style:
+
+- `Zotero Citation Link`
 
 ### Restore
 

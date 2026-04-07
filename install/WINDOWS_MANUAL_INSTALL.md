@@ -20,10 +20,9 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 Windows 版的本质是对 Word 正在使用的 `Zotero.dotm` 做两类修改：
 
-1. 给 `Zotero` 选项卡加入三个按钮
+1. 给 `Zotero` 选项卡加入两个按钮
    - `Create Citation Links`
    - `Remove Citation Links`
-   - `Set Link Color`
 2. 把宏模块 `ZoteroWordHyperlinks.bas` 导入模板
 
 也就是说，手动安装的核心就是：
@@ -149,8 +148,6 @@ ZoteroGroup
 3. 分隔符
 4. `Create Citation Links`
 5. `Remove Citation Links`
-6. `Set Link Color`
-6. `Set Link Color`
 
 按钮 XML 可以参考下面这段：
 
@@ -170,13 +167,6 @@ ZoteroGroup
     onAction="ZoteroWordHyperlinks.ZoteroRemoveCitationLinks"
     supertip="Remove citation links and bibliography bookmarks created by the hyperlink helper"
     keytip="L" />
-<button
-    id="ZoteroSetLinkColorButton"
-    label="Set Link Color"
-    imageMso="FontColorPicker"
-    onAction="ZoteroWordHyperlinks.ZoteroSetLinkColor"
-    supertip="Set the default color used for newly created citation links"
-    keytip="S" />
 ```
 
 如果你在手改时不确定放置位置，最重要的不是像素级顺序，而是：
@@ -229,7 +219,6 @@ install/ZoteroWordHyperlinks.bas
 
 - `Create Citation Links`
 - `Remove Citation Links`
-- `Set Link Color`
 
 ### 第六步：验证安装
 
@@ -297,10 +286,9 @@ This guide is for users who:
 
 The Windows version makes two kinds of changes to the active Word `Zotero.dotm` template:
 
-1. it adds three buttons to the `Zotero` tab
+1. it adds two buttons to the `Zotero` tab
 - `Create Citation Links`
 - `Remove Citation Links`
-- `Set Link Color`
 2. it imports the macro module `ZoteroWordHyperlinks.bas`
 
 So the manual install flow is simply:
@@ -424,7 +412,6 @@ The final order should look like this:
 3. separator
 4. `Create Citation Links`
 5. `Remove Citation Links`
-6. `Set Link Color`
 
 Use XML like this for the added controls:
 
@@ -495,7 +482,6 @@ You should now see:
 
 - `Create Citation Links`
 - `Remove Citation Links`
-- `Set Link Color`
 
 ### Step 6: Verify the Install
 

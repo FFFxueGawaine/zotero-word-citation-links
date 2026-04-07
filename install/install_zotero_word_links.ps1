@@ -188,14 +188,6 @@ function Update-CustomUiXml {
     [void]$removeButton.SetAttribute("supertip", "Remove citation links and bibliography bookmarks created by the hyperlink helper")
     [void]$removeButton.SetAttribute("keytip", "L")
 
-    $setColorButton = $doc.CreateElement("button", $ns.LookupNamespace("ui"))
-    [void]$setColorButton.SetAttribute("id", $setColorId)
-    [void]$setColorButton.SetAttribute("label", "Set Link Color")
-    [void]$setColorButton.SetAttribute("imageMso", "FontColorPicker")
-    [void]$setColorButton.SetAttribute("onAction", "ZoteroWordHyperlinks.ZoteroSetLinkColor")
-    [void]$setColorButton.SetAttribute("supertip", "Set the default color used for newly created citation links")
-    [void]$setColorButton.SetAttribute("keytip", "S")
-
     if ($null -ne $unlinkButton.NextSibling) {
         [void]$group.InsertBefore($separator, $unlinkButton.NextSibling)
     }
@@ -215,13 +207,6 @@ function Update-CustomUiXml {
     }
     else {
         [void]$group.AppendChild($removeButton)
-    }
-
-    if ($null -ne $removeButton.NextSibling) {
-        [void]$group.InsertBefore($setColorButton, $removeButton.NextSibling)
-    }
-    else {
-        [void]$group.AppendChild($setColorButton)
     }
 
     $settings = New-Object System.Xml.XmlWriterSettings

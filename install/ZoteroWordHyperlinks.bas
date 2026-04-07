@@ -6,7 +6,11 @@ Private Const REF_BOOKMARK_PREFIX As String = "ZOTERO_REF_"
 Private Const DEFAULT_LINK_COLOR As Long = vbBlue
 Private Const UNLINKED_CITATION_COLOR As Long = -16777216
 Private Const LINK_COLOR_VARIABLE As String = "ZWL_LINK_COLOR"
-Private Const LINK_TARGET_PREFIX As String = "ZWL_COLOR="
+Private Const LEGACY_LINK_TARGET_PREFIX As String = "ZWL_COLOR="
+Private Const FORMAT_TARGET_PREFIX As String = "ZWL_FMT="
+Private Const FORMAT_VARIABLE_PREFIX As String = "ZWL_FMT_"
+Private Const NEXT_FORMAT_ID_VARIABLE As String = "ZWL_NEXT_FMT_ID"
+Private Const LINK_STYLE_NAME As String = "Zotero Citation Link"
 
 Public Sub ZoteroCreateCitationLinks(Optional ByVal control As Variant)
     ApplyZoteroCitationLinksAuto
@@ -17,7 +21,8 @@ Public Sub ZoteroRemoveCitationLinks(Optional ByVal control As Variant)
 End Sub
 
 Public Sub ZoteroSetLinkColor(Optional ByVal control As Variant)
-    SetDefaultLinkColorInteractive
+    MsgBox "Link appearance is now controlled by the current document character style '" & LINK_STYLE_NAME & "'." & vbCrLf & vbCrLf & _
+        "Open the Styles pane in Word and edit that style to change the link font, size, color, or other character formatting.", vbInformation
 End Sub
 
 Public Sub ZoteroLinkCitationNumeric()
@@ -37,23 +42,29 @@ Private Sub ApplyZoteroCitationLinksManual(ByVal numericMode As Boolean)
 End Sub
 
 Private Sub RemoveManagedCitationLinks()
+    RemoveManagedCitationArtifacts ActiveDocument
+End Sub
+
+Private Sub RemoveManagedCitationArtifacts(ByVal targetDocument As Document)
     Dim i As Long
     Dim hl As Hyperlink
     Dim bmName As String
 
-    For i = ActiveDocument.Hyperlinks.Count To 1 Step -1
-        Set hl = ActiveDocument.Hyperlinks(i)
+    For i = targetDocument.Hyperlinks.Count To 1 Step -1
+        Set hl = targetDocument.Hyperlinks(i)
         If IsManagedBookmarkName(hl.SubAddress) Then
-            RemoveHyperlinkSafely hl
+            RemoveHyperlinkSafely targetDocument, hl
         End If
     Next i
 
-    For i = ActiveDocument.Bookmarks.Count To 1 Step -1
-        bmName = ActiveDocument.Bookmarks(i).Name
+    For i = targetDocument.Bookmarks.Count To 1 Step -1
+        bmName = targetDocument.Bookmarks(i).Name
         If IsManagedBookmarkName(bmName) Then
-            ActiveDocument.Bookmarks(bmName).Delete
+            targetDocument.Bookmarks(bmName).Delete
         End If
     Next i
+
+    DeleteManagedFormattingVariables targetDocument
 End Sub
 
 Private Sub SetDefaultLinkColorInteractive()
@@ -363,6 +374,7 @@ Private Sub GetRgbParts(ByVal colorValue As Long, ByRef redValue As Long, ByRef 
 End Sub
 
 Private Sub ApplyZoteroCitationLinks(ByVal autoDetectMode As Boolean, ByVal numericMode As Boolean)
+    Dim targetDocument As Document
     Dim keepStart As Long
     Dim keepEnd As Long
     Dim oldScreenUpdating As Boolean
@@ -374,21 +386,24 @@ Private Sub ApplyZoteroCitationLinks(ByVal autoDetectMode As Boolean, ByVal nume
 
     On Error GoTo CleanFail
 
+    Set targetDocument = ActiveDocument
     keepStart = Selection.Start
     keepEnd = Selection.End
     oldScreenUpdating = Application.ScreenUpdating
 
     Application.ScreenUpdating = False
 
-    Set bibRange = FindZoteroBibliographyRange()
+    RemoveManagedCitationArtifacts targetDocument
+
+    Set bibRange = FindZoteroBibliographyRange(targetDocument)
     If bibRange Is Nothing Then
         MsgBox "Zotero bibliography was not found. Please run Zotero -> Add/Edit Bibliography first.", vbExclamation
         GoTo CleanExit
     End If
 
-    AddOrReplaceBookmark BIB_BOOKMARK, bibRange
+    AddOrReplaceBookmark targetDocument, BIB_BOOKMARK, bibRange
 
-    For Each aField In ActiveDocument.Fields
+    For Each aField In targetDocument.Fields
         If InStr(1, aField.Code.Text, "ADDIN ZOTERO_ITEM", vbTextCompare) > 0 Then
             fieldCode = aField.Code.Text
             Set titles = ExtractTitles(fieldCode)
@@ -400,9 +415,9 @@ Private Sub ApplyZoteroCitationLinks(ByVal autoDetectMode As Boolean, ByVal nume
                 End If
 
                 If useNumericMode Then
-                    LinkNumericCitationField aField, titles, bibRange
+                    LinkNumericCitationField targetDocument, aField, titles, bibRange
                 Else
-                    LinkWholeCitationField aField, CStr(titles(1)), bibRange
+                    LinkWholeCitationField targetDocument, aField, CStr(titles(1)), bibRange
                 End If
             End If
         End If
@@ -410,12 +425,12 @@ Private Sub ApplyZoteroCitationLinks(ByVal autoDetectMode As Boolean, ByVal nume
 
 CleanExit:
     Application.ScreenUpdating = oldScreenUpdating
-    ActiveDocument.Range(keepStart, keepEnd).Select
+    targetDocument.Range(keepStart, keepEnd).Select
     Exit Sub
 
 CleanFail:
     Application.ScreenUpdating = oldScreenUpdating
-    ActiveDocument.Range(keepStart, keepEnd).Select
+    targetDocument.Range(keepStart, keepEnd).Select
     MsgBox "Macro failed: " & Err.Description, vbExclamation
 End Sub
 
@@ -479,7 +494,7 @@ Private Function ContainsDigit(ByVal textValue As String) As Boolean
     Next i
 End Function
 
-Private Sub LinkNumericCitationField(ByVal aField As Field, ByVal titles As Collection, ByVal bibRange As Range)
+Private Sub LinkNumericCitationField(ByVal targetDocument As Document, ByVal aField As Field, ByVal titles As Collection, ByVal bibRange As Range)
     Dim tokens As Collection
     Dim searchRange As Range
     Dim anchorRange As Range
@@ -490,7 +505,7 @@ Private Sub LinkNumericCitationField(ByVal aField As Field, ByVal titles As Coll
 
     Set tokens = ExtractVisibleNumericTokens(aField.Result.Text)
     If tokens.Count = 0 Then
-        LinkWholeCitationField aField, CStr(titles(1)), bibRange
+        LinkWholeCitationField targetDocument, aField, CStr(titles(1)), bibRange
         Exit Sub
     End If
 
@@ -502,7 +517,7 @@ Private Sub LinkNumericCitationField(ByVal aField As Field, ByVal titles As Coll
             Exit For
         End If
 
-        bookmarkName = EnsureBibliographyEntryBookmark(targetTitle, bibRange, tooltipText)
+        bookmarkName = EnsureBibliographyEntryBookmark(targetDocument, targetTitle, bibRange, tooltipText)
         If Len(bookmarkName) = 0 Then
             GoTo NextToken
         End If
@@ -513,7 +528,7 @@ Private Sub LinkNumericCitationField(ByVal aField As Field, ByVal titles As Coll
         End If
 
         If Not anchorRange Is Nothing Then
-            AddHyperlinkToRange anchorRange, bookmarkName, tooltipText
+            AddHyperlinkToRange targetDocument, anchorRange, bookmarkName, tooltipText
             If anchorRange.End < aField.Result.End Then
                 searchRange.Start = anchorRange.End
             End If
@@ -523,35 +538,35 @@ NextToken:
     Next i
 End Sub
 
-Private Sub LinkWholeCitationField(ByVal aField As Field, ByVal title As String, ByVal bibRange As Range)
+Private Sub LinkWholeCitationField(ByVal targetDocument As Document, ByVal aField As Field, ByVal title As String, ByVal bibRange As Range)
     Dim tooltipText As String
     Dim bookmarkName As String
     Dim anchorRange As Range
     Dim useWrappedTextStyle As Boolean
 
-    bookmarkName = EnsureBibliographyEntryBookmark(title, bibRange, tooltipText)
+    bookmarkName = EnsureBibliographyEntryBookmark(targetDocument, title, bibRange, tooltipText)
     If Len(bookmarkName) = 0 Then
         Exit Sub
     End If
 
     useWrappedTextStyle = ShouldUseWrappedTextLinkRange(aField.Result.Text)
-    Set anchorRange = ResolveWholeCitationAnchorRange(aField)
-    AddHyperlinkToRange anchorRange, bookmarkName, tooltipText, useWrappedTextStyle
+    Set anchorRange = ResolveWholeCitationAnchorRange(targetDocument, aField)
+    AddHyperlinkToRange targetDocument, anchorRange, bookmarkName, tooltipText, useWrappedTextStyle
 End Sub
 
-Private Function ResolveWholeCitationAnchorRange(ByVal aField As Field) As Range
+Private Function ResolveWholeCitationAnchorRange(ByVal targetDocument As Document, ByVal aField As Field) As Range
     Dim candidateRange As Range
 
     Set candidateRange = aField.Result.Duplicate
 
     If ShouldUseWrappedTextLinkRange(candidateRange.Text) Then
-        Set candidateRange = ExtractAuthorDateLinkRange(candidateRange)
+        Set candidateRange = ExtractAuthorDateLinkRange(targetDocument, candidateRange)
     End If
 
     Set ResolveWholeCitationAnchorRange = candidateRange
 End Function
 
-Private Function ExtractAuthorDateLinkRange(ByVal sourceRange As Range) As Range
+Private Function ExtractAuthorDateLinkRange(ByVal targetDocument As Document, ByVal sourceRange As Range) As Range
     Dim resultRange As Range
     Dim startPos As Long
     Dim endPos As Long
@@ -562,11 +577,11 @@ Private Function ExtractAuthorDateLinkRange(ByVal sourceRange As Range) As Range
     startPos = resultRange.Start
     endPos = resultRange.End
 
-    Do While startPos < endPos And IsWhitespaceCharacter(ActiveDocument.Range(startPos, startPos + 1).Text)
+    Do While startPos < endPos And IsWhitespaceCharacter(targetDocument.Range(startPos, startPos + 1).Text)
         startPos = startPos + 1
     Loop
 
-    Do While endPos > startPos And IsWhitespaceCharacter(ActiveDocument.Range(endPos - 1, endPos).Text)
+    Do While endPos > startPos And IsWhitespaceCharacter(targetDocument.Range(endPos - 1, endPos).Text)
         endPos = endPos - 1
     Loop
 
@@ -575,26 +590,26 @@ Private Function ExtractAuthorDateLinkRange(ByVal sourceRange As Range) As Range
         Exit Function
     End If
 
-    startChar = ActiveDocument.Range(startPos, startPos + 1).Text
-    endChar = ActiveDocument.Range(endPos - 1, endPos).Text
+    startChar = targetDocument.Range(startPos, startPos + 1).Text
+    endChar = targetDocument.Range(endPos - 1, endPos).Text
 
     If IsMatchingWrapper(startChar, endChar) And endPos - startPos > 2 Then
         startPos = startPos + 1
         endPos = endPos - 1
     End If
 
-    Do While startPos < endPos And IsWhitespaceCharacter(ActiveDocument.Range(startPos, startPos + 1).Text)
+    Do While startPos < endPos And IsWhitespaceCharacter(targetDocument.Range(startPos, startPos + 1).Text)
         startPos = startPos + 1
     Loop
 
-    Do While endPos > startPos And IsWhitespaceCharacter(ActiveDocument.Range(endPos - 1, endPos).Text)
+    Do While endPos > startPos And IsWhitespaceCharacter(targetDocument.Range(endPos - 1, endPos).Text)
         endPos = endPos - 1
     Loop
 
     If endPos <= startPos Then
         Set ExtractAuthorDateLinkRange = sourceRange.Duplicate
     Else
-        Set ExtractAuthorDateLinkRange = ActiveDocument.Range(startPos, endPos)
+        Set ExtractAuthorDateLinkRange = targetDocument.Range(startPos, endPos)
     End If
 End Function
 
@@ -672,10 +687,10 @@ Private Function ResolveTitleForTokenIndex(ByVal titles As Collection, ByVal tok
     End If
 End Function
 
-Private Function FindZoteroBibliographyRange() As Range
+Private Function FindZoteroBibliographyRange(ByVal targetDocument As Document) As Range
     Dim aField As Field
 
-    For Each aField In ActiveDocument.Fields
+    For Each aField In targetDocument.Fields
         If InStr(1, aField.Code.Text, "ADDIN ZOTERO_BIBL", vbTextCompare) > 0 Then
             Set FindZoteroBibliographyRange = aField.Result.Duplicate
             Exit Function
@@ -720,7 +735,7 @@ Private Function ExtractTitles(ByVal fieldCode As String) As Collection
     Set ExtractTitles = results
 End Function
 
-Private Function EnsureBibliographyEntryBookmark(ByVal title As String, ByVal bibRange As Range, ByRef tooltipText As String) As String
+Private Function EnsureBibliographyEntryBookmark(ByVal targetDocument As Document, ByVal title As String, ByVal bibRange As Range, ByRef tooltipText As String) As String
     Dim entryRange As Range
     Dim bookmarkName As String
 
@@ -737,7 +752,7 @@ Private Function EnsureBibliographyEntryBookmark(ByVal title As String, ByVal bi
 
     tooltipText = Left$(entryRange.Text, 120)
     bookmarkName = MakeBookmarkName(title)
-    AddOrReplaceBookmark bookmarkName, entryRange
+    AddOrReplaceBookmark targetDocument, bookmarkName, entryRange
     EnsureBibliographyEntryBookmark = bookmarkName
 End Function
 
@@ -768,45 +783,235 @@ Private Function FindTextInRange(ByVal targetRange As Range, ByVal searchText As
     End If
 End Function
 
-Private Sub AddHyperlinkToRange(ByVal anchorRange As Range, ByVal bookmarkName As String, ByVal tooltipText As String, Optional ByVal clearDirectFormatting As Boolean = False)
-    Dim i As Long
+Private Sub AddHyperlinkToRange(ByVal targetDocument As Document, ByVal anchorRange As Range, ByVal bookmarkName As String, ByVal tooltipText As String, Optional ByVal clearDirectFormatting As Boolean = False)
     Dim startPos As Long
     Dim linkText As String
-    Dim storedColor As Long
     Dim newRange As Range
     Dim createdLink As Hyperlink
     Dim formatSnapshot As Variant
+    Dim metadataKey As String
+    Dim citationStyle As Style
+    Dim stageText As String
 
+    On Error GoTo LinkFail
+
+    stageText = "capture snapshot"
     startPos = anchorRange.Start
     linkText = anchorRange.Text
-    storedColor = ResolveStoredColor(anchorRange)
-    If clearDirectFormatting Then
-        formatSnapshot = CaptureCharacterFormattingSnapshot(anchorRange)
-    End If
+    formatSnapshot = CaptureCharacterFormattingSnapshot(anchorRange)
+    stageText = "ensure style"
+    Set citationStyle = EnsureCitationLinkStyle(targetDocument, anchorRange)
+    stageText = "save metadata"
+    metadataKey = SaveFormattingSnapshot(targetDocument, formatSnapshot)
 
-    For i = anchorRange.Hyperlinks.Count To 1 Step -1
-        RemoveHyperlinkSafely anchorRange.Hyperlinks(i)
-    Next i
+    stageText = "create hyperlink range"
+    Set newRange = targetDocument.Range(startPos, startPos + Len(linkText))
 
-    Set newRange = ActiveDocument.Range(startPos, startPos + Len(linkText))
-
-    Set createdLink = ActiveDocument.Hyperlinks.Add( _
+    stageText = "insert hyperlink"
+    Set createdLink = targetDocument.Hyperlinks.Add( _
         Anchor:=newRange, _
         Address:="", _
         SubAddress:=bookmarkName, _
-        Target:=BuildLinkTarget(storedColor), _
+        Target:=BuildLinkTarget(metadataKey), _
         ScreenTip:=tooltipText, _
         TextToDisplay:=linkText)
 
-    Set newRange = ActiveDocument.Range(startPos, startPos + Len(linkText))
-    If clearDirectFormatting Then
-        createdLink.Range.Select
-        Selection.ClearCharacterDirectFormatting
-        Set newRange = createdLink.Range.Duplicate
-        RestoreCharacterFormattingFromSnapshot newRange, formatSnapshot
-    End If
-    ApplyLinkedCitationAppearance newRange
+    stageText = "clear direct formatting"
+    Set newRange = createdLink.Range.Duplicate
+    ClearCharacterDirectFormattingRange newRange
+    stageText = "apply citation style"
+    ApplyCitationLinkStyle targetDocument, newRange, citationStyle
+    Exit Sub
+
+LinkFail:
+    Err.Raise Err.Number, "ZoteroWordHyperlinks.AddHyperlinkToRange", "AddHyperlinkToRange failed during " & stageText & ": " & Err.Description
 End Sub
+
+Private Sub ClearCharacterDirectFormattingRange(ByVal targetRange As Range)
+    targetRange.Select
+    Selection.ClearCharacterDirectFormatting
+End Sub
+
+Private Function EnsureCitationLinkStyle(ByVal targetDocument As Document, ByVal sourceRange As Range) As Style
+    Dim citationStyle As Style
+
+    On Error GoTo StyleFail
+
+    On Error Resume Next
+    Set citationStyle = targetDocument.Styles(LINK_STYLE_NAME)
+    On Error GoTo 0
+
+    If citationStyle Is Nothing Then
+        Set citationStyle = targetDocument.Styles.Add(Name:=LINK_STYLE_NAME, Type:=wdStyleTypeCharacter)
+        CopyFontFormatting citationStyle.Font, sourceRange.Font
+    End If
+
+    Set EnsureCitationLinkStyle = citationStyle
+    Exit Function
+
+StyleFail:
+    Err.Raise Err.Number, "ZoteroWordHyperlinks.EnsureCitationLinkStyle", "EnsureCitationLinkStyle failed: " & Err.Description
+End Function
+
+Private Sub ApplyCitationLinkStyle(ByVal targetDocument As Document, ByVal targetRange As Range, ByVal citationStyle As Style)
+    On Error Resume Next
+    targetRange.Style = citationStyle
+    On Error GoTo 0
+End Sub
+
+Private Sub ClearCitationLinkCharacterStyle(ByVal targetDocument As Document, ByVal targetRange As Range)
+    On Error Resume Next
+    targetRange.Style = targetDocument.Styles(wdStyleDefaultParagraphFont)
+    On Error GoTo 0
+End Sub
+
+Private Function SaveFormattingSnapshot(ByVal targetDocument As Document, ByVal snapshot As Variant) As String
+    Dim metadataKey As String
+
+    metadataKey = GetNextFormattingMetadataKey(targetDocument)
+    SetDocumentVariable targetDocument, metadataKey, SerializeCharacterFormattingSnapshot(snapshot)
+    SaveFormattingSnapshot = metadataKey
+End Function
+
+Private Function GetNextFormattingMetadataKey(ByVal targetDocument As Document) As String
+    Dim nextId As Long
+
+    nextId = GetNextDocumentCounterValue(targetDocument, NEXT_FORMAT_ID_VARIABLE)
+    SetDocumentVariable targetDocument, NEXT_FORMAT_ID_VARIABLE, CStr(nextId)
+    GetNextFormattingMetadataKey = FORMAT_VARIABLE_PREFIX & Format$(nextId, "0000000000")
+End Function
+
+Private Function GetNextDocumentCounterValue(ByVal targetDocument As Document, ByVal variableName As String) As Long
+    Dim currentValue As Long
+
+    On Error GoTo MissingValue
+    currentValue = CLng(targetDocument.Variables(variableName).Value)
+    GetNextDocumentCounterValue = currentValue + 1
+    Exit Function
+
+MissingValue:
+    GetNextDocumentCounterValue = 1
+End Function
+
+Private Sub SetDocumentVariable(ByVal targetDocument As Document, ByVal variableName As String, ByVal variableValue As String)
+    On Error Resume Next
+    targetDocument.Variables(variableName).Value = variableValue
+    If Err.Number <> 0 Then
+        Err.Clear
+        targetDocument.Variables.Add Name:=variableName, Value:=variableValue
+    End If
+    On Error GoTo 0
+End Sub
+
+Private Sub DeleteManagedFormattingVariables(ByVal targetDocument As Document)
+    Dim i As Long
+    Dim variableName As String
+
+    For i = targetDocument.Variables.Count To 1 Step -1
+        variableName = targetDocument.Variables(i).Name
+        If Left$(variableName, Len(FORMAT_VARIABLE_PREFIX)) = FORMAT_VARIABLE_PREFIX Then
+            targetDocument.Variables(i).Delete
+        End If
+    Next i
+End Sub
+
+Private Function SerializeCharacterFormattingSnapshot(ByVal snapshot As Variant) As String
+    Dim charCount As Long
+    Dim propertyCount As Long
+    Dim i As Long
+    Dim j As Long
+    Dim recordText As String
+    Dim resultText As String
+
+    On Error GoTo SnapshotMissing
+    charCount = UBound(snapshot, 1)
+    propertyCount = UBound(snapshot, 2)
+
+    For i = 1 To charCount
+        recordText = ""
+        For j = 1 To propertyCount
+            If j > 1 Then
+                recordText = recordText & "|"
+            End If
+            recordText = recordText & EscapeSnapshotValue(CStr(snapshot(i, j)))
+        Next j
+
+        If i > 1 Then
+            resultText = resultText & "~"
+        End If
+        resultText = resultText & recordText
+    Next i
+
+    SerializeCharacterFormattingSnapshot = resultText
+    Exit Function
+
+SnapshotMissing:
+    SerializeCharacterFormattingSnapshot = ""
+End Function
+
+Private Function TryLoadFormattingSnapshot(ByVal targetDocument As Document, ByVal targetValue As String, ByRef snapshot As Variant) As Boolean
+    Dim metadataKey As String
+    Dim serializedSnapshot As String
+
+    If Not TryParseFormatMetadataKey(targetValue, metadataKey) Then
+        Exit Function
+    End If
+
+    On Error GoTo MissingValue
+    serializedSnapshot = targetDocument.Variables(metadataKey).Value
+    If Len(serializedSnapshot) = 0 Then
+        Exit Function
+    End If
+
+    snapshot = DeserializeCharacterFormattingSnapshot(serializedSnapshot)
+    TryLoadFormattingSnapshot = True
+    Exit Function
+
+MissingValue:
+    TryLoadFormattingSnapshot = False
+End Function
+
+Private Function DeserializeCharacterFormattingSnapshot(ByVal serializedSnapshot As String) As Variant
+    Dim records() As String
+    Dim values() As String
+    Dim snapshot() As Variant
+    Dim i As Long
+    Dim j As Long
+
+    records = Split(serializedSnapshot, "~")
+    ReDim snapshot(1 To UBound(records) - LBound(records) + 1, 1 To 17)
+
+    For i = LBound(records) To UBound(records)
+        values = Split(records(i), "|")
+        For j = 0 To 16
+            If j <= UBound(values) Then
+                snapshot(i - LBound(records) + 1, j + 1) = UnescapeSnapshotValue(values(j))
+            Else
+                snapshot(i - LBound(records) + 1, j + 1) = ""
+            End If
+        Next j
+    Next i
+
+    DeserializeCharacterFormattingSnapshot = snapshot
+End Function
+
+Private Function EscapeSnapshotValue(ByVal rawValue As String) As String
+    rawValue = Replace(rawValue, "%", "%25")
+    rawValue = Replace(rawValue, "|", "%7C")
+    rawValue = Replace(rawValue, "~", "%7E")
+    rawValue = Replace(rawValue, vbCr, "%0D")
+    rawValue = Replace(rawValue, vbLf, "%0A")
+    EscapeSnapshotValue = rawValue
+End Function
+
+Private Function UnescapeSnapshotValue(ByVal rawValue As String) As String
+    rawValue = Replace(rawValue, "%0A", vbLf)
+    rawValue = Replace(rawValue, "%0D", vbCr)
+    rawValue = Replace(rawValue, "%7E", "~")
+    rawValue = Replace(rawValue, "%7C", "|")
+    rawValue = Replace(rawValue, "%25", "%")
+    UnescapeSnapshotValue = rawValue
+End Function
 
 Private Sub ApplyLinkedCitationAppearance(ByVal targetRange As Range)
     Dim i As Long
@@ -846,7 +1051,7 @@ Private Sub ApplyUnlinkedCitationAppearance(ByVal targetRange As Range, Optional
     Next i
 End Sub
 
-Private Sub RemoveHyperlinkSafely(ByVal hl As Hyperlink)
+Private Sub RemoveHyperlinkSafely(ByVal targetDocument As Document, ByVal hl As Hyperlink)
     Dim displayText As String
     Dim sourceRange As Range
     Dim targetRange As Range
@@ -854,11 +1059,14 @@ Private Sub RemoveHyperlinkSafely(ByVal hl As Hyperlink)
     Dim hadToRewrite As Boolean
     Dim storedColor As Long
     Dim hasStoredColor As Boolean
+    Dim formatSnapshot As Variant
+    Dim hasFormatSnapshot As Boolean
 
     Set sourceRange = hl.Range.Duplicate
     Set targetRange = hl.Range.Duplicate
     targetStart = targetRange.Start
     displayText = targetRange.Text
+    hasFormatSnapshot = TryLoadFormattingSnapshot(targetDocument, hl.Target, formatSnapshot)
     hasStoredColor = TryParseStoredColor(hl.Target, storedColor)
 
     On Error Resume Next
@@ -871,11 +1079,16 @@ Private Sub RemoveHyperlinkSafely(ByVal hl As Hyperlink)
         targetRange.Text = displayText
     End If
 
-    Set targetRange = ActiveDocument.Range(targetStart, targetStart + Len(displayText))
-    If hadToRewrite Then
-        RestoreCharacterFormatting targetRange, sourceRange
+    Set targetRange = targetDocument.Range(targetStart, targetStart + Len(displayText))
+    If hasFormatSnapshot Then
+        ClearCitationLinkCharacterStyle targetDocument, targetRange
+        RestoreCharacterFormattingFromSnapshot targetRange, formatSnapshot
+    Else
+        If hadToRewrite Then
+            RestoreCharacterFormatting targetRange, sourceRange
+        End If
+        ApplyUnlinkedCitationAppearance targetRange, hasStoredColor, storedColor
     End If
-    ApplyUnlinkedCitationAppearance targetRange, hasStoredColor, storedColor
 End Sub
 
 Private Function ResolveStoredColor(ByVal anchorRange As Range) As Long
@@ -907,18 +1120,31 @@ Fallback:
     GetPrimaryColor = UNLINKED_CITATION_COLOR
 End Function
 
-Private Function BuildLinkTarget(ByVal storedColor As Long) As String
-    BuildLinkTarget = LINK_TARGET_PREFIX & CStr(storedColor)
+Private Function BuildLinkTarget(ByVal metadataKey As String) As String
+    BuildLinkTarget = FORMAT_TARGET_PREFIX & metadataKey
+End Function
+
+Private Function TryParseFormatMetadataKey(ByVal targetValue As String, ByRef metadataKey As String) As Boolean
+    If Left$(targetValue, Len(FORMAT_TARGET_PREFIX)) <> FORMAT_TARGET_PREFIX Then
+        Exit Function
+    End If
+
+    metadataKey = Mid$(targetValue, Len(FORMAT_TARGET_PREFIX) + 1)
+    If Len(metadataKey) = 0 Then
+        Exit Function
+    End If
+
+    TryParseFormatMetadataKey = True
 End Function
 
 Private Function TryParseStoredColor(ByVal targetValue As String, ByRef storedColor As Long) As Boolean
     Dim rawValue As String
 
-    If Left$(targetValue, Len(LINK_TARGET_PREFIX)) <> LINK_TARGET_PREFIX Then
+    If Left$(targetValue, Len(LEGACY_LINK_TARGET_PREFIX)) <> LEGACY_LINK_TARGET_PREFIX Then
         Exit Function
     End If
 
-    rawValue = Mid$(targetValue, Len(LINK_TARGET_PREFIX) + 1)
+    rawValue = Mid$(targetValue, Len(LEGACY_LINK_TARGET_PREFIX) + 1)
     If Len(rawValue) = 0 Then
         Exit Function
     End If
@@ -968,6 +1194,8 @@ Private Sub CopyFontFormatting(ByVal targetFont As Font, ByVal sourceFont As Fon
         .Emboss = sourceFont.Emboss
         .Shadow = sourceFont.Shadow
         .Kerning = sourceFont.Kerning
+        .Color = sourceFont.Color
+        .Underline = sourceFont.Underline
     End With
 End Sub
 
@@ -977,7 +1205,7 @@ Private Function CaptureCharacterFormattingSnapshot(ByVal sourceRange As Range) 
     Dim i As Long
 
     charCount = sourceRange.Characters.Count
-    ReDim snapshot(1 To charCount, 1 To 15)
+    ReDim snapshot(1 To charCount, 1 To 17)
 
     For i = 1 To charCount
         With sourceRange.Characters(i).Font
@@ -996,6 +1224,8 @@ Private Function CaptureCharacterFormattingSnapshot(ByVal sourceRange As Range) 
             snapshot(i, 13) = .DoubleStrikeThrough
             snapshot(i, 14) = .Hidden
             snapshot(i, 15) = .Kerning
+            snapshot(i, 16) = .Color
+            snapshot(i, 17) = .Underline
         End With
     Next i
 
@@ -1029,6 +1259,8 @@ Private Sub RestoreCharacterFormattingFromSnapshot(ByVal targetRange As Range, B
             .DoubleStrikeThrough = snapshot(i, 13)
             .Hidden = snapshot(i, 14)
             .Kerning = snapshot(i, 15)
+            .Color = snapshot(i, 16)
+            .Underline = snapshot(i, 17)
         End With
     Next i
     Exit Sub
@@ -1037,11 +1269,11 @@ SnapshotMissing:
     Err.Clear
 End Sub
 
-Private Sub AddOrReplaceBookmark(ByVal bookmarkName As String, ByVal bookmarkRange As Range)
-    If ActiveDocument.Bookmarks.Exists(bookmarkName) Then
-        ActiveDocument.Bookmarks(bookmarkName).Delete
+Private Sub AddOrReplaceBookmark(ByVal targetDocument As Document, ByVal bookmarkName As String, ByVal bookmarkRange As Range)
+    If targetDocument.Bookmarks.Exists(bookmarkName) Then
+        targetDocument.Bookmarks(bookmarkName).Delete
     End If
-    ActiveDocument.Bookmarks.Add Name:=bookmarkName, Range:=bookmarkRange
+    targetDocument.Bookmarks.Add Name:=bookmarkName, Range:=bookmarkRange
 End Sub
 
 Private Function MakeBookmarkName(ByVal sourceText As String) As String

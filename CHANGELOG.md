@@ -14,6 +14,24 @@ All notable changes to this project will be documented in this file.
 - Locked GitHub release notes to the matching section in `CHANGELOG.md` and sync them through the UTF-8 release-note script.
 - Added release-process documentation and explicitly retired the PowerShell here-string path for Chinese release bodies.
 
+## v0.4.2 - 2026-04-07
+
+### 中文
+
+- 修复重复执行 `Create Citation Links` 时旧链接叠加导致的引文错乱、运行时错误和 Zotero 字段结果损坏问题，改为“先清理后重建”的幂等流程。
+- 新增当前文档级字符样式 `Zotero Citation Link`，今后链接的字体、字号、颜色和上下标等格式由该样式统一控制。
+- 删除链接时优先恢复创建前的原始字符格式，不让链接样式残留在普通正文上。
+- 退役 `Set Link Color` 按钮，改为直接在 Word 样式窗格中编辑 `Zotero Citation Link`。
+- 更新 Windows 安装器、Windows 模板包、Mac 模板包和文档说明，统一为两按钮方案：`Create Citation Links` 与 `Remove Citation Links`。
+
+### English
+
+- Fixed repeated `Create Citation Links` runs corrupting visible citations, triggering VBA errors, and damaging Zotero field results by making creation idempotent: managed links are cleared before a full rebuild.
+- Added a current-document character style named `Zotero Citation Link`; link font, size, color, and superscript/subscript are now controlled by that style.
+- Removing links now restores the original character formatting instead of leaving the link style behind on normal text.
+- Retired the `Set Link Color` button in favor of editing `Zotero Citation Link` directly from Word's Styles pane.
+- Updated the Windows installer, Windows template package, Mac template package, and documentation to use the two-button workflow: `Create Citation Links` and `Remove Citation Links`.
+
 ## v0.4.1 - 2026-04-06
 
 ### 中文

@@ -146,24 +146,11 @@ def patch_custom_ui(template_path: Path) -> None:
                 "keytip": "L",
             },
         )
-        set_color_button = ET.Element(
-            f"{{{NS['ui']}}}button",
-            {
-                "id": SET_COLOR_ID,
-                "label": "Set Link Color",
-                "imageMso": "FontColorPicker",
-                "onAction": "ZoteroWordHyperlinks.ZoteroSetLinkColor",
-                "supertip": "Set the default color used for newly created citation links",
-                "keytip": "S",
-            },
-        )
-
         children = list(group)
         unlink_index = children.index(unlink_button)
         group.insert(unlink_index + 1, separator)
         group.insert(unlink_index + 2, create_button)
         group.insert(unlink_index + 3, remove_button)
-        group.insert(unlink_index + 4, set_color_button)
 
         updated_custom_ui = ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
@@ -266,8 +253,10 @@ def add_file_to_zip(archive: zipfile.ZipFile, source_path: Path, arcname: str) -
 def verify_custom_ui(template_path: Path) -> None:
     with zipfile.ZipFile(template_path, "r") as archive:
         xml_text = archive.read("customUI/customUI.xml").decode("utf-8")
-    if CREATE_ID not in xml_text or REMOVE_ID not in xml_text or SET_COLOR_ID not in xml_text:
+    if CREATE_ID not in xml_text or REMOVE_ID not in xml_text:
         raise RuntimeError("Windows template build verification failed: customUI buttons not found")
+    if SET_COLOR_ID in xml_text:
+        raise RuntimeError("Windows template build verification failed: retired Set Link Color button is still present")
 
 
 def verify_macro_module(template_path: Path) -> None:
