@@ -1,8 +1,7 @@
 <p align="center">
-  <img src="./assets/banner.svg" alt="Zotero Word Citation Links banner" width="100%" />
+  <img src="./assets/pic1.png" alt="Zotero Word Citation Links banner" width="100%" />
 </p>
 
- 
 
 # Zotero Word Citation Links
 
@@ -183,7 +182,41 @@ Mac 当前为实验性支持，推荐从模板包开始：
 3. 文中引文会变成可点击状态
 4. 点击引文，可跳转到对应参考文献
 
-### 可选步骤：调整当前文档里的链接样式
+### 第三步：先认识自动生成的样式
+
+首次创建链接后，当前文档里会自动出现一个字符样式：
+
+- `Zotero Citation Link`
+
+这一步很重要，因为从现在开始，链接看起来是什么样，主要由这个样式控制。
+
+你可以把它理解成：
+
+1. `Create Citation Links` 负责“生成链接”
+2. `Zotero Citation Link` 负责“决定链接长什么样”
+
+### 第四步：把自动生成的样式加入样式库
+
+如果你想以后在 Word 里更容易找到它，推荐把它加入样式库。
+
+操作顺序建议这样：
+
+1. 先至少执行一次 `Create Citation Links`
+2. 打开 `开始`
+3. 打开右侧或底部的样式窗格
+4. 找到 `Zotero Citation Link`
+5. 右键它
+6. 点击：
+   - `添加到样式库`
+   - 如果你的界面是英文，通常是 `Add to Style Gallery`
+
+这样做的好处是：
+
+- 以后你不用每次都去样式窗格里翻
+- 在 `开始 -> 样式库` 里就能更快看到它
+- 更适合经常调格式的人
+
+### 第五步：修改当前文档里的链接样式
 
 首次创建链接后，当前文档里会出现一个字符样式：
 
@@ -205,10 +238,29 @@ Mac 当前为实验性支持，推荐从模板包开始：
 
 之后再次执行 `Create Citation Links`，新建链接就会按这个样式显示。
 
+如果你只是想改当前这篇文档，这是最推荐的方式。
+
+### 第六步：什么时候需要把样式做得更进一步
+
+这里我建议分 3 个等级来理解：
+
+1. 一级：只在当前文档里改  
+   最简单，最稳  
+   适合大多数人
+
+2. 二级：加入样式库  
+   更方便你在当前文档里反复使用和修改  
+   适合经常调格式的人
+
+3. 三级：复制到你自己的论文模板里  
+   适合已经有固定模板的人  
+   这是进阶用法，不建议一开始就做太复杂
+
 如果你想看更详细的教学版说明，包括：
 
 - 怎么打开样式窗格
 - 怎么找到 `Zotero Citation Link`
+- 怎么把它加入样式库
 - 推荐改哪些属性
 - 改完后什么时候生效
 - 为什么删除链接后不会把样式强留在正文上
@@ -217,7 +269,7 @@ Mac 当前为实验性支持，推荐从模板包开始：
 
 - [docs/STYLE_GUIDE.md](./docs/STYLE_GUIDE.md)
 
-### 第三步：需要时删除跳转
+### 第七步：需要时删除跳转
 
 如果你想移除这次生成的跳转效果：
 
@@ -458,6 +510,29 @@ After the first run, the current document will contain a character style named:
 
 - `Zotero Citation Link`
 
+This is an important part of the workflow:
+
+1. `Create Citation Links` creates the links
+2. `Zotero Citation Link` controls how those links look
+
+### Optional: Add the generated style to the Styles gallery
+
+If you want easier access in Word, add the generated style to the Styles gallery:
+
+1. run `Create Citation Links` at least once
+2. open the `Home` tab
+3. open the Styles pane
+4. find `Zotero Citation Link`
+5. right-click it
+6. choose:
+   - `Add to Style Gallery`
+
+Benefits:
+
+- easier to find later
+- easier to modify repeatedly in the same document
+- better for users who tune formatting often
+
 When the style is first created automatically, it defaults to blue text with an underline.
 
 <p align="center">
@@ -474,10 +549,24 @@ You can edit that style directly in Word to change:
 
 Then run `Create Citation Links` again to rebuild links with the updated style.
 
+If you only want to change the current document, this is the recommended path.
+
+### Recommended levels for style control
+
+1. Level 1: change the style only in the current document  
+   simplest and safest
+
+2. Level 2: add it to the Styles gallery  
+   easier to access and reuse inside the same document
+
+3. Level 3: copy it into your own manuscript template  
+   more advanced, best when you already work with a fixed thesis or journal template
+
 If you want the full step-by-step version, including:
 
 - how to open the Styles pane
 - how to find `Zotero Citation Link`
+- how to add it to the Styles gallery
 - what to edit first
 - when a style change becomes visible
 - why removed links do not intentionally keep the link style

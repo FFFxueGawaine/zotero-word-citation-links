@@ -34,33 +34,32 @@
   <text x="788" y="238" fill="#0F172A" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Custom Style</text>
   <text x="788" y="263" fill="#64748B" font-size="15" font-family="Segoe UI, Arial, sans-serif">Edited in Word Styles pane for manuscript polish</text>
 
-  <text x="188" y="328" fill="#334155" font-size="18" font-family="Segoe UI, Arial, sans-serif">Example citation lines</text>
-  <text x="188" y="376" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">Rotor dynamics review </text>
-  <text x="498" y="376" fill="#2563EB" text-decoration="underline" font-size="28" font-family="Segoe UI, Arial, sans-serif">[1]</text>
-  <text x="188" y="424" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">Fault diagnosis studies </text>
-  <text x="502" y="424" fill="#2563EB" text-decoration="underline" font-size="28" font-family="Segoe UI, Arial, sans-serif">[2, 3]</text>
-  <text x="188" y="472" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">Recent methods (</text>
-  <text x="371" y="472" fill="#2563EB" text-decoration="underline" font-size="28" font-family="Segoe UI, Arial, sans-serif">Smith, 2024; Kumar et al., 2026</text>
-  <text x="790" y="472" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">)</text>
+  <text x="188" y="328" fill="#334155" font-size="18" font-family="Segoe UI, Arial, sans-serif">Citation preview</text>
+  <text x="188" y="376" fill="#2563EB" font-size="32" font-family="Segoe UI, Arial, sans-serif">[1]</text>
+  <line x1="188" y1="384" x2="228" y2="384" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="188" y="434" fill="#2563EB" font-size="32" font-family="Segoe UI, Arial, sans-serif">[2, 3]</text>
+  <line x1="188" y1="442" x2="257" y2="442" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="188" y="492" fill="#0F172A" font-size="32" font-family="Segoe UI, Arial, sans-serif">(</text>
+  <text x="202" y="492" fill="#2563EB" font-size="32" font-family="Segoe UI, Arial, sans-serif">Smith, 2024</text>
+  <line x1="202" y1="500" x2="373" y2="500" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="379" y="492" fill="#0F172A" font-size="32" font-family="Segoe UI, Arial, sans-serif">)</text>
 
   <rect x="188" y="516" width="338" height="52" rx="14" fill="#F8FAFC"/>
-  <text x="208" y="548" fill="#475569" font-size="16" font-family="Segoe UI, Arial, sans-serif">Good when you want obvious clickable areas.</text>
+  <text x="208" y="548" fill="#475569" font-size="16" font-family="Segoe UI, Arial, sans-serif">Default document style</text>
 
   <text x="738" y="328" fill="#334155" font-size="18" font-family="Segoe UI, Arial, sans-serif">Same citations after editing the style</text>
-  <text x="738" y="376" fill="#0F172A" font-size="28" font-family="Georgia, Times New Roman, serif">Rotor dynamics review </text>
-  <text x="1048" y="376" fill="#7C2D12" font-size="28" font-family="Georgia, Times New Roman, serif">[1]</text>
-  <text x="738" y="424" fill="#0F172A" font-size="28" font-family="Georgia, Times New Roman, serif">Fault diagnosis studies </text>
-  <text x="1052" y="424" fill="#7C2D12" font-size="28" font-family="Georgia, Times New Roman, serif">[2, 3]</text>
-  <text x="738" y="472" fill="#0F172A" font-size="28" font-family="Georgia, Times New Roman, serif">Recent methods (</text>
-  <text x="923" y="472" fill="#7C2D12" font-size="28" font-family="Georgia, Times New Roman, serif">Smith, 2024; Kumar et al., 2026</text>
-  <text x="738" y="520" fill="#475569" font-size="16" font-family="Segoe UI, Arial, sans-serif">You can change font, size, color, underline, bold, italic, and superscript.</text>
+  <text x="738" y="376" fill="#7C2D12" font-size="32" font-family="Georgia, Times New Roman, serif">[1]</text>
+  <text x="738" y="434" fill="#7C2D12" font-size="32" font-family="Georgia, Times New Roman, serif">[2, 3]</text>
+  <text x="738" y="492" fill="#0F172A" font-size="32" font-family="Georgia, Times New Roman, serif">(</text>
+  <text x="752" y="492" fill="#7C2D12" font-size="32" font-family="Georgia, Times New Roman, serif">Smith, 2024</text>
+  <text x="922" y="492" fill="#0F172A" font-size="32" font-family="Georgia, Times New Roman, serif">)</text>
 
   <rect x="738" y="540" width="344" height="40" rx="12" fill="#F8FAFC"/>
-  <text x="758" y="565" fill="#334155" font-size="15" font-family="Consolas, Menlo, monospace">Style: Zotero Citation Link</text>
+  <text x="758" y="565" fill="#334155" font-size="15" font-family="Consolas, Menlo, monospace">Zotero Citation Link</text>
 
   <path d="M610 388C635 356 663 356 686 388" stroke="#94A3B8" stroke-width="6" stroke-linecap="round"/>
   <path d="M673 374L689 388L673 402" stroke="#94A3B8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <text x="400" y="646" fill="#64748B" font-size="18" font-family="Segoe UI, Arial, sans-serif">Default link look while drafting</text>
-  <text x="790" y="646" fill="#64748B" font-size="18" font-family="Segoe UI, Arial, sans-serif">Style-driven look for final polishing</text>
+  <text x="420" y="646" fill="#64748B" font-size="18" font-family="Segoe UI, Arial, sans-serif">Default</text>
+  <text x="858" y="646" fill="#64748B" font-size="18" font-family="Segoe UI, Arial, sans-serif">Customized</text>
 </svg>

@@ -100,6 +100,55 @@ Zotero Citation Link
 
 这时可以先点一次 `Create Citation Links`，再回来看样式。
 
+### 怎么把它加入样式库
+
+这一步是你刚才特别关心的重点。
+
+如果你已经执行过一次 `Create Citation Links`，那 `Zotero Citation Link` 就已经在当前文档里了。  
+接下来你可以把它加入 Word 的样式库，让它以后更容易找。
+
+操作步骤：
+
+1. 打开 `开始`
+2. 打开样式窗格
+3. 找到：
+
+```text
+Zotero Citation Link
+```
+
+4. 右键这个样式
+5. 点击：
+
+```text
+添加到样式库
+```
+
+如果你的界面是英文，通常会显示为：
+
+```text
+Add to Style Gallery
+```
+
+这样做之后，你通常可以直接在：
+
+- `开始 -> 样式库`
+
+里更快看到它。
+
+### 加入样式库后有什么好处
+
+这一步的好处主要有 3 个：
+
+1. 更容易找到  
+   不用每次都重新打开样式窗格慢慢找
+
+2. 更容易反复调  
+   如果你在写作过程中要多次试颜色、字号、下划线，会方便很多
+
+3. 更适合给别人演示  
+   别人一打开你的文档，更容易知道应该改哪个样式
+
 ### 推荐怎么改
 
 右键 `Zotero Citation Link`，然后点：
@@ -203,6 +252,41 @@ Zotero Citation Link
 - `Create Citation Links`
 
 因为当前流程是“安全重建”，重建后效果最稳定。
+
+### 如果你想复用到后续文档，怎么做
+
+这里我还是建议循序渐进，不一下子上最复杂的做法。
+
+#### 方案一：只在当前文档用
+
+这是默认方案。
+
+好处：
+
+- 最稳
+- 不影响其他文档
+- 最不容易把 Word 的全局样式改乱
+
+#### 方案二：先加入样式库
+
+这适合你在当前文档里频繁改样式。
+
+好处：
+
+- 操作更顺手
+- 更适合当前这一篇论文反复调整
+
+#### 方案三：复制到你自己的模板
+
+这是进阶方案，适合你已经有固定论文模板时再做。
+
+你可以把当前文档里的：
+
+- `Zotero Citation Link`
+
+复制到你自己的论文模板里，让以后基于这个模板的新文档也能直接用。
+
+这一层我暂时不建议你一开始就做，除非你已经非常确定自己的模板体系不会再变。
 
 #### 2. 我想让所有新文档都默认用这个样式
 
@@ -400,6 +484,20 @@ Run:
 - `Create Citation Links`
 
 The rebuild path is the most reliable way to make the style change visible everywhere.
+
+#### 1a. How do I add the generated style to the Styles gallery?
+
+After you run `Create Citation Links` once:
+
+1. open the `Home` tab
+2. open the Styles pane
+3. find `Zotero Citation Link`
+4. right-click it
+5. choose:
+
+- `Add to Style Gallery`
+
+This makes it much easier to find and reuse inside the current document.
 
 #### 2. Can I make this the default for every new document?
 
