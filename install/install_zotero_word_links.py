@@ -133,6 +133,12 @@ def patch_custom_ui(template_path: Path) -> None:
         if unlink_button is None:
             raise RuntimeError("ZoteroRemoveCodes button was not found in customUI.xml")
 
+        refresh_button.set("onAction", "ZoteroWordHyperlinks.ZoteroRefreshAndCreateCitationLinks")
+        refresh_button.set(
+            "supertip",
+            "Update all citations to reflect changes, then rebuild citation links",
+        )
+
         group.remove(unlink_button)
         children = list(group)
         refresh_index = children.index(refresh_button)

@@ -95,6 +95,11 @@ Zotero.dotm
 
 - `Zotero Citation Link`
 
+更详细的样式说明见：
+
+- 仓库文档：`docs/STYLE_GUIDE.md`
+- 模板包内：`STYLE_GUIDE.md`
+
 ### 恢复方法
 
 如果你想恢复原始状态：
@@ -232,6 +237,11 @@ over:
 If you want to change the link font, size, color, or superscript behavior, edit the current document style:
 
 - `Zotero Citation Link`
+
+For a more detailed style tutorial, see:
+
+- repo document: `docs/STYLE_GUIDE.md`
+- packaged copy: `STYLE_GUIDE.md`
 
 ### Restore
 

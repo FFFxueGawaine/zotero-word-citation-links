@@ -27,7 +27,7 @@
   <img src="./assets/citation-buddy.gif" alt="Cute animated preview of citation links" width="720" />
 </p>
 
-Latest release: `v0.4.2`
+Latest release: `v5.0`
 
 Downloads:
 - [Latest Release Page](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest)
@@ -36,6 +36,7 @@ Downloads:
 - [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-mac-template.zip)
 
 Changelog: [CHANGELOG.md](./CHANGELOG.md)
+Style guide: [docs/STYLE_GUIDE.md](./docs/STYLE_GUIDE.md)
 Release workflow: [docs/RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md)
 
 Jump to: [中文](#zh-cn) | [English](#en)
@@ -188,6 +189,8 @@ Mac 当前为实验性支持，推荐从模板包开始：
 
 - `Zotero Citation Link`
 
+这个样式第一次自动创建时，默认会是蓝色加下划线。
+
 你可以直接在 Word 的样式窗格里编辑它，例如修改：
 
 - 字体
@@ -197,6 +200,18 @@ Mac 当前为实验性支持，推荐从模板包开始：
 - 上下标
 
 之后再次执行 `Create Citation Links`，新建链接就会按这个样式显示。
+
+如果你想看更详细的教学版说明，包括：
+
+- 怎么打开样式窗格
+- 怎么找到 `Zotero Citation Link`
+- 推荐改哪些属性
+- 改完后什么时候生效
+- 为什么删除链接后不会把样式强留在正文上
+
+可以直接看：
+
+- [docs/STYLE_GUIDE.md](./docs/STYLE_GUIDE.md)
 
 ### 第三步：需要时删除跳转
 
@@ -218,14 +233,30 @@ Mac 当前为实验性支持，推荐从模板包开始：
 如果你想要最稳的体验，建议这样用：
 
 1. 先完成 Zotero 的正常引文编辑
-2. 如果你刚点过 `Zotero -> Refresh`，先不要急着测试跳转
-3. 再点一次 `Create Citation Links`
+2. 如果你在 `Zotero` 选项卡里点击 `Refresh`，工具现在会在刷新完成后自动重建链接
+3. 如果你手动改了 `Zotero Citation Link` 样式，再点一次 `Create Citation Links`
 4. 最后再检查点击跳转效果
 
 原因很简单：
 
 - `Zotero -> Refresh` 会重写 Word 中的引文结果
-- 所以刷新之后，通常需要重新执行一次 `Create Citation Links`
+- 所以现在的 `Refresh` 已经接入了自动重建，避免你再手动补点一次
+
+### 样式使用建议
+
+如果你刚开始用，我建议这样理解：
+
+1. 一级：最稳  
+   保持默认蓝色加下划线  
+   好处：最容易看出哪里是可点击链接
+
+2. 二级：更像正式论文  
+   把 `Zotero Citation Link` 改成深蓝或黑色，并去掉下划线  
+   好处：视觉更接近投稿稿件
+
+3. 三级：完全跟随模板  
+   让这个样式的字体、字号、颜色都贴近你的正文模板  
+   好处：定稿阶段最统一
 
 ### 典型效果
 
@@ -423,6 +454,8 @@ After the first run, the current document will contain a character style named:
 
 - `Zotero Citation Link`
 
+When the style is first created automatically, it defaults to blue text with an underline.
+
 You can edit that style directly in Word to change:
 
 - font
@@ -432,6 +465,18 @@ You can edit that style directly in Word to change:
 - superscript / subscript
 
 Then run `Create Citation Links` again to rebuild links with the updated style.
+
+If you want the full step-by-step version, including:
+
+- how to open the Styles pane
+- how to find `Zotero Citation Link`
+- what to edit first
+- when a style change becomes visible
+- why removed links do not intentionally keep the link style
+
+see:
+
+- [docs/STYLE_GUIDE.md](./docs/STYLE_GUIDE.md)
 
 ### Step 3: Remove jump links when needed
 
@@ -453,14 +498,30 @@ If you want to remove the generated links:
 For the most stable experience:
 
 1. finish your normal Zotero editing first
-2. if you just used `Zotero -> Refresh`, do not test links yet
-3. run `Create Citation Links` again
+2. if you click `Refresh` in the Zotero tab, the tool now rebuilds citation links automatically after the Zotero refresh finishes
+3. if you manually change the `Zotero Citation Link` style, run `Create Citation Links` again
 4. then check the jump behavior
 
 Why:
 
 - `Zotero -> Refresh` rewrites citation results in Word
-- so after a refresh, you will usually need to run `Create Citation Links` again
+- so the refresh button now chains directly into a link rebuild for you
+
+### Style Recommendations
+
+Here is the easiest way to think about the style system:
+
+1. Level 1: safest  
+   keep the default blue + underline  
+   Benefit: the clickable areas are immediately obvious
+
+2. Level 2: more manuscript-like  
+   switch `Zotero Citation Link` to dark blue or black and remove the underline  
+   Benefit: closer to a formal paper style
+
+3. Level 3: fully template-matched  
+   make the style follow your manuscript font, size, and color exactly  
+   Benefit: best for final polishing
 
 ### Typical Output
 

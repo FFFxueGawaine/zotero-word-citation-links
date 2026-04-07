@@ -16,6 +16,27 @@ Public Sub ZoteroCreateCitationLinks(Optional ByVal control As Variant)
     ApplyZoteroCitationLinksAuto
 End Sub
 
+Public Sub ZoteroRefreshAndCreateCitationLinks(Optional ByVal control As Variant)
+    Dim targetDocument As Document
+    Dim keepStart As Long
+    Dim keepEnd As Long
+
+    CaptureCurrentDocumentContext targetDocument, keepStart, keepEnd
+
+    If Not RunZoteroRefresh(control) Then
+        Exit Sub
+    End If
+
+    RestoreDocumentContext targetDocument, keepStart, keepEnd
+
+    On Error GoTo RebuildFailed
+    ApplyZoteroCitationLinksAuto
+    Exit Sub
+
+RebuildFailed:
+    MsgBox "Zotero refresh finished, but rebuilding citation links failed: " & Err.Description, vbExclamation
+End Sub
+
 Public Sub ZoteroRemoveCitationLinks(Optional ByVal control As Variant)
     RemoveManagedCitationLinks
 End Sub
@@ -40,6 +61,47 @@ End Sub
 Private Sub ApplyZoteroCitationLinksManual(ByVal numericMode As Boolean)
     ApplyZoteroCitationLinks False, numericMode
 End Sub
+
+Private Sub CaptureCurrentDocumentContext(ByRef targetDocument As Document, ByRef keepStart As Long, ByRef keepEnd As Long)
+    On Error Resume Next
+    Set targetDocument = ActiveDocument
+    If Not targetDocument Is Nothing Then
+        keepStart = Selection.Start
+        keepEnd = Selection.End
+    End If
+    Err.Clear
+    On Error GoTo 0
+End Sub
+
+Private Sub RestoreDocumentContext(ByVal targetDocument As Document, ByVal keepStart As Long, ByVal keepEnd As Long)
+    On Error Resume Next
+    DoEvents
+    If Not targetDocument Is Nothing Then
+        targetDocument.Activate
+        If keepEnd < keepStart Then
+            keepEnd = keepStart
+        End If
+        If keepStart < 0 Then
+            keepStart = 0
+        End If
+        If keepEnd > targetDocument.Range.End Then
+            keepEnd = targetDocument.Range.End
+        End If
+        targetDocument.Range(keepStart, keepEnd).Select
+    End If
+    Err.Clear
+    On Error GoTo 0
+End Sub
+
+Private Function RunZoteroRefresh(Optional ByVal control As Variant) As Boolean
+    On Error GoTo RefreshFailed
+    ZoteroRefresh
+    RunZoteroRefresh = True
+    Exit Function
+
+RefreshFailed:
+    MsgBox "Zotero refresh failed: " & Err.Description, vbExclamation
+End Function
 
 Private Sub RemoveManagedCitationLinks()
     RemoveManagedCitationArtifacts ActiveDocument
@@ -844,6 +906,8 @@ Private Function EnsureCitationLinkStyle(ByVal targetDocument As Document, ByVal
     If citationStyle Is Nothing Then
         Set citationStyle = targetDocument.Styles.Add(Name:=LINK_STYLE_NAME, Type:=wdStyleTypeCharacter)
         CopyFontFormatting citationStyle.Font, sourceRange.Font
+        citationStyle.Font.Color = DEFAULT_LINK_COLOR
+        citationStyle.Font.Underline = wdUnderlineSingle
     End If
 
     Set EnsureCitationLinkStyle = citationStyle

@@ -26,6 +26,7 @@ ET.register_namespace("", NS["ui"])
 REPO_ROOT = Path(__file__).resolve().parent.parent
 INSTALL_DIR = REPO_ROOT / "install"
 MAC_DIR = REPO_ROOT / "mac"
+DOCS_DIR = REPO_ROOT / "docs"
 DIST_DIR = REPO_ROOT / "dist"
 
 UPSTREAM_REPO_URL = "https://github.com/zotero/zotero-word-for-mac-integration.git"
@@ -118,6 +119,12 @@ def patch_custom_ui(template_path: Path) -> None:
             raise RuntimeError("RefreshZotero button was not found in upstream Mac customUI.xml")
         if unlink_button is None:
             raise RuntimeError("ZoteroRemoveCodes button was not found in upstream Mac customUI.xml")
+
+        refresh_button.set("onAction", "ZoteroWordHyperlinks.ZoteroRefreshAndCreateCitationLinks")
+        refresh_button.set(
+            "supertip",
+            "Update all citations to reflect changes, then rebuild citation links",
+        )
 
         group.remove(unlink_button)
         children = list(group)
@@ -283,6 +290,7 @@ def build_package() -> Path:
     mac_install_doc = MAC_DIR / "MAC_INSTALL.md"
     mac_install_script = MAC_DIR / "install_mac.command"
     mac_restore_script = MAC_DIR / "restore_mac.command"
+    style_guide = DOCS_DIR / "STYLE_GUIDE.md"
     if not bas_path.exists():
         raise FileNotFoundError(f"Macro module not found: {bas_path}")
     if not mac_install_doc.exists():
@@ -291,6 +299,8 @@ def build_package() -> Path:
         raise FileNotFoundError(f"Mac install script not found: {mac_install_script}")
     if not mac_restore_script.exists():
         raise FileNotFoundError(f"Mac restore script not found: {mac_restore_script}")
+    if not style_guide.exists():
+        raise FileNotFoundError(f"Style guide not found: {style_guide}")
 
     temp_root = Path(tempfile.mkdtemp(prefix="zotero_word_links_mac_build_"))
     access_vbom_existed, access_vbom_value = read_access_vbom_state()
@@ -313,6 +323,7 @@ def build_package() -> Path:
         shutil.copy2(mac_install_doc, package_dir / "MAC_INSTALL.md")
         shutil.copy2(mac_install_script, package_dir / "install_mac.command")
         shutil.copy2(mac_restore_script, package_dir / "restore_mac.command")
+        shutil.copy2(style_guide, package_dir / "STYLE_GUIDE.md")
         shutil.copy2(upstream_copying, package_dir / "UPSTREAM_COPYING.txt")
         write_upstream_info(package_dir, upstream_commit)
         write_restore_note(package_dir)

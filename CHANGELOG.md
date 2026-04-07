@@ -6,13 +6,29 @@ All notable changes to this project will be documented in this file.
 
 ### 中文
 
-- 固化 GitHub Release 正文流程：以后统一从 `CHANGELOG.md` 提取版本节，并通过 UTF-8 同步脚本更新 GitHub Release。
-- 新增发布流程文档，明确发版时不再通过 PowerShell here-string 直接构造中文 Release 正文。
+- 暂无
 
 ### English
 
-- Locked GitHub release notes to the matching section in `CHANGELOG.md` and sync them through the UTF-8 release-note script.
-- Added release-process documentation and explicitly retired the PowerShell here-string path for Chinese release bodies.
+- None yet.
+
+## v5.0 - 2026-04-07
+
+### 中文
+
+- 修复 `Refresh` 自动串联 `Create Citation Links` 时因错误调用 Zotero Ribbon 回调而触发 VBA 弹窗的问题，改为直接调用 Zotero 底层 `ZoteroRefresh()`，让“刷新后自动重建链接”更稳定。
+- 保持 `Refresh` 完成后自动重建链接的工作流，减少用户每次刷新后还要手动补点 `Create Citation Links` 的步骤。
+- 将当前文档字符样式 `Zotero Citation Link` 的默认外观调整为蓝色加下划线，更接近普通超链接的直觉显示。
+- 扩充 README 中关于字符样式的说明，并新增独立的样式详细指南，专门讲解如何在 Word 中修改 `Zotero Citation Link` 的字体、字号、颜色、上下标与生效方式。
+- 将 GitHub Release 正文流程固定为：以 `CHANGELOG.md` 为唯一真源，再用 UTF-8 同步脚本更新 Release，避免中文正文再次出现问号乱码。
+
+### English
+
+- Fixed the VBA popup triggered when `Refresh` tried to chain directly into `Create Citation Links` through Zotero's Ribbon callback. The workflow now calls Zotero's underlying `ZoteroRefresh()` routine directly, making post-refresh rebuilds more stable.
+- Kept the automatic rebuild after `Refresh`, so users no longer need to manually click `Create Citation Links` after every Zotero refresh.
+- Changed the default `Zotero Citation Link` character style to blue text with an underline, matching the expected visual language of a normal hyperlink.
+- Expanded the README style section and added a dedicated style guide that explains how to edit `Zotero Citation Link` in Word, including font, size, color, superscript/subscript, and when changes take effect.
+- Locked GitHub release notes to `CHANGELOG.md` and the UTF-8 sync script so Chinese release bodies no longer regress into `?` characters.
 
 ## v0.4.2 - 2026-04-07
 

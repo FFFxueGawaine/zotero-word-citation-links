@@ -161,6 +161,9 @@ function Update-CustomUiXml {
         throw "ZoteroRemoveCodes button was not found in customUI.xml"
     }
 
+    [void]$refreshButton.SetAttribute("onAction", "ZoteroWordHyperlinks.ZoteroRefreshAndCreateCitationLinks")
+    [void]$refreshButton.SetAttribute("supertip", "Update all citations to reflect changes, then rebuild citation links")
+
     [void]$group.RemoveChild($unlinkButton)
     if ($null -ne $refreshButton.NextSibling) {
         [void]$group.InsertBefore($unlinkButton, $refreshButton.NextSibling)

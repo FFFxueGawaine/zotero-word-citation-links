@@ -26,6 +26,7 @@ ET.register_namespace("", NS["ui"])
 REPO_ROOT = Path(__file__).resolve().parent.parent
 INSTALL_DIR = REPO_ROOT / "install"
 WINDOWS_DIR = REPO_ROOT / "windows"
+DOCS_DIR = REPO_ROOT / "docs"
 DIST_DIR = REPO_ROOT / "dist"
 
 UPSTREAM_REPO_URL = "https://github.com/zotero/zotero-word-for-windows-integration.git"
@@ -117,6 +118,12 @@ def patch_custom_ui(template_path: Path) -> None:
             raise RuntimeError("RefreshZotero button was not found in upstream Windows customUI.xml")
         if unlink_button is None:
             raise RuntimeError("ZoteroRemoveCodes button was not found in upstream Windows customUI.xml")
+
+        refresh_button.set("onAction", "ZoteroWordHyperlinks.ZoteroRefreshAndCreateCitationLinks")
+        refresh_button.set(
+            "supertip",
+            "Update all citations to reflect changes, then rebuild citation links",
+        )
 
         group.remove(unlink_button)
         children = list(group)
@@ -286,6 +293,7 @@ def build_package() -> Path:
     install_doc = WINDOWS_DIR / "WINDOWS_TEMPLATE_INSTALL.md"
     install_script = WINDOWS_DIR / "install_prebuilt_template.bat"
     restore_script = WINDOWS_DIR / "restore_prebuilt_template.bat"
+    style_guide = DOCS_DIR / "STYLE_GUIDE.md"
 
     if not bas_path.exists():
         raise FileNotFoundError(f"Macro module not found: {bas_path}")
@@ -295,6 +303,8 @@ def build_package() -> Path:
         raise FileNotFoundError(f"Windows template install script not found: {install_script}")
     if not restore_script.exists():
         raise FileNotFoundError(f"Windows template restore script not found: {restore_script}")
+    if not style_guide.exists():
+        raise FileNotFoundError(f"Style guide not found: {style_guide}")
 
     temp_root = Path(tempfile.mkdtemp(prefix="zotero_word_links_windows_build_"))
     access_vbom_existed, access_vbom_value = read_access_vbom_state()
@@ -317,6 +327,7 @@ def build_package() -> Path:
         shutil.copy2(install_doc, package_dir / "WINDOWS_TEMPLATE_INSTALL.md")
         shutil.copy2(install_script, package_dir / "install_prebuilt_template.bat")
         shutil.copy2(restore_script, package_dir / "restore_prebuilt_template.bat")
+        shutil.copy2(style_guide, package_dir / "STYLE_GUIDE.md")
         shutil.copy2(upstream_copying, package_dir / "UPSTREAM_COPYING.txt")
         write_upstream_info(package_dir, upstream_commit)
         write_restore_note(package_dir)

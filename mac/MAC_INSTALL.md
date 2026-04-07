@@ -61,6 +61,11 @@ Jump to: [中文](#中文) | [English](#english)
 
 - `Zotero Citation Link`
 
+更详细的样式说明见：
+
+- 仓库文档：`docs/STYLE_GUIDE.md`
+- 模板包内：`STYLE_GUIDE.md`
+
 ### 常见路径
 
 Word for Mac 常见 Startup 路径通常类似：
@@ -158,6 +163,11 @@ Link appearance is controlled by the current document character style `Zotero Ci
 If you want to change the link font, size, color, or superscript behavior, edit the current document style:
 
 - `Zotero Citation Link`
+
+For a more detailed style tutorial, see:
+
+- repo document: `docs/STYLE_GUIDE.md`
+- packaged copy: `STYLE_GUIDE.md`
 
 ### Common Path
 
