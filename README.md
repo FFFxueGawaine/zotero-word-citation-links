@@ -82,8 +82,11 @@ Jump to: [中文](#zh-cn) | [English](#en)
 ### 安装前提
 
 - 已安装 `Zotero`
+- 推荐使用 `Zotero 8.0`
 - 已安装 `Microsoft Word`
 - Word 中已经能看到官方 `Zotero` 选项卡
+
+当前项目的日常使用与近期验证，主要基于 `Zotero 8.0` 环境。
 
 ## Windows 安装
 
@@ -404,8 +407,11 @@ Its goal is simple:
 ### Prerequisites
 
 - `Zotero` is installed
+- `Zotero 8.0` is recommended
 - `Microsoft Word` is installed
 - the standard `Zotero` tab is already visible in Word
+
+The current project workflow and recent verification are primarily based on `Zotero 8.0`.
 
 ## Windows Installation
 

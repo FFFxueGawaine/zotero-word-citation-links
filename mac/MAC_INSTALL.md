@@ -23,7 +23,9 @@ Jump to: [中文](#中文) | [English](#english)
 
 1. 你的 Word 里已经能正常看到 `Zotero` 选项卡  
    如果官方 Zotero Word 插件本身都没有正常工作，请先修复官方插件。
-2. 你已经从本项目的 Release 下载了：
+2. 推荐使用 `Zotero 8.0`
+3. 当前这套文档和功能说明，主要按 `Zotero 8.0` 的使用环境整理。
+4. 你已经从本项目的 Release 下载了：
    - `zotero-word-links-mac-template.zip`
 
 ### Mac 安装步骤
@@ -126,7 +128,9 @@ It does not include:
 
 1. Make sure the standard Zotero Word integration already works on your Mac  
    If the official Zotero plugin is not working yet, fix that first.
-2. Download this release asset:
+2. `Zotero 8.0` is recommended.
+3. The current workflow and documentation are primarily written around a `Zotero 8.0` environment.
+4. Download this release asset:
    - `zotero-word-links-mac-template.zip`
 
 ### Install Steps

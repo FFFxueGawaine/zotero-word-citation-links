@@ -7,10 +7,12 @@ All notable changes to this project will be documented in this file.
 ### 中文
 
 - 新增 README 样式预览图，直接展示 `Zotero Citation Link` 默认样式与自定义样式的视觉差异。
+- 在 README、Windows 安装说明和 Mac 安装说明中明确写出：推荐使用 `Zotero 8.0`。
 
 ### English
 
 - Added a README style preview graphic to show the visual difference between the default and customized `Zotero Citation Link` appearance.
+- Clarified in the README, Windows guide, and Mac guide that `Zotero 8.0` is the recommended version.
 
 ## v5.0 - 2026-04-07
 

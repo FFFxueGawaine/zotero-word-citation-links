@@ -33,8 +33,11 @@ Jump to: [中文](#zh-cn) | [English](#en)
 
 - 已安装 `Microsoft Word`
 - 已安装 `Zotero`
+- 推荐使用 `Zotero 8.0`
 - Word 中已经能看到官方 `Zotero` 选项卡
 - 已关闭 `Word`
+
+当前这套模板增强的日常使用与近期验证，主要基于 `Zotero 8.0`。
 
 ### 包内文件
 
@@ -176,8 +179,11 @@ Its characteristics are:
 
 - `Microsoft Word` is installed
 - `Zotero` is installed
+- `Zotero 8.0` is recommended
 - the standard Zotero tab is already visible in Word
 - `Word` is closed
+
+The current day-to-day workflow and recent verification for this template enhancement are primarily based on `Zotero 8.0`.
 
 ### Package Contents
 
