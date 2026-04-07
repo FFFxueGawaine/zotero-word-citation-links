@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/pic1.png" alt="Zotero Word Citation Links banner" width="100%" />
+  <img src="./assets/Gemini_Generated_Image_xyh5s4xyh5s4xyh5.png" alt="Zotero Word Citation Links banner" width="100%" />
 </p>
 
 
