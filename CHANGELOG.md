@@ -6,11 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ### 中文
 
-- 暂无
+- 新增 README 样式预览图，直接展示 `Zotero Citation Link` 默认样式与自定义样式的视觉差异。
 
 ### English
 
-- None yet.
+- Added a README style preview graphic to show the visual difference between the default and customized `Zotero Citation Link` appearance.
 
 ## v5.0 - 2026-04-07
 

@@ -191,6 +191,10 @@ Mac 当前为实验性支持，推荐从模板包开始：
 
 这个样式第一次自动创建时，默认会是蓝色加下划线。
 
+<p align="center">
+  <img src="./assets/style-preview.svg" alt="Preview comparing the default and custom Zotero Citation Link styles" width="920" />
+</p>
+
 你可以直接在 Word 的样式窗格里编辑它，例如修改：
 
 - 字体
@@ -455,6 +459,10 @@ After the first run, the current document will contain a character style named:
 - `Zotero Citation Link`
 
 When the style is first created automatically, it defaults to blue text with an underline.
+
+<p align="center">
+  <img src="./assets/style-preview.svg" alt="Preview comparing the default and custom Zotero Citation Link styles" width="920" />
+</p>
 
 You can edit that style directly in Word to change:
 

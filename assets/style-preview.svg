@@ -1,0 +1,66 @@
+<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="60" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF6F3"/>
+      <stop offset="1" stop-color="#F3F9FF"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="215" y1="190" x2="1065" y2="580" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D83B01" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0.16"/>
+    </linearGradient>
+    <filter id="shadow" x="120" y="120" width="1040" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="760" fill="url(#bg)"/>
+  <rect x="64" y="56" width="1152" height="648" rx="34" fill="url(#accent)"/>
+
+  <text x="96" y="108" fill="#0F172A" font-size="34" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Style Preview</text>
+  <text x="96" y="145" fill="#475569" font-size="18" font-family="Segoe UI, Arial, sans-serif">The document style "Zotero Citation Link" controls how new citation links look in Word.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="148" y="178" width="434" height="420" rx="28" fill="#FFFFFF"/>
+    <rect x="698" y="178" width="434" height="420" rx="28" fill="#FFFFFF"/>
+  </g>
+
+  <rect x="176" y="206" width="378" height="74" rx="18" fill="#EFF6FF"/>
+  <circle cx="214" cy="243" r="12" fill="#2563EB"/>
+  <text x="238" y="238" fill="#0F172A" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Default Style</text>
+  <text x="238" y="263" fill="#64748B" font-size="15" font-family="Segoe UI, Arial, sans-serif">Blue + underline, easy to spot while drafting</text>
+
+  <rect x="726" y="206" width="378" height="74" rx="18" fill="#FFF7ED"/>
+  <circle cx="764" cy="243" r="12" fill="#D97706"/>
+  <text x="788" y="238" fill="#0F172A" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Custom Style</text>
+  <text x="788" y="263" fill="#64748B" font-size="15" font-family="Segoe UI, Arial, sans-serif">Edited in Word Styles pane for manuscript polish</text>
+
+  <text x="188" y="328" fill="#334155" font-size="18" font-family="Segoe UI, Arial, sans-serif">Example citation lines</text>
+  <text x="188" y="376" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">Rotor dynamics review </text>
+  <text x="498" y="376" fill="#2563EB" text-decoration="underline" font-size="28" font-family="Segoe UI, Arial, sans-serif">[1]</text>
+  <text x="188" y="424" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">Fault diagnosis studies </text>
+  <text x="502" y="424" fill="#2563EB" text-decoration="underline" font-size="28" font-family="Segoe UI, Arial, sans-serif">[2, 3]</text>
+  <text x="188" y="472" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">Recent methods (</text>
+  <text x="371" y="472" fill="#2563EB" text-decoration="underline" font-size="28" font-family="Segoe UI, Arial, sans-serif">Smith, 2024; Kumar et al., 2026</text>
+  <text x="790" y="472" fill="#0F172A" font-size="28" font-family="Segoe UI, Arial, sans-serif">)</text>
+
+  <rect x="188" y="516" width="338" height="52" rx="14" fill="#F8FAFC"/>
+  <text x="208" y="548" fill="#475569" font-size="16" font-family="Segoe UI, Arial, sans-serif">Good when you want obvious clickable areas.</text>
+
+  <text x="738" y="328" fill="#334155" font-size="18" font-family="Segoe UI, Arial, sans-serif">Same citations after editing the style</text>
+  <text x="738" y="376" fill="#0F172A" font-size="28" font-family="Georgia, Times New Roman, serif">Rotor dynamics review </text>
+  <text x="1048" y="376" fill="#7C2D12" font-size="28" font-family="Georgia, Times New Roman, serif">[1]</text>
+  <text x="738" y="424" fill="#0F172A" font-size="28" font-family="Georgia, Times New Roman, serif">Fault diagnosis studies </text>
+  <text x="1052" y="424" fill="#7C2D12" font-size="28" font-family="Georgia, Times New Roman, serif">[2, 3]</text>
+  <text x="738" y="472" fill="#0F172A" font-size="28" font-family="Georgia, Times New Roman, serif">Recent methods (</text>
+  <text x="923" y="472" fill="#7C2D12" font-size="28" font-family="Georgia, Times New Roman, serif">Smith, 2024; Kumar et al., 2026</text>
+  <text x="738" y="520" fill="#475569" font-size="16" font-family="Segoe UI, Arial, sans-serif">You can change font, size, color, underline, bold, italic, and superscript.</text>
+
+  <rect x="738" y="540" width="344" height="40" rx="12" fill="#F8FAFC"/>
+  <text x="758" y="565" fill="#334155" font-size="15" font-family="Consolas, Menlo, monospace">Style: Zotero Citation Link</text>
+
+  <path d="M610 388C635 356 663 356 686 388" stroke="#94A3B8" stroke-width="6" stroke-linecap="round"/>
+  <path d="M673 374L689 388L673 402" stroke="#94A3B8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="400" y="646" fill="#64748B" font-size="18" font-family="Segoe UI, Arial, sans-serif">Default link look while drafting</text>
+  <text x="790" y="646" fill="#64748B" font-size="18" font-family="Segoe UI, Arial, sans-serif">Style-driven look for final polishing</text>
+</svg>
