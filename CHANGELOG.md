@@ -6,11 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### 中文
 
-- 暂无未发布改动。
+- 固化 GitHub Release 正文流程：以后统一从 `CHANGELOG.md` 提取版本节，并通过 UTF-8 同步脚本更新 GitHub Release。
+- 新增发布流程文档，明确发版时不再通过 PowerShell here-string 直接构造中文 Release 正文。
 
 ### English
 
-- No unreleased changes yet.
+- Locked GitHub release notes to the matching section in `CHANGELOG.md` and sync them through the UTF-8 release-note script.
+- Added release-process documentation and explicitly retired the PowerShell here-string path for Chinese release bodies.
 
 ## v0.4.1 - 2026-04-06
 

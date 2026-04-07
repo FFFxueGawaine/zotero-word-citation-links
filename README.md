@@ -36,6 +36,7 @@ Downloads:
 - [Mac Template Package](https://github.com/FFFxueGawaine/zotero-word-citation-links/releases/latest/download/zotero-word-links-mac-template.zip)
 
 Changelog: [CHANGELOG.md](./CHANGELOG.md)
+Release workflow: [docs/RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md)
 
 Jump to: [中文](#zh-cn) | [English](#en)
 
@@ -506,12 +507,34 @@ Current design goals:
   Mac install documentation and support notes
 - `install/`
   internal installer scripts, macro module, and advanced reference docs
+- `docs/`
+  release workflow and maintainer documentation
 - `tools/`
-  build scripts
+  build scripts and release-note sync helpers
 - `assets/`
   README banner, logo, and GIF presentation assets
 - `dist/`
   release assets
+
+### Release Workflow
+
+For maintainers, GitHub release notes now have a fixed source:
+
+1. write the full bilingual version section in [CHANGELOG.md](./CHANGELOG.md)
+2. create or update the tag and GitHub release
+3. run the UTF-8 sync script:
+
+```powershell
+python .\tools\sync_github_release_notes.py --repo FFFxueGawaine/zotero-word-citation-links --tag vX.Y.Z --token-file D:\Claude\ZoteroWork\.github_token.txt
+```
+
+Recommended preview step:
+
+```powershell
+python .\tools\sync_github_release_notes.py --repo FFFxueGawaine/zotero-word-citation-links --tag vX.Y.Z --dry-run
+```
+
+Do not publish Chinese release notes through a PowerShell here-string piped into `python -`, because that path can turn Chinese into `?` before the text reaches GitHub.
 
 ## License
 
